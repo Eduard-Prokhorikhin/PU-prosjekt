@@ -1,0 +1,8 @@
+{% block content %}
+    <div class="single_post">
+        <h3>{{ post.title }}</h1>
+        <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
+        <p>Skrevet av {{ post.author.name }}</p>
+        <a href="{% url 'post_detail' post.id %}">Les mer >></a>
+    </div>
+{% endblock %}

@@ -25,3 +25,48 @@ You can now find the server at localhost:8080
 - `fant/urls.py`: The URL declarations for this Django project; a “table of contents” of your Django-powered site. You can read more about URLs in URL dispatcher.
 - `fant/asgi.py`: An entry-point for ASGI-compatible web servers to serve your project. See How to deploy with ASGI for more details.
 - `fant/wsgi.py`: An entry-point for WSGI-compatible web servers to serve your project. See How to deploy with WSGI for more details.
+
+## Legge til nye modeller i databasen
+
+1. Endre på `models.py` i den respektive mappen (eks. `min_mappe/models.py`)
+
+   Her kan du legge til en ny model slik:
+
+   ```
+   class User(models.Model):
+       name = models.CharField(max_length=200)
+       email = models.CharField(max_length=200)
+       phone = models.CharField(max_length=200)
+   ```
+
+2. Endre på `min_mappe/apps.py` ved å legge til:
+
+   ```
+   class Min_mappeConfig(AppConfig):
+       default_auto_field = "django.db.models.BigAutoField"
+       name = "min_mappe"
+   ```
+
+3. Endre på `fant/settings.py` under INSTALLED_APPS hvor du legger til `min_mappe.apps.Min_mappeConfig`, slik at du får noe lignende som dette:
+
+   ```
+   INSTALLED_APPS = [
+       'polls.apps.PollsConfig',
+       'django.contrib.admin',
+       'django.contrib.auth',
+       'django.contrib.contenttypes',
+       'django.contrib.sessions',
+       'django.contrib.messages',
+       'django.contrib.staticfiles',
+   ]
+   ```
+
+4. Når du er fornøyd med modellen skriver du følgende kommandoer i terminalen:
+
+   `python manage.py makemigrations min_mappe`
+
+   `python manage.py sqlmigrate min_mappe 0001`
+
+   `python manage.py migrate`
+
+   Du skal nå kunne finne de oppdaterte modellene på `localhost:8080/admin/` etter å ha startet opp serveren igjen.

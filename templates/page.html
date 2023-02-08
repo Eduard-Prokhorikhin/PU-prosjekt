@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    {% block title %}<title>Local Library</title>{% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include "header.html" %}
+    {% block content %} <!-- This is where the header comes in --> {% endblock %}
+</body>
+</html>

@@ -1,0 +1,8 @@
+{% extends "page.html" %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
+    <p>{{ post.text }}</p>
+    <p>Mer informasjon kommer...</p>
+{% endblock %}

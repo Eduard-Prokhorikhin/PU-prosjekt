@@ -1,0 +1,10 @@
+{% extends "page.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <div id="posts_container">
+    {% for post in post_list %}
+      {% include "single_post.html" with post=post %}
+    {% endfor %}
+  </div>
+{% endblock %}
