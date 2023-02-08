@@ -23,8 +23,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('page1/', views.page1, name='page1'),
     path('posts/', include('posts.urls'), name='posts'),
-    #path('post/<int:pk>/', include('posts.urls'), name='post_detail'),
-    path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    path('post/', include('posts.urls'), name='post_detail'),
     path('admin/', admin.site.urls),
 ]
 

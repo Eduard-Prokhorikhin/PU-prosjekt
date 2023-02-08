@@ -15,12 +15,3 @@ def page1(request):
     }
 
     return render(request, 'header.html', context=context)
-
-def post_detail(request, pk):
-    post = Post.objects.get(pk=pk)
-
-    context = {
-        'post': post,
-    }
-
-    return render(request, 'post_detail.html', context=context)
