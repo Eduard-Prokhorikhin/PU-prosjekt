@@ -8,7 +8,7 @@ class User(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published')
     status = models.Choices('available', 'unavailable')
