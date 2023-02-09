@@ -2,12 +2,24 @@
 <html>
 <head>
     <meta charset="utf-8">
-    {% block title %}<title>Local Library</title>{% endblock %}
+    <title>Fant</title>
     {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/fant_logo_ball.png' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     {% include "header.html" %}
-    {% block content %} <!-- This is where the content comes in --> {% endblock %}
+    <div class="content">
+        {% block content %}
+            <!-- This is where the content comes in -->
+            <h1>Ingenting å se her...</h1>
+            <img src="{% static 'images/fant_pug4.png' %}" alt="Fant Logo" />
+            <img src="{% static 'images/fant_pug3.png' %}" alt="Fant Logo" />
+            <img src="{% static 'images/fant_pug2.png' %}" alt="Fant Logo" />
+        {% endblock %}
+    </div>
 </body>
+<script src="{% static 'js/main.js' %}"></script>
 </html>
