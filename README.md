@@ -126,7 +126,7 @@ For å sette opp en ny side er det tre (fire) filer du skal redigere.
     - `{% block content %}{% endblock %}` er hvor selve innholdet til HTML-siden skal lastes. Her har vi input post som av typen ([modellen](#legge-til-nye-modeller-i-databasen)) Post. Dette gjør at vi kan bruke variabel-parenteser `{{ variabel her }}` til å plassere dynamisk innhold basert på input.
     - Man kan også formatere variablene ved å bruke innebygde format. Les mer [her](https://docs.djangoproject.com/en/4.1/ref/templates/builtins/).
 
-2.  I `min_mappe/views.py` må vi fortelle applikasjonen hvordan den skal åpne en HTML-side. Dette gjør vi ved å definere en funksjon som tar inn parameteret `request` (kan også ta inn flere parametere).
+2.  I `posts/views.py` må vi fortelle applikasjonen hvordan den skal åpne en HTML-side. Dette gjør vi ved å definere en funksjon som tar inn parameteret `request` (kan også ta inn flere parametere).
 
          def post_detail(request, pk):
             post = Post.objects.get(pk=pk)
