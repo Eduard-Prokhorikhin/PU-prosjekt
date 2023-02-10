@@ -1,8 +1,22 @@
 {% extends "page.html" %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
-    <p>{{ post.text }}</p>
-    <p>Mer informasjon kommer...</p>
+    <div class="post_detail">
+        <div class="post_content">
+            <h1>{{ post.title }}</h1>
+            <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
+
+            <p>{{ post.text }}</p>
+
+            <p>Mer informasjon kommer...</p>
+        </div>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        {% if post.status == 'AVAILABLE' %}
+            <button onclick="alert('Leid!')">Lei produkt</button>
+        {% else %}
+            <button disabled><i>Produktet er utleid for øyeblikket...</i></button>
+        {% endif %}
+    </div>
 {% endblock %}

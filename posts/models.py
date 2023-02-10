@@ -11,4 +11,5 @@ class Post(models.Model):
     text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published')
-    status = models.Choices('available', 'unavailable')
+    status = models.CharField(max_length=200, choices=[('AVAILABLE', 'available'), ('UNAVAILABLE', 'unavailable')], default='AVAILABLE')
+    image = models.ImageField(upload_to='productImages/', blank=True)

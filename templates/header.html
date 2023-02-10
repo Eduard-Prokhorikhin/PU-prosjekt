@@ -5,17 +5,9 @@
 
         <div class="headerTags">
             <a href="{% url 'index' %}">Hjem</a>
-            <a href="">Annonser</a>
+            <a href="{% url 'posts' %}">Annonser</a>
         </div>
 
-        <div>
-            <button>Opprett annonse</button>
-        </div>
-
-        <div>
-            <img src="/static/images/profile-pic-start.png">
-            <p>Min FANT</p>
-        </div>
-        
+        <button onclick="alert('Dette er utenfor ferdig kode enda...')">Opprett annonse</button>
     </header>
 {% endblock %}

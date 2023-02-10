@@ -5,13 +5,4 @@ from posts.models import Post
 
 # Create your views here.
 def index(request):
-    return HttpResponse("<h1>Hello World!</h1>")
-
-def page1(request):
-
-    context = {
-        'title': 'Page 1',
-        'content': 'This is the content of page 1',
-    }
-
-    return render(request, 'header.html', context=context)
+    return render(request, 'page.html')
