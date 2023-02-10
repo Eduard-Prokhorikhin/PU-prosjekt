@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from datetime import date
 
 from .models import Post
 
@@ -26,3 +27,13 @@ def post_detail(request, pk):
     }
 
     return render(request, 'post_detail.html', context=context)
+
+def new_post(request):
+    # Get user credentials
+
+    context = {
+        # 'user': user
+        'date': date.today()
+    }
+
+    return render(request, 'new_post.html', context=context)

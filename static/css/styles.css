@@ -116,3 +116,12 @@ header a:hover {
     grid-column: 2 / 2;
     width: 100%;
 }
+
+textarea {
+    resize: none;
+}
+
+#new_post_form {
+    display: flex;
+    flex-direction: column;
+}
