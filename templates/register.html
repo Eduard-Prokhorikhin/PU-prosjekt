@@ -1,2 +1,13 @@
 {% extends "page.html" %}
-<h1>Register</h1>
+{% block content %}
+    <h1>Register</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% for field in form %}
+            {{field.label}}
+            {{field}}
+            <br>
+        {% endfor %}
+        <input type="submit" name="Create User">
+    </form>
+{% endblock %}
