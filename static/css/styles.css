@@ -22,32 +22,70 @@ html, body {
     color: var(--text-color2);
 }
 
-button {
-    background: var(--secondary-color);
+#nyAnnonseButton {
+    background: var(--bg-color2);
     color: var(--text-color);
     border: none;
-    border-radius: 5px;
-    padding: 1rem;
+    border-radius: 10px;
+    padding-right: 5px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
+    text-align: right;
 }
 
-header {
-    width: 100%;
-    height: 100px;
-    background: var(--primary-color);
+#nyAnnonseButton:hover  {
+    background: var(--bg-color1);
+}
+
+#pantBruker {
+    background: var(--bg-color2);
     color: var(--text-color);
-    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    text-align: right;
+    padding-right: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
     display: grid;
-    grid-template-columns: 150px auto 200px;
+    align-items: center; 
+    grid-template-columns: 1fr 2fr;
+}
+
+#pantBruker:hover {
+    background: var(--bg-color1);
+}
+
+#headerContainer {
+    height: 100px;
+    background: var(--bg-color2);
+    z-index: 1000; 
+    position: sticky;
+    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
+}
+
+/* #profilePic {
+} */
+
+header {
+    max-width: 1200px;
+    height: 100px;
+    background: var(--bg-color2);
+    color: var(--text-color);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 150px auto 125px 125px;
     align-items: center;
 }
-header > * {
-    float: left;
-}
+
 header > img {
     height: 80px;
+    cursor: pointer;
+}
+
+header > img:hover {
+    height: 82px;
 }
 header a {
     text-decoration: none;
@@ -63,6 +101,16 @@ header a:hover {
     font-weight: bold;
 }
 
+#plusSign {
+   margin-right: 5px;
+}
+
+#profilePic {
+    height: 35px;
+    padding-left: 7.5px;
+ }
+ 
+
 .content {
     max-width: 1200px;
     height: calc(100% - 100px);
@@ -71,7 +119,7 @@ header a:hover {
     display: flex;
     flex-direction: column;
     background: var(--bg-color2);
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 #posts_container {
