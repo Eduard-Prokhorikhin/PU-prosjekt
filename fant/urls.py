@@ -26,6 +26,7 @@ urlpatterns = [
     #path('post/<int:pk>/', include('posts.urls'), name='post_detail'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('admin/', admin.site.urls),
+    path('account/', include('account.urls'), name='account'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
