@@ -1,6 +1,7 @@
 {% extends "page.html" %}
 
 {% block content %}
+  {% include "search.html" %}
   <h1>{{ title }}</h1>
   <div id="posts_container">
     {% for post in post_list %}

@@ -109,6 +109,7 @@ header {
 
 header > img {
     height: 80px;
+    margin-left: 5px;
     cursor: pointer;
 }
 
@@ -137,7 +138,6 @@ header a:hover {
     height: 35px;
     padding-left: 7.5px;
  }
- 
 
 .content {
     max-width: 1200px;
@@ -219,3 +219,65 @@ header a:hover {
     grid-column: 2 / 2;
     width: 100%;
 }
+
+/*Copied from https://templateyou.com/free-css-search-boxes/*/
+input, button {
+	border: none;
+	background: none;
+	outline: 0;
+}
+
+button {cursor: pointer}
+.SearchBox-input::placeholder {
+ color:black;
+	opacity: .6;
+}
+
+/* Chrome, Opera ySafari */
+.SearchBox-input::-webkit-input-placeholder {
+  color: black;
+}
+
+.SearchBox {
+	--height: 3em;
+    margin: 0 auto;
+	display: flex;
+	border-radius: 25px;
+	background-color: var(--bg-color1);
+	height: var(--height);
+}
+
+.SearchBox-input {
+    padding-left: 2em;
+    padding-right: 1em;
+    width: 240px;
+    font-size: 1.2em;
+    color: black;
+    transition: .45s;
+}
+.SearchBox-button {
+    display: flex;
+    border-radius: 50%;
+    width: 46px;
+    height: var(calc(--height));
+    background-color: var(--primary-color);
+    border: 10px --secondary-color;
+    transition: .3s;
+}
+
+.SearchBox-button:hover  {
+    background-color: var(--secondary-color);
+}
+
+#SearchBox-icon {
+    margin: 12.5px auto;
+    height: 20px;
+    color: #fff;
+}
+
+@media screen and (min-width: 400px){
+	.SearchBox:hover .SearchBox-input {
+		width: 350px;
+	}
+}
+/*End of copied snippet*/
