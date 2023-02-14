@@ -91,7 +91,8 @@ html, body {
     width: 100vw;
     background: var(--bg-color2);
     z-index: 1000; 
-    position: fixed;
+    position: sticky;
+    top: 0;
     box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
 button:disabled, .btn.disabled {
