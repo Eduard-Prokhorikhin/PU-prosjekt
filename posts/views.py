@@ -6,10 +6,10 @@ from .models import Post
 # Create your views here.
 def index(request):
 
-    post_list = Post.objects.all()
+    post_list = Post.objects.all().order_by('status', '-pub_date')
 
     # To search for a specific post
-    post_list = Post.objects.filter(title__contains='')
+    # post_list = Post.objects.filter(title__contains='')
 
     context = {
         'title': 'Annonser',

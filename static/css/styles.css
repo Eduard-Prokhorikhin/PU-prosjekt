@@ -22,15 +22,31 @@ html, body {
     color: var(--text-color2);
 }
 
-button {
+button, .btn {
     background: var(--secondary-color);
-    color: var(--text-color);
+    color: var(--text-color1);
     border: none;
     border-radius: 5px;
     padding: 1rem;
+    text-align: center;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
+}
+button:disabled, .btn.disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+a:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
 }
 
 header {
@@ -85,11 +101,19 @@ header a:hover {
 }
 
 .single_post {
-    background: linear-gradient(var(--box-color1), var(--box-color2));
     padding-bottom: 1rem;
     border-radius: 10px;
-    box-shadow: 0 2px 10px #0002;
+    box-shadow: 0 2px 10px #0001;
     cursor: pointer;
+    position: relative;
+    transition: all .2s ease-in-out;
+}
+.single_post:hover {
+    box-shadow: 5px 5px 10px #0002;
+    transform: scale(1.02);
+}
+.single_post.unavailable, .single_post.unavailable > a {
+    color: #888;
 }
 
 .single_post > * {
@@ -103,6 +127,25 @@ header a:hover {
     border-radius: 10px 10px 0 0;
     margin: 0;
 }
+.single_post.unavailable > img {
+    filter: grayscale(100%);
+}
+
+.single_post > a {
+    display: none;
+}
+
+.single_post > .unavailable_tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 10px;
+}
 
 .post_detail {
     display: grid;
@@ -112,7 +155,7 @@ header a:hover {
 .post_detail > .post_content {
     grid-column: 1 / 1;
 }
-.post_detail > img, .post_detail > button {
+.post_detail > img, .post_detail > button, .post_detail > .btn {
     grid-column: 2 / 2;
     width: 100%;
 }
