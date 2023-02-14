@@ -73,7 +73,7 @@ html, body {
 
 #headerContainer {
     height: 100px;
-    width: 100vw;
+    width: 98.9vw;
     background: var(--bg-color2);
     z-index: 1000; 
     position: sticky;
