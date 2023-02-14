@@ -1,12 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from account.managers import UserManager
 
-
-class User(models.Model):
-    name = models.EmailField(max_length=200, unique=True)
-    email = models.CharField(max_length=200)
+class User(AbstractBaseUser):
+    firstname = models.CharField(max_length=200)
+    lastname = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200, unique=True)
     phone = models.CharField(max_length=200)
-    password = models.CharField(max_length=200, default="password")
-
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+        
+    objects = UserManager()
+    
+    
 class Post(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()

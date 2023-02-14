@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-# from posts.models import *
+from posts.models import *
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
@@ -18,7 +18,8 @@ def registerPage(request):
         if form.is_valid():
             form.save()
             return redirect('login')
-            
+        else:
+            print("lol")            
         
     context = {'form':form}
     return render(request, 'register.html', context)
