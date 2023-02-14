@@ -1,14 +1,20 @@
 {% block content %}
-    <header>
-        {% load static %}
-        <img src="{% static 'images/fant_pug.png' %}" alt="Fant Logo" />
+    <div id="headerContainer">
 
-        <div class="headerTags">
-            <a href="{% url 'index' %}">Hjem</a>
-            <a href="{% url 'posts' %}">Annonser</a>
-            <a href="{% url 'resetAllAvailability' %}"> </a>
-        </div>
+        <header>
+            {% load static %}
+            <img src="{% static 'images/fant_logo.png' %}" alt="Fant Logo" />
+            
+            <div></div>
 
-        <button onclick="alert('Dette er utenfor ferdig kode enda...')">Opprett annonse</button>
-    </header>
+            <div id="nyAnnonseButton">
+                <p><i id="plusSign" class="fa-solid fa-plus"></i>Ny annonse</p>
+            </div>
+            
+            <div id="pantBruker">
+                <img id="profilePic" src="{% static 'images/profile-pic-start.png' %}" alt="Fant Bruker" />
+                <p id="minPantTekst">Min PANT</p>
+            </div>
+            </header>
+    </div>
 {% endblock %}
