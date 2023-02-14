@@ -3,8 +3,6 @@
     --secondary-color: #ff9900;
     --bg-color1: #efefef;
     --bg-color2: #fff;
-    --box-color1: #eee;
-    --box-color2: #ddd;
     --text-color1: #fff;
     --text-color2: #000;
 }
@@ -73,10 +71,7 @@ header a {
     margin: .5rem;
 }
 header a:hover {
-    text-decoration: none;
-    color: var(--secondary-color);
-    font-size: 1.5rem;
-    font-weight: bold;
+    color: var(--text-color1);
 }
 
 .content {

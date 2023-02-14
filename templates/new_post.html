@@ -3,16 +3,9 @@
 {% block content %}
     <div class="new_post">
         <h1>Ny annonse</h1>
-        <form id="new_post_form">
-            <label for="title">Tittel:</label>
-            <input type="text" name="title">
-
-            <label for="text">Beskrivelse:</label>
-            <textarea name="text" form="new_post_form" rows=6 cols=80></textarea>
-
-            <label for="image">Last opp bilde:</label>
-            <input type="file" accept="image/*" name="image">
-
+        <form id="new_post_form" action="/post/create_post/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
             <button type="submit">Opprett annonse</button>
         </form>
     </div>
