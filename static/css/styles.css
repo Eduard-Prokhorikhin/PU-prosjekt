@@ -44,7 +44,8 @@ html, body {
     border: none;
     border-radius: 10px;
     text-align: right;
-    padding-right: 5px;
+    padding-right: 10px;
+    margin-right: 10px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
@@ -57,16 +58,43 @@ html, body {
     background: var(--bg-color1);
 }
 
+@media screen and (max-width: 700px) {
+    #minPantTekst {
+        display: none;
+    }
+    #pantBruker {
+       grid-template-columns: 1fr 0.1fr;
+       display: -webkit-box;
+       margin-left: auto;
+    }
+    #profilePic {
+        height: 50px;
+        width: auto;
+        padding-left: 15px;
+    }
+  }
+
+@media screen and (max-width: 1250px) {
+    #pantBruker {
+        font-size: 0.75rem;
+        margin-right: 20px;
+
+    }
+    #nyAnnonseButton {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+}  
+
 #headerContainer {
     height: 100px;
+    width: 100vw;
     background: var(--bg-color2);
     z-index: 1000; 
-    position: sticky;
+    position: fixed;
     box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
 
-/* #profilePic {
-} */
 
 header {
     max-width: 1200px;
@@ -75,7 +103,7 @@ header {
     color: var(--text-color);
     margin: auto;
     display: grid;
-    grid-template-columns: 150px auto 125px 125px;
+    grid-template-columns: 160px auto 125px 140px;
     align-items: center;
 }
 
@@ -113,7 +141,7 @@ header a:hover {
 
 .content {
     max-width: 1200px;
-    height: calc(100% - 100px);
+    /* height: calc(100% - 100px); */
     margin: 0 auto;
     padding: 2rem;
     display: flex;
