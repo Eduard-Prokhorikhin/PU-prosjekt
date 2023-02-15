@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "posts.User"
+
+LOGIN_URL = 'account.index'
 
 # Application definition
 
