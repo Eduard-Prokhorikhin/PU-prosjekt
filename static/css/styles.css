@@ -22,6 +22,7 @@ html, body {
     color: var(--text-color2);
 }
 
+
 #nyAnnonseButton {
     background: var(--bg-color2);
     color: var(--text-color);
@@ -73,13 +74,14 @@ html, body {
 
 #headerContainer {
     height: 100px;
-    width: 98.9vw;
+    width: 100%;
     background: var(--bg-color2);
     z-index: 1000; 
     position: sticky;
     top: 0;
     box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
+
 button:disabled, .btn.disabled {
     background: #ccc;
     color: #666;
@@ -131,23 +133,27 @@ header a:hover {
 }
 
 #plusSign {
-   margin-right: 5px;
+    margin-right: 5px;
 }
 
 #profilePic {
     height: 35px;
     padding-left: 7.5px;
  }
-
-.content {
+ 
+ .content {
     max-width: 1200px;
     /* height: calc(100% - 100px); */
     margin: 0 auto;
-    padding: 2rem;
+    padding: 16px 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     background: var(--bg-color2);
     /* overflow-y: scroll; */
+}
+
+.content > h1 {
+    padding-left: 16px;
 }
 
 #posts_container {
@@ -222,24 +228,24 @@ header a:hover {
 
 /*Copied from https://templateyou.com/free-css-search-boxes/*/
 input, button {
-	border: none;
+    border: none;
 	background: none;
 	outline: 0;
 }
 
 button {cursor: pointer}
 .SearchBox-input::placeholder {
- color:black;
+    color:black;
 	opacity: .6;
 }
 
 /* Chrome, Opera ySafari */
 .SearchBox-input::-webkit-input-placeholder {
-  color: black;
+    color: black;
 }
 
 .SearchBox {
-	--height: 3em;
+    --height: 3em;
     margin: 0 auto;
 	display: flex;
 	border-radius: 25px;
@@ -276,8 +282,66 @@ button {cursor: pointer}
 }
 
 @media screen and (min-width: 400px){
-	.SearchBox:hover .SearchBox-input {
-		width: 350px;
+    .SearchBox:hover .SearchBox-input {
+        width: 350px;
 	}
 }
 /*End of copied snippet*/
+
+#filterSearch {
+    margin: 0 auto;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+    border-radius: 0 0 10px 10px;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary-color);
+    transition: 0.5s;
+}
+
+#filterSearchButton {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+#filterSearch:hover {
+    padding: 5px 15px 5px 15px;
+    transition: 0.5s;
+    background-color: var(--secondary-color);
+ }
+
+ /* From w3schools */
+ /* Dropdown Button */
+.dropbtn {
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: sticky;
+    margin: 0 auto;
+    z-index: 1;
+    transition: 0.7s;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: var(--primary-color);}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:inline;}
