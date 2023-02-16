@@ -1,26 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 from posts.models import Post
 
-# Create your views here.
 def index(request):
-    return HttpResponse("<h1>Hello World!</h1>")
+    return render(request, 'page.html')
 
-def page1(request):
+def rent_product(request, pk):
+    Post.objects.filter(pk=pk).update(status='UNAVAILABLE')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    context = {
-        'title': 'Page 1',
-        'content': 'This is the content of page 1',
-    }
-
-    return render(request, 'header.html', context=context)
-
-def post_detail(request, pk):
-    post = Post.objects.get(pk=pk)
-
-    context = {
-        'post': post,
-    }
-
-    return render(request, 'post_detail.html', context=context)
+def reset_all_availability(request):
+    Post.objects.all().update(status='AVAILABLE')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

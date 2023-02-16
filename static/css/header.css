@@ -1,0 +1,56 @@
+#headerContainer {
+    height: 100px;
+    width: 100%;
+    background: var(--bg-color2);
+    z-index: 10; 
+    position: sticky;
+    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+header {
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: min-content auto min-content min-content;
+    align-items: center;
+}
+#headerNewPostButton {grid-column: 3;}
+#headerUserButton {grid-column: 4;}
+
+header > * {
+    height: 100%;
+    min-width: max-content;
+    margin: auto 1rem;
+    display: flex;
+    align-items: center;
+}
+
+header > div > * {
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+header > *:hover {
+    border-top: 2px solid #0000;
+    border-bottom: 2px solid var(--secondary-color);
+    cursor: pointer;
+    color: var(--secondary-color);
+}
+
+header svg {
+    font-size: 2rem;
+    margin-right: 0.5rem;
+}
+
+header a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+header #headerLogoImage, header #headerProfilePic {
+    height: 80px;
+}

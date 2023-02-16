@@ -1,8 +1,10 @@
 :root {
     --primary-color: #ffcd80;
     --secondary-color: #ff9900;
-    --text-color: #fff;
-    --text-color-dark: #000;
+    --bg-color1: #efefef;
+    --bg-color2: #fff;
+    --text-color1: #fff;
+    --text-color2: #000;
 }
 
 * {
@@ -13,47 +15,65 @@ html, body {
     height: 100vh;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg-color1);
+    color: var(--text-color2);
 }
 
-header {
-    width: 100%;
-    height: 100px;
-    background: var(--primary-color);
-    color: var(--text-color);
-    padding: 10px;
-    display: grid;
-    grid-template-columns: 150px auto 200px;
-    align-items: center;
-}
-header > * {
-    float: left;
-}
-header > img {
-    height: 80px;
-}
-header a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: .5rem;
-}
-header a:hover {
-    text-decoration: none;
-    color: var(--secondary-color);
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-header > button {
+button, .btn {
     background: var(--secondary-color);
-    color: var(--text-color);
+    color: var(--text-color1);
     border: none;
     border-radius: 5px;
     padding: 1rem;
+    text-align: center;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    float: right;
+    display: grid;
+    align-items: center; 
+    grid-template-columns: 1fr 2fr;
+}
+
+#fantBruker {
+    background: var(--bg-color2);
+    color: var(--text-color);
+    border: none;
+    border-radius: 10px;
+    text-align: right;
+    padding-right: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: grid;
+    align-items: center; 
+    grid-template-columns: 1fr 2fr;
+}
+button:disabled, .btn.disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+a:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+.content {
+    max-width: 1200px;
+    height: calc(100% - 100px);
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-color2);
+    /* overflow-y: scroll; */
 }
 
 #posts_container {
@@ -61,13 +81,76 @@ header > button {
     padding: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 1rem;
+    gap: 1rem;
     justify-items: stretch;
+    align-items: start;
 }
 
 .single_post {
-    padding: 2rem;
-    background: linear-gradient(#eee, #ddd);
+    padding-bottom: 1rem;
     border-radius: 10px;
-    box-shadow: 0 2px 10px #0002;
+    box-shadow: 0 2px 10px #0001;
+    cursor: pointer;
+    position: relative;
+    transition: all .2s ease-in-out;
+}
+.single_post:hover {
+    box-shadow: 5px 5px 10px #0002;
+    transform: scale(1.02);
+}
+.single_post.unavailable, .single_post.unavailable > a {
+    color: #888;
+}
+
+.single_post > * {
+    margin: 1rem;
+}
+
+.single_post > img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    margin: 0;
+}
+.single_post.unavailable > img {
+    filter: grayscale(100%);
+}
+
+.single_post > a {
+    display: none;
+}
+
+.single_post > .unavailable_tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.post_detail {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding: 1rem;
+}
+.post_detail > .post_content {
+    grid-column: 1 / 1;
+}
+.post_detail > img, .post_detail > button, .post_detail > .btn {
+    grid-column: 2 / 2;
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+}
+
+#new_post_form {
+    display: flex;
+    flex-direction: column;
 }
