@@ -1,6 +1,5 @@
 {% block content %}
     <div id="headerContainer">
-
         <header>
             {% load static %}
             <img src="{% static 'images/fant_logo.png' %}" alt="Fant Logo" />
@@ -8,13 +7,13 @@
             <div></div>
 
             <div id="nyAnnonseButton">
-                <p><i id="plusSign" class="fa-solid fa-plus"></i>Ny annonse</p>
+                <a href="{% url 'new_post' %}"><i id="plusSign" class="fa-solid fa-plus"></i>Ny annonse</a>
             </div>
             
             <div id="pantBruker">
                 <img id="profilePic" src="{% static 'images/profile-pic-start.png' %}" alt="Fant Bruker" />
                 <p>Min PANT</p>
             </div>
-            </header>
+        </header>
     </div>
 {% endblock %}
