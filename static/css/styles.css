@@ -263,8 +263,8 @@ button {cursor: pointer}
 .SearchBox-button {
     display: flex;
     border-radius: 50%;
-    padding-left: 12.5px;
-    width: 46px;
+    padding-left: 15px;
+    width: 48px;
     height: var(calc(--height));
     background-color: var(--primary-color);
     border: 10px --secondary-color;
