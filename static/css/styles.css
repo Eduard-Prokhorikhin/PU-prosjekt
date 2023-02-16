@@ -3,8 +3,6 @@
     --secondary-color: #ff9900;
     --bg-color1: #efefef;
     --bg-color2: #fff;
-    --box-color1: #eee;
-    --box-color2: #ddd;
     --text-color1: #fff;
     --text-color2: #000;
 }
@@ -29,24 +27,15 @@ html, body {
     border: none;
     border-radius: 10px;
     padding-right: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: right;
 }
 
-#nyAnnonseButton:hover  {
-    background: var(--bg-color1);
-}
-
-#pantBruker {
+#fantBruker {
     background: var(--bg-color2);
     color: var(--text-color);
     border: none;
     border-radius: 10px;
     text-align: right;
-    padding-right: 10px;
-    margin-right: 10px;
+    padding-right: 5px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
@@ -55,10 +44,20 @@ html, body {
     grid-template-columns: 1fr 2fr;
 }
 
-#pantBruker:hover {
-    background: var(--bg-color1);
+button, .btn {
+    background: var(--secondary-color);
+    color: var(--text-color1);
+    border: none;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: grid;
+    align-items: center; 
+    grid-template-columns: 1fr 2fr;
 }
-
 
 @media screen and (max-width: 1250px) {
     #pantBruker {
@@ -99,11 +98,11 @@ a:hover {
 }
 
 header {
-    max-width: 1200px;
+    /* max-width: 1200px; */
     height: 100px;
     background: var(--bg-color2);
     color: var(--text-color);
-    margin: auto;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 160px auto 125px 140px;
     align-items: center;
@@ -115,9 +114,6 @@ header > img {
     cursor: pointer;
 }
 
-header > img:hover {
-    height: 82px;
-}
 header a {
     text-decoration: none;
     color: var(--text-color);
@@ -133,15 +129,17 @@ header a:hover {
 }
 
 #plusSign {
-    margin-right: 5px;
+    margin-right: 7.5px;
 }
 
 #profilePic {
     height: 35px;
     padding-left: 7.5px;
+    padding-right: 10px;
  }
  
- .content {
+
+.content {
     max-width: 1200px;
     /* height: calc(100% - 100px); */
     margin: 0 auto;
@@ -169,6 +167,7 @@ header a:hover {
 .single_post {
     padding-bottom: 1rem;
     border-radius: 10px;
+    height: 365px;
     box-shadow: 0 2px 10px #0001;
     cursor: pointer;
     position: relative;
@@ -345,3 +344,11 @@ button {cursor: pointer}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:inline;}
+textarea {
+    resize: none;
+}
+
+#new_post_form {
+    display: flex;
+    flex-direction: column;
+}

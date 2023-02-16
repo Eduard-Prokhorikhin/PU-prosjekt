@@ -1,20 +1,23 @@
 {% block content %}
     <div id="headerContainer">
-
         <header>
             {% load static %}
-            <img src="{% static 'images/fant_logo.png' %}" alt="Fant Logo" />
-            
+            <div class="headerElement">
+                <img id="headerLogoImage" src="{% static 'images/fant_logo.png' %}" alt="Fant Logo" />
+                <a href="{% url 'posts' %}"></a>
+            </div>
+
             <div></div>
 
-            <div id="nyAnnonseButton">
-                <p><i id="plusSign" class="fa-solid fa-plus"></i>Ny annonse</p>
+            <div class="headerElement" id="headerNewPostButton">
+                <i id="plusSign" class="fa-solid fa-plus"></i>Ny annonse
+                <a href="{% url 'new_post' %}"></a>
             </div>
             
-            <div id="pantBruker">
-                <img id="profilePic" src="{% static 'images/profile-pic-start.png' %}" alt="Fant Bruker" />
-                <p id="minPantTekst">Min PANT</p>
+            <div class="headerElement" id="headerUserButton">
+                <img id="headerProfilePic" src="{% static 'images/profile-pic-start.png' %}" alt="Fant Bruker" />Min FANT
+                <a href="{% url 'index' %}"></a>
             </div>
-            </header>
+        </header>
     </div>
 {% endblock %}

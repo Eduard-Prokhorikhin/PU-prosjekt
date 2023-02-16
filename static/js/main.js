@@ -1,3 +1,9 @@
+// Clickable divs in header
+$(".headerElement").click(function() {
+    window.location = $(this).find("a").attr("href"); 
+    return false;
+});
+
 // Clickable posts
 $(".single_post").click(function() {
     window.location = $(this).find("a").attr("href"); 
@@ -14,8 +20,8 @@ const lightcolors = {
     '--primary-color': '#ffcd80',
     '--secondary-color': '#ff9900',
     '--tertiery-color': '#efefef',
-    '--box-color1': '#eee',
-    '--box-color2': '#ddd',
+    '--bg-color1': '#efefef',
+    '--bg-color2': '#fff',
     '--text-color1': '#fff',
     '--text-color2': '#000'
 };
@@ -24,8 +30,8 @@ const darkcolors = {
     '--primary-color': '#ff9900',
     '--secondary-color': '#ffcd80',
     '--tertiery-color': '#1a1a1a',
-    '--box-color1': '#111',
-    '--box-color2': '#222',
+    '--bg-color1': '#111',
+    '--bg-color2': '#222',
     '--text-color1': '#000',
     '--text-color2': '#fff'
 };
