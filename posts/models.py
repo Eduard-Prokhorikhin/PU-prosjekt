@@ -35,7 +35,10 @@ class User(AbstractBaseUser):
         # Simplest possible answer: Yes, always
         return True
            
-    
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        self.is_active = False
+        self.save()
     
 class Post(models.Model):
     title = models.CharField(max_length=200)
