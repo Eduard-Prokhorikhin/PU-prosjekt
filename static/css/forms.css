@@ -10,15 +10,23 @@ h1 {
 }
 
 form > button {
+    margin-top: 2rem;
     width: 60%;
-    text-align: center;
+    text-align: center !important;
 }
 
-form > input, form > textarea {
+form > input[type=text], form > textarea {
     margin-bottom: 1rem;
     width: 60%;
     font-size: 1rem;
+    border: 1.5px solid var(--text-color2);
+    border-radius: 2px;
 }
 
+form > input:focus, form > textarea:focus {
+    border: 1.5px solid var(--secondary-color);
+    border-radius: 2px;
+    outline: none;
+}
 
 
