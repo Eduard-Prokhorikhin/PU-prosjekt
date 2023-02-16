@@ -100,9 +100,9 @@ a:hover {
 header {
     /* max-width: 1200px; */
     height: 100px;
-    background: var(--bg-color2);
-    color: var(--text-color);
-    margin: 0 auto;
+    /* background: var(--bg-color2); */
+    /* color: var(--text-color); */
+    /* margin: auto; */
     display: grid;
     grid-template-columns: 160px auto 125px 140px;
     align-items: center;
@@ -263,6 +263,7 @@ button {cursor: pointer}
 .SearchBox-button {
     display: flex;
     border-radius: 50%;
+    padding-left: 12.5px;
     width: 46px;
     height: var(calc(--height));
     background-color: var(--primary-color);
