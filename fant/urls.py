@@ -13,6 +13,7 @@ urlpatterns = [
     path('rentProduct/<int:pk>', views.rent_product, name='rentProduct'),
     path('resetAllAvailability', views.reset_all_availability, name='resetAllAvailability'),
     path('admin/', admin.site.urls),
+    path('account/', include('account.urls'), name='account'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
