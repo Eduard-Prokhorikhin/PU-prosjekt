@@ -49,7 +49,7 @@ function toggleDarkMode() {
     darkMode = !darkMode;
 }
 
-document.addEventListener("keypress", event => {
+document.getElementById("headerInputField").addEventListener("keypress", event => {
     if (event.key == "d") {
         toggleDarkMode();
     }

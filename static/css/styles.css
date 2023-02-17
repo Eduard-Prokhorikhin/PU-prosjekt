@@ -20,30 +20,6 @@ html, body {
     color: var(--text-color2);
 }
 
-
-#nyAnnonseButton {
-    background: var(--bg-color2);
-    color: var(--text-color);
-    border: none;
-    border-radius: 10px;
-    padding-right: 5px;
-}
-
-#fantBruker {
-    background: var(--bg-color2);
-    color: var(--text-color);
-    border: none;
-    border-radius: 10px;
-    text-align: right;
-    padding-right: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: grid;
-    align-items: center; 
-    grid-template-columns: 1fr 2fr;
-}
-
 button, .btn {
     background: var(--secondary-color);
     color: var(--text-color1);
@@ -57,28 +33,6 @@ button, .btn {
     display: grid;
     align-items: center; 
     grid-template-columns: 1fr 2fr;
-}
-
-@media screen and (max-width: 1250px) {
-    #pantBruker {
-        font-size: 0.75rem;
-        margin-right: 20px;
-
-    }
-    #nyAnnonseButton {
-        font-size: 0.75rem;
-        text-align: center;
-    }
-}  
-
-#headerContainer {
-    height: 100px;
-    width: 100%;
-    background: var(--bg-color2);
-    z-index: 1000; 
-    position: sticky;
-    top: 0;
-    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
 
 button:disabled, .btn.disabled {
@@ -96,48 +50,6 @@ a:hover {
     text-decoration: underline;
     color: var(--primary-color);
 }
-
-header {
-    /* max-width: 1200px; */
-    height: 100px;
-    /* background: var(--bg-color2); */
-    /* color: var(--text-color); */
-    /* margin: auto; */
-    display: grid;
-    grid-template-columns: 160px auto 125px 140px;
-    align-items: center;
-}
-
-header > img {
-    height: 80px;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-header a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: .5rem;
-}
-header a:hover {
-    text-decoration: none;
-    color: var(--secondary-color);
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-#plusSign {
-    margin-right: 7.5px;
-}
-
-#profilePic {
-    height: 35px;
-    padding-left: 7.5px;
-    padding-right: 10px;
- }
- 
 
 .content {
     max-width: 1200px;
@@ -341,7 +253,8 @@ button {cursor: pointer}
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-    background-color: var(--primary-color);}
+    background-color: var(--primary-color);
+}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:inline;}

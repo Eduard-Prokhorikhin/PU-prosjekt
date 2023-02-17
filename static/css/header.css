@@ -81,3 +81,15 @@ header #headerLogoImage, header #headerProfilePic {
     outline: none;
     width: 300px;
 }
+
+@media screen and (max-width: 1250px) {
+    #fantBruker {
+        font-size: 0.75rem;
+        margin-right: 20px;
+
+    }
+    #nyAnnonseButton {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+}
