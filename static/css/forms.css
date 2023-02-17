@@ -23,7 +23,7 @@ form > input[type=text], form > textarea {
     border-radius: 2px;
 }
 
-form > input:focus, form > textarea:focus {
+form > input[type=text]:focus, form > textarea:focus {
     border: 1.5px solid var(--secondary-color);
     border-radius: 2px;
     outline: none;
