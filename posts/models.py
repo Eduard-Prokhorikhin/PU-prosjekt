@@ -62,6 +62,6 @@ class Post(models.Model):
         if image:
             img = Image.open(image)
             thumb_io = BytesIO()
-            img.save(thumb_io, 'jpeg', quality=5)
+            img.save(thumb_io, 'jpeg', quality=50)
             new_image = File(thumb_io, name=image.name)
             return new_image

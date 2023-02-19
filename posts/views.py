@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from datetime import date
+from django.contrib.auth.decorators import login_required
 
 from .models import Post
 from .models import User
@@ -31,8 +32,8 @@ def post_detail(request, pk):
 
     return render(request, 'post_detail.html', context=context)
 
+@login_required
 def new_post(request):
-    # Get user credentials
 
     if request.method == 'POST':
         form = NewPostForm(request.POST)
@@ -45,6 +46,7 @@ def new_post(request):
 
     return render(request, 'new_post.html', {'form': form})
 
+@login_required
 def create_post(request):
     form = NewPostForm(request.POST, request.FILES)
     form.is_valid()
@@ -54,7 +56,7 @@ def create_post(request):
     Post.objects.create(
         title=post['title'],
         text=post['text'],
-        author=User.objects.get(pk=1), # missing functionality from login...
+        author=User.objects.get(pk=request.user.id), 
         image=post['image'],
     )
 
