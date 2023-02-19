@@ -5,11 +5,12 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from posts.models import Post
 
 # Create your views here.
 @login_required
 def profilePage(request):
-    context = {}
+    context = {'posts': Post.objects.filter(author=request.user).order_by('-pub_date')}
     return render(request, 'profile.html', context)
 
 def registerPage(request):

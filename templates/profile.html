@@ -1,6 +1,35 @@
 {% extends "page.html" %}
 {% block content %}
-    <h1>Profile</h1>
-    <h1>{{ request.user }}</h1>
-    <a href="{% url 'logout' %}">log out</a>
+    <div id="profilePage">
+        <div id="profileInfo">
+            <h1>Hei, {{ request.user.firstname }}!</h1>
+            <h3>Din kontaktinformasjon:</h3>
+            <p>Epost: {{ request.user }}</p>
+            <p>Telefon: {{ request.user.phone }}</p>    
+        </div>
+        
+        <div id="profileActions">
+            <a class="btn" href="{% url 'logout' %}">Logg ut</a>
+            <a class="btn" href="">Endre profil</a>
+            <a class="btn" href="{% url 'new_post' %}">Legg til ny annonse</a>
+        </div>
+        
+        <div id="profilePosts">
+            <h3>Dine annonser:</h3>
+            <div id="posts_container">
+                {% if posts.count == 0 %}
+                    <p>Du har ingen annonser enda...</p>
+                {% endif %}
+                {% for post in posts %}
+                    <div class="single_post">
+                        <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                        <h3>{{ post.title }}</h3>
+                        <a class="btn">Endre</a>
+                        <a href="/posts/{{ post.id }}"></a></ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
 {% endblock %}
