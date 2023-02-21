@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from datetime import date
 from django.contrib.auth.decorators import login_required
+from django.db.models import OuterRef, Subquery
 
 from .models import *
 from .forms import NewPostForm
@@ -11,14 +12,15 @@ from .forms import NewPostForm
 def index(request):
 
     post_list = Post.objects.all().order_by('-pub_date')
-    rental = Rental.objects.all()
+    rental_list = Rental.objects.all().values_list('post')
+    print(rental_list)
     # To search for a specific post
     # post_list = Post.objects.filter(title__contains='')
 
     context = {
         'title': 'Annonser',
         'post_list': post_list,
-        'rental': rental,
+        'rental_list': rental_list,
     }
 
     return render(request, 'posts.html', context=context)

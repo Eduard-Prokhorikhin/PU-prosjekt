@@ -1,13 +1,15 @@
 {% block content %}
-    <div class="single_post {% if rental.get(post=post.id) != None %}unavailable{% endif %}">
+    <div class="single_post {% for tuple in rental_list %}{% if post.id in tuple %}unavailable{% endif %}{% endfor %}">
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}
-        {% if rental.get(post=post.id) != None %}
+        {% for tuple in rental_list %}
+        {% if post.id in tuple %}
             <span class="unavailable_tag">Utleid</span>
         {% endif %}
+        {% endfor %}
         <h3>{{ post.title }}</h3>
-        <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
+        <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>  
         <a href="{% url 'post_detail' post.id %}"></a>
     </div>
 {% endblock %}
