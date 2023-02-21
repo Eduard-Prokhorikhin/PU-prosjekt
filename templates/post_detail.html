@@ -14,7 +14,7 @@
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}
-        {% if post.status == 'AVAILABLE' %}
+        {% if rental == None %}
             <a class="btn" href="{% url 'rentProduct' post.id %}">Lei produkt</a>
         {% else %}
             <a class="btn disabled">Produktet er utleid for øyeblikket...</a>

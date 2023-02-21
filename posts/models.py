@@ -49,7 +49,6 @@ class Post(models.Model):
     text = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published', default=datetime.now())
-    status = models.CharField(max_length=200, choices=[('AVAILABLE', 'available'), ('UNAVAILABLE', 'unavailable')], default='AVAILABLE')
     image = models.ImageField(upload_to='productImages/', blank=True)
 
     # before saving the instance we're reducing the image
@@ -65,3 +64,7 @@ class Post(models.Model):
             img.save(thumb_io, 'jpeg', quality=50)
             new_image = File(thumb_io, name=image.name)
             return new_image
+
+class Rental(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    renter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

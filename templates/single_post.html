@@ -1,9 +1,9 @@
 {% block content %}
-    <div class="single_post {% if post.status == 'UNAVAILABLE' %}unavailable{% endif %}">
+    <div class="single_post {% if rental.get(post=post.id) != None %}unavailable{% endif %}">
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}
-        {% if post.status == 'UNAVAILABLE' %}
+        {% if rental.get(post=post.id) != None %}
             <span class="unavailable_tag">Utleid</span>
         {% endif %}
         <h3>{{ post.title }}</h3>
