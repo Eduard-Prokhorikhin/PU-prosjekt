@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "posts.User"
 
-LOGIN_URL = 'account.index'
+LOGIN_URL = 'login'
 
 # Application definition
 

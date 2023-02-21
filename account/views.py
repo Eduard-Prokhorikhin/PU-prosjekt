@@ -42,7 +42,11 @@ def loginPage(request):
             if user is not None:
                 login(request, user)
                 print("Hello You have been logged in")
-                return redirect('index')
+                
+                # redirects to page that sent you here or index
+                str = request.GET.get('next')
+                if str == None: str = 'index'
+                return redirect(str)
             else:
                 print("Login failed!")
                 
