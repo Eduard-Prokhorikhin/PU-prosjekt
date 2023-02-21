@@ -20,6 +20,22 @@ $("a").click(function(event) {
     return false;
 });
 
+// Accordion effect for profile page
+var acc = document.getElementsByClassName("accordion");
+
+for (let i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "none") {
+            this.getElementsByTagName("span")[0].innerHTML = "▲";
+            panel.style.display = "grid";
+        } else {
+            this.getElementsByTagName("span")[0].innerHTML = "▼";
+            panel.style.display = "none";
+        }
+    });
+}
+
 
 // Dark Mode
 let darkMode = false;

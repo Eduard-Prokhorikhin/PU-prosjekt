@@ -48,9 +48,17 @@ a:hover {
     color: var(--primary-color);
 }
 
+#profilePosts h3 {
+    user-select: none;
+}
+#profilePosts h3 > span {
+    margin-right: 1rem;
+    float: right;
+}
+
 .content {
     max-width: 1200px;
-    min-height: calc(100% - 200px);
+    min-height: calc(100% - 100px - 250px); /* 100% - header height - footer height */
     margin: 0 auto;
     padding: 16px 2rem 2rem 2rem;
     display: flex;
@@ -62,7 +70,7 @@ a:hover {
     padding-left: 16px;
 }
 
-#posts_container {
+.posts_container {
     width: 100%;
     padding: 1rem;
     display: grid;

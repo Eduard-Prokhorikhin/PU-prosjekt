@@ -10,7 +10,12 @@ from posts.models import Post
 # Create your views here.
 @login_required
 def profilePage(request):
-    context = {'posts': Post.objects.filter(author=request.user).order_by('-status', '-pub_date')}
+    context = {
+        'rentedPosts': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
+        # TODO: Implement checking for rentals done by the user
+        'rentals': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
+        'posts': Post.objects.filter(author=request.user, status='AVAILABLE').order_by('-pub_date')
+    }
     return render(request, 'profile.html', context)
 
 def registerPage(request):
