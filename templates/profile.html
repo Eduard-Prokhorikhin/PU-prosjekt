@@ -19,15 +19,16 @@
             <div id="posts_container">
                 {% if posts.count == 0 %}
                     <p>Du har ingen annonser enda...</p>
+                {% else %}
+                    {% for post in posts %}
+                        <div class="single_post {% if post.status == 'UNAVAILABLE' %}unavailable{% endif %}">
+                            <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            <h3>{{ post.title }}</h3>
+                            <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
+                            <a href="/posts/{{ post.id }}"></a>
+                        </div>
+                    {% endfor %}
                 {% endif %}
-                {% for post in posts %}
-                    <div class="single_post">
-                        <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
-                        <h3>{{ post.title }}</h3>
-                        <a class="btn">Endre</a>
-                        <a href="/posts/{{ post.id }}"></a></ul>
-                    </div>
-                {% endfor %}
             </div>
         </div>
     </div>

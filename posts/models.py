@@ -50,7 +50,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published', default=datetime.now())
     status = models.CharField(max_length=200, choices=[('AVAILABLE', 'available'), ('UNAVAILABLE', 'unavailable')], default='AVAILABLE')
-    image = models.ImageField(upload_to='productImages/', blank=True)
+    image = models.ImageField(upload_to='productImages/')
 
     # before saving the instance we're reducing the image
     def save(self, *args, **kwargs):

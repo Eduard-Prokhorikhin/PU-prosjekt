@@ -10,5 +10,5 @@ class NewPostForm(forms.ModelForm):
         labels = {
             'title': 'Tittel:',
             'text': 'Beskrivelse:',
-            'image': 'Last opp bilde (valgfritt):'
+            'image': 'Last opp bilde:'
         }

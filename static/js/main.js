@@ -5,12 +5,20 @@ $(".headerElement").click(function() {
 });
 
 // Clickable posts
-$(".single_post").click(function() {
-    window.location = $(this).find("a").attr("href"); 
+$(".single_post").click(clickablePost);
+
+function clickablePost(event) {
+    event.stopPropagation();
+    window.location = $(this).find("a").last().attr("href");
+    return false;
+}
+
+// Prevent default on links
+$("a").click(function(event) {
+    event.preventDefault();
+    window.location = $(this).attr("href");
     return false;
 });
-
-// Return to home page
 
 
 // Dark Mode

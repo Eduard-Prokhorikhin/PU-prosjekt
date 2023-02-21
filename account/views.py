@@ -10,7 +10,7 @@ from posts.models import Post
 # Create your views here.
 @login_required
 def profilePage(request):
-    context = {'posts': Post.objects.filter(author=request.user).order_by('-pub_date')}
+    context = {'posts': Post.objects.filter(author=request.user).order_by('-status', '-pub_date')}
     return render(request, 'profile.html', context)
 
 def registerPage(request):
