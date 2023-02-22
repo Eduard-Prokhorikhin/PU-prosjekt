@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .forms import *
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from posts.models import Post
+from posts.models import *
 
 # Create your views here.
 @login_required
@@ -13,7 +12,7 @@ def profilePage(request):
     context = {
         'rentedPosts': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
         # TODO: Implement checking for rentals done by the user
-        'rentals': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
+        'rentals': Post.objects.filter(rental__in=Rental.objects.filter(renter=request.user), status='UNAVAILABLE').order_by('-pub_date'),
         'posts': Post.objects.filter(author=request.user, status='AVAILABLE').order_by('-pub_date')
     }
     return render(request, 'profile.html', context)
@@ -49,9 +48,9 @@ def loginPage(request):
                 print("Hello You have been logged in")
                 
                 # redirects to page that sent you here or index
-                str = request.GET.get('next')
-                if str == None: str = 'index'
-                return redirect(str)
+                adress = request.GET.get('next')
+                if adress == None: adress = 'index'
+                return redirect(adress)
             else:
                 print("Login failed!")
                 
@@ -62,4 +61,10 @@ def logoutPage(request):
     logout(request)
     messages.success(request, 'Logges out succesfully')
     return redirect('login')
+
+def endRental(request, pk):
+    post = Post.objects.get(pk=pk)
+    Post.objects.filter(pk=pk).update(status='AVAILABLE')
+    Rental.objects.get(post=pk).delete()
+    return redirect('index')
 
