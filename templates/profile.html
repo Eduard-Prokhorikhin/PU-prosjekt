@@ -15,20 +15,53 @@
         </div>
         
         <div id="profilePosts">
-            <h3>Dine annonser:</h3>
-            <div id="posts_container">
+            <hr>
+            {% if rentedPosts.count > 0 %}
+                <h3 class="accordion">Utleide annonser<span>▲</span></h3>
+                <div class="posts_container">
+                    {% for post in rentedPosts %}
+                        <div class="single_post">
+                            <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            <h3>{{ post.title }}</h3>
+                            <p>Leid av: {{ request.user.firstname }}</p>
+                            <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
+                            <a href="/posts/{{ post.id }}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endif %}
+            {% if rentals.count > 0 %}
+                <h3 class="accordion">Dine leieforhold<span>▲</span></h3>
+                <div class="posts_container">
+                    {% for post in rentedPosts %}
+                        <div class="single_post">
+                            <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            <h3>{{ post.title }}</h3>
+                            <p>Leid av: {{ request.user.firstname }}</p>
+                            <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
+                            <a href="/posts/{{ post.id }}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endif %}
+            <h3 class="accordion">Dine annonser<span>▲</span></h3>
+            <div class="posts_container">
                 {% if posts.count == 0 %}
                     <p>Du har ingen annonser enda...</p>
+                {% else %}
+                    {% for post in posts %}
+                        <div class="single_post">
+                            <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            <h3>{{ post.title }}</h3>
+                            <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
+                            <a href="/posts/{{ post.id }}"></a>
+                        </div>
+                    {% endfor %}
                 {% endif %}
-                {% for post in posts %}
-                    <div class="single_post">
-                        <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
-                        <h3>{{ post.title }}</h3>
-                        <a class="btn">Endre</a>
-                        <a href="/posts/{{ post.id }}"></a></ul>
-                    </div>
-                {% endfor %}
             </div>
+            <hr>
         </div>
     </div>
     

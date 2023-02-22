@@ -41,7 +41,7 @@ def post_detail(request, pk):
     return render(request, 'post_detail.html', context=context)
 
 @login_required
-def new_post(request):
+def new_post(request, pk=None):
 
     if request.method == 'POST':
         form = NewPostForm(request.POST)
@@ -50,22 +50,32 @@ def new_post(request):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
     else:
-        form = NewPostForm()
+        if pk:
+            post = Post.objects.get(pk=pk)
+            form = NewPostForm(instance=post)
+        else:
+            form = NewPostForm()
 
-    return render(request, 'new_post.html', {'form': form})
+    return render(request, 'new_post.html', {'form': form, 'post_id': pk})
 
 @login_required
-def create_post(request):
+def create_post(request, pk=None):
     form = NewPostForm(request.POST, request.FILES)
     form.is_valid()
 
     post = form.cleaned_data
-    
-    Post.objects.create(
-        title=post['title'],
-        text=post['text'],
-        author=User.objects.get(pk=request.user.id), 
-        image=post['image'],
-    )
+    if pk and request.user.id == Post.objects.get(pk=pk).author.id:
+        post = Post.objects.get(pk=pk)
+        post.title = form.cleaned_data['title']
+        post.text = form.cleaned_data['text']
+        post.image = form.cleaned_data['image']
+        post.save()
+    else:
+        Post.objects.create(
+            title=post['title'],
+            text=post['text'],
+            author=User.objects.get(pk=request.user.id), 
+            image=post['image'],
+        )
 
     return HttpResponseRedirect('/posts/')
