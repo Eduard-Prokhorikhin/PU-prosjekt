@@ -11,7 +11,7 @@ from .forms import NewPostForm
 # Create your views here.
 def index(request):
 
-    post_list = Post.objects.all().order_by('-pub_date')
+    post_list = Post.objects.all().order_by('status', '-pub_date')
     rental_list = Rental.objects.all().values_list('post')
     print(rental_list)
     # To search for a specific post
