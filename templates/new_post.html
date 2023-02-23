@@ -6,7 +6,7 @@
         <form id="new_post_form" action="/post/create_post/{% if post_id %}{{ post_id }}{% endif %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
-            <button type="submit">Opprett annonse</button>
+            <button type="submit">{% if post_id %}Oppdater{% else %}Opprett{% endif %} annonse</button>
         </form>
     </div>
 {% endblock %}
