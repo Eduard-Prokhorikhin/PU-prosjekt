@@ -1,9 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from datetime import date
 from django.contrib.auth.decorators import login_required
-from django.db.models import OuterRef, Subquery
 
 from .models import *
 from .forms import NewPostForm
@@ -44,7 +42,7 @@ def post_detail(request, pk):
 def new_post(request, pk=None):
 
     if request.method == 'POST':
-        form = NewPostForm(request.POST)
+        form = NewPostForm(request.POST, request.FILES)
 
         if form.is_valid():
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -68,8 +66,10 @@ def create_post(request, pk=None):
         post = Post.objects.get(pk=pk)
         post.title = form.cleaned_data['title']
         post.text = form.cleaned_data['text']
-        post.image = form.cleaned_data['image']
+        if request.FILES.get('image'):
+            post.image = form.cleaned_data['image']
         post.save()
+        return redirect('/account/')
     else:
         Post.objects.create(
             title=post['title'],

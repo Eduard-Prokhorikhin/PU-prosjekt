@@ -3,7 +3,7 @@
 {% block content %}
     <div class="new_post">
         <h1>Ny annonse</h1>
-        <form id="new_post_form" action="/post/create_post/{% if post_id %}post_id{% endif %}" method="post" enctype="multipart/form-data">
+        <form id="new_post_form" action="/post/create_post/{% if post_id %}{{ post_id }}{% endif %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
             <button type="submit">Opprett annonse</button>

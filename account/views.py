@@ -11,7 +11,6 @@ from posts.models import *
 def profilePage(request):
     context = {
         'rentedPosts': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
-        # TODO: Implement checking for rentals done by the user
         'rentals': Post.objects.filter(rental__in=Rental.objects.filter(renter=request.user), status='UNAVAILABLE').order_by('-pub_date'),
         'posts': Post.objects.filter(author=request.user, status='AVAILABLE').order_by('-pub_date')
     }

@@ -9,9 +9,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('posts/', include('posts.urls'), name='posts'),
-    # path('post/', include('posts.urls'), name='post_detail'),
+    path('post/', include('posts.urls'), name='post_detail'),
     path('rentProduct/<int:pk>', views.rent_product, name='rentProduct'),
-    # path('resetAllAvailability', views.reset_all_availability, name='resetAllAvailability'),
     path('admin/', admin.site.urls),
     path('account/', include('account.urls'), name='account'),
 ]
