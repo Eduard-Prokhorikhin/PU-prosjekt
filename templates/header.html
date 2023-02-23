@@ -2,12 +2,13 @@
     <div id="headerContainer">
         <header>
             {% load static %}
-            <div id="headerInputContainer">
-                <div class="headerElement">
+            <div id="headerInputContainer" class="headerElement">
+                <div>
                     <img id="headerInputImage" src="{% static 'images/fant_logo_tekst.png' %}">
-                    <a href="{% url 'posts' %}"></a>
+                    
                 </div>
-                <input id="headerInputField" type="text" />
+                <input id="headerInputField" onclick="event.stopPropagation()" type="text" />
+                <a href="{% url 'posts' %}"></a>
             </div>
 
             <div class="headerElement" id="headerNewPostButton">
