@@ -40,4 +40,6 @@ form > input[type=text]:focus, form > textarea:focus {
     outline: none;
 }
 
-
+/*form > #image-clear_id, form > label[for=image-clear_id] {
+    display: none;
+}*/

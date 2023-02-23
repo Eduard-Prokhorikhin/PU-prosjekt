@@ -10,7 +10,7 @@
         
         <div id="profileActions">
             <a class="btn" href="{% url 'logout' %}">Logg ut</a>
-            <a class="btn" href="">Endre profil</a>
+            <a class="btn" href="" onclick="alert('Denne funksjonaliteten er ikke implentert enda...')">Endre profil</a>
             <a class="btn" href="{% url 'new_post' %}">Legg til ny annonse</a>
         </div>
         
@@ -21,10 +21,12 @@
                 <div class="posts_container">
                     {% for post in rentedPosts %}
                         <div class="single_post">
-                            <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% endif %}
                             <h3>{{ post.title }}</h3>
-                            <p>Leid av: {{ request.user.firstname }}</p>
                             <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
+                            <a class="btn endRental" href="{% url 'endRental' post.id %}">Avslutt leie</a>
                             <a href="/posts/{{ post.id }}"></a>
                         </div>
                     {% endfor %}
@@ -34,12 +36,13 @@
             {% if rentals.count > 0 %}
                 <h3 class="accordion">Dine leieforhold<span>▲</span></h3>
                 <div class="posts_container">
-                    {% for post in rentedPosts %}
+                    {% for post in rentals %}
                         <div class="single_post">
-                            <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% endif %}
                             <h3>{{ post.title }}</h3>
-                            <p>Leid av: {{ request.user.firstname }}</p>
-                            <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
+                            <a class="btn endRental" href="{% url 'endRental' post.id %}">Avslutt leie</a>
                             <a href="/posts/{{ post.id }}"></a>
                         </div>
                     {% endfor %}
@@ -53,7 +56,9 @@
                 {% else %}
                     {% for post in posts %}
                         <div class="single_post">
-                            <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% endif %}
                             <h3>{{ post.title }}</h3>
                             <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
                             <a href="/posts/{{ post.id }}"></a>

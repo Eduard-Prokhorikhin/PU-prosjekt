@@ -19,6 +19,15 @@
 </head>
 <body>
     {% include "header.html" %}
+    <div id="message_container">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
     <div class="content">
         {% block content %}
             <!-- This is where the content comes in -->
