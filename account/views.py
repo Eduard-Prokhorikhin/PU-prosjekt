@@ -10,6 +10,7 @@ from posts.models import *
 @login_required
 def profilePage(request):
     context = {
+        'rentalPosts': Rental.objects.filter(post__in=Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date')),
         'rentedPosts': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
         'rentals': Post.objects.filter(rental__in=Rental.objects.filter(renter=request.user), status='UNAVAILABLE').order_by('-pub_date'),
         'posts': Post.objects.filter(author=request.user, status='AVAILABLE').order_by('-pub_date')

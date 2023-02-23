@@ -19,15 +19,16 @@
             {% if rentedPosts.count > 0 %}
                 <h3 class="accordion">Utleide annonser<span>▲</span></h3>
                 <div class="posts_container">
-                    {% for post in rentedPosts %}
+                    {% for rental in rentalPosts %}
                         <div class="single_post">
-                            {% if post.image %}
-                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% if rental.post.image %}
+                                <img src="{{ rental.post.image.url }}" alt="{{ rental.post.title }}">
                             {% endif %}
-                            <h3>{{ post.title }}</h3>
-                            <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
-                            <a class="btn endRental" href="{% url 'endRental' post.id %}">Avslutt leie</a>
-                            <a href="/posts/{{ post.id }}"></a>
+                            <h3>{{ rental.post.title }}</h3>
+                            <p>Utleid til: {{ rental.post.author.firstname }} {{ rental.post.author.lastname }}</p>
+                            <a class="btn" href="{% url 'new_post' rental.post.id %}">Endre</a>
+                            <a class="btn endRental" href="{% url 'endRental' rental.post.id %}">Avslutt leie</a>
+                            <a href="/posts/{{ rental.post.id }}"></a>
                         </div>
                     {% endfor %}
                 </div>
@@ -42,6 +43,7 @@
                                 <img src="{{ post.image.url }}" alt="{{ post.title }}">
                             {% endif %}
                             <h3>{{ post.title }}</h3>
+                            <p>Leid av: {{ post.author.firstname }} {{ post.author.lastname }}</p>
                             <a class="btn endRental" href="{% url 'endRental' post.id %}">Avslutt leie</a>
                             <a href="/posts/{{ post.id }}"></a>
                         </div>
