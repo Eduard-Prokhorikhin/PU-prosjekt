@@ -59,7 +59,7 @@ def loginPage(request):
 
 def logoutPage(request):
     logout(request)
-    messages.success(request, 'Logges out succesfully')
+    messages.success(request, 'Logged out succesfully')
     return redirect('login')
 
 def endRental(request, pk):
