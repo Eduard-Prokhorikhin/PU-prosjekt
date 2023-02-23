@@ -1,9 +1,18 @@
 {% extends "page.html" %}
 {% block content %}
-    <h1>Login</h1>
-    <form method="post">
+    
+    <form method="post" class="loginFormWrapper">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" name="Log In">
+        <h1>Login</h1>
+
+        <input id="id_username" type="text" placeholder="E-post" name="username" autocomplete="username" required>
+
+        <input id="id_password" type="password" placeholder="Passord" name="password" autocomplete="current-password" required>
+      
+        <p>Ny bruker?
+
+        <a style="text-decoration: underline;" href={% url 'register' %}>Registrer bruker</a>
+        </p>
+        <button type="submit" class="confirmButton">Logg inn</button>
     </form>
 {% endblock %}

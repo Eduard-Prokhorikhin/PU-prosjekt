@@ -162,12 +162,12 @@ a:hover {
     width: 100%;
 }
 
-/*Copied from https://templateyou.com/free-css-search-boxes/*/
+/* Copied from https://templateyou.com/free-css-search-boxes/
 input, button {
     border: none;
 	background: none;
 	outline: 0;
-}
+} */
 
 button {cursor: pointer}
 .SearchBox-input::placeholder {
