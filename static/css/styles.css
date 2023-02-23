@@ -62,6 +62,16 @@ a:hover {
     float: right;
 }
 
+#message_container {
+    box-sizing: content-box;
+    height: fit-content;
+    position: relative;
+    top: -2px;
+    background: var(--bg-color1);
+    border: 1px solid #000;
+    transition: all .2s ease-in-out;
+}
+
 .content {
     max-width: 1200px;
     min-height: calc(100% - 100px - 250px); /* 100% - header height - footer height */
@@ -117,7 +127,12 @@ a:hover {
 .single_post.unavailable > img {
     filter: grayscale(100%);
 }
-
+.single_post > a {
+    float: left;
+}
+.single_post > a.endRental {
+    float: right;
+}
 .single_post:last-of-type(a) {
     display: none;
 }

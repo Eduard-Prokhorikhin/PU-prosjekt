@@ -10,7 +10,7 @@
         
         <div id="profileActions">
             <a class="btn" href="{% url 'logout' %}">Logg ut</a>
-            <a class="btn" href="">Endre profil</a>
+            <a class="btn" href="" onclick="alert('Denne funksjonaliteten er ikke implentert enda...')">Endre profil</a>
             <a class="btn" href="{% url 'new_post' %}">Legg til ny annonse</a>
         </div>
         
@@ -24,7 +24,7 @@
                             <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
                             <h3>{{ post.title }}</h3>
                             <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
-                            <a class="btn" href="{% url 'endRental' post.id %}">Avslutt leie</a>
+                            <a class="btn endRental" href="{% url 'endRental' post.id %}">Avslutt leie</a>
                             <a href="/posts/{{ post.id }}"></a>
                         </div>
                     {% endfor %}
@@ -38,8 +38,8 @@
                         <div class="single_post">
                             <img width="50px" src="{{ post.image.url }}" alt="{{ post.title }}">
                             <h3>{{ post.title }}</h3>
+                            <a class="btn endRental" href="{% url 'endRental' post.id %}">Avslutt leie</a>
                             <a href="/posts/{{ post.id }}"></a>
-                            <a class="btn" href="{% url 'endRental' post.id %}">Avslutt leie</a>
                         </div>
                     {% endfor %}
                 </div>
