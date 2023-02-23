@@ -25,7 +25,7 @@
                                 <img src="{{ rental.post.image.url }}" alt="{{ rental.post.title }}">
                             {% endif %}
                             <h3>{{ rental.post.title }}</h3>
-                            <p>Utleid til: {{ rental.post.author.firstname }} {{ rental.post.author.lastname }}</p>
+                            <p>Utleid til: {{ rental.renter.firstname }} {{ rental.renter.lastname }}</p>
                             <a class="btn" href="{% url 'new_post' rental.post.id %}">Endre</a>
                             <a class="btn endRental" href="{% url 'endRental' rental.post.id %}">Avslutt leie</a>
                             <a href="/posts/{{ rental.post.id }}"></a>
