@@ -1,0 +1,82 @@
+/*Copied from https://templateyou.com/free-css-search-boxes/*/
+input, button, #searchFrom {
+    border: none;
+	background: none;
+	outline: 0;
+}
+
+button {cursor: pointer}
+.SearchBox-input::placeholder {
+    color:var(--text-color2);
+	opacity: .6;
+}
+
+/* Chrome, Opera ySafari */
+.SearchBox-input::-webkit-input-placeholder {
+    color: var(--text-color2);
+}
+
+.SearchBox, #searchFrom {
+    --height: 3em;
+    margin: 0 auto;
+	display: flex;
+	border-radius: 25px;
+	background-color: var(--bg-color1);
+	height: var(--height);
+}
+
+.SearchBox-input, #searchFrom {
+    padding-left: 2em;
+    padding-right: 1em;
+    border-radius: 25px;
+    width: 240px;
+    font-size: 1.2em;
+    color: var(--text-color2);
+    transition: .45s;
+}
+.SearchBox-button {
+    display: flex;
+    border-radius: 50%;
+    padding-left: 15px;
+    width: 48px;
+    height: var(calc(--height));
+    background-color: var(--primary-color);
+    border: 10px --secondary-color;
+    transition: .3s;
+}
+
+.SearchBox-button:hover  {
+    background-color: var(--secondary-color);
+}
+
+#SearchBox-icon {
+    margin: 0 auto;
+    height: 20px;
+    color: #fff;
+}
+
+@media screen and (min-width: 400px){
+    .SearchBox:hover .SearchBox-input {
+        width: 350px;
+	}
+}
+/*End of copied snippet*/
+#searchFeedback {
+    text-align: center;
+    margin-bottom: 0;
+    display: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: none;
+    -webkit-text-fill-color: var(--text-color2);
+    -webkit-box-shadow: 0 0 0 30px var(--bg-color1) inset !important;
+}
