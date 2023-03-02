@@ -1,4 +1,3 @@
-/*Copied from https://templateyou.com/free-css-search-boxes/*/
 input, button, #searchFrom {
     border: none;
 	background: none;
@@ -11,7 +10,6 @@ button {cursor: pointer}
 	opacity: .6;
 }
 
-/* Chrome, Opera ySafari */
 .SearchBox-input::-webkit-input-placeholder {
     color: var(--text-color2);
 }
@@ -19,6 +17,7 @@ button {cursor: pointer}
 .SearchBox, #searchFrom {
     --height: 3em;
     margin: 0 auto;
+    justify-content: center;
 	display: flex;
 	border-radius: 25px;
 	background-color: var(--bg-color1);
@@ -30,7 +29,7 @@ button {cursor: pointer}
     padding-right: 1em;
     border-radius: 25px;
     width: 240px;
-    font-size: 1.2em;
+    font-size: 1em;
     color: var(--text-color2);
     transition: .45s;
 }
@@ -60,7 +59,7 @@ button {cursor: pointer}
         width: 350px;
 	}
 }
-/*End of copied snippet*/
+
 #searchFeedback {
     text-align: center;
     margin-bottom: 0;

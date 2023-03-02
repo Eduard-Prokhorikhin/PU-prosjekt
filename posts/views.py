@@ -7,36 +7,42 @@ from .models import *
 from .forms import NewPostForm
 
 # Create your views here.
-def index(request):
 
-    post_list = Post.objects.all().order_by('status', '-pub_date')
-    rental_list = Rental.objects.all().values_list('post')
-    print(rental_list)
+
+def index(request):
+    if (request.GET.get('search') == None):
+        post_list = Post.objects.all().order_by('status', '-pub_date')
+    else:
+        post_list = Post.objects.filter(title__contains=request.GET.get(
+            'search')).order_by('status', '-pub_date')
+    # rental_list = Rental.objects.all().values_list('post')
+    # print(rental_list)
     # To search for a specific post
     # post_list = Post.objects.filter(title__contains='')
 
     context = {
         'title': 'Annonser',
         'post_list': post_list,
-        'rental_list': rental_list,
     }
 
     return render(request, 'posts.html', context=context)
+
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     try:
         rental = Rental.objects.get(post=pk)
-        
+
     except:
         rental = None
-        
+
     context = {
         'post': post,
         'rental': rental,
     }
 
     return render(request, 'post_detail.html', context=context)
+
 
 @login_required
 def new_post(request, pk=None):
@@ -46,7 +52,7 @@ def new_post(request, pk=None):
 
         if form.is_valid():
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    
+
     else:
         if pk:
             post = Post.objects.get(pk=pk)
@@ -55,6 +61,7 @@ def new_post(request, pk=None):
             form = NewPostForm()
 
     return render(request, 'new_post.html', {'form': form, 'post_id': pk})
+
 
 @login_required
 def create_post(request, pk=None):
@@ -74,8 +81,17 @@ def create_post(request, pk=None):
         Post.objects.create(
             title=post['title'],
             text=post['text'],
-            author=User.objects.get(pk=request.user.id), 
+            author=User.objects.get(pk=request.user.id),
             image=post['image'],
         )
 
     return HttpResponseRedirect('/posts/')
+
+
+def search(request):
+    if request.method == 'GET':
+        results = Post.objects.filter(title=request)
+        if results.count():
+            context['results'] = results
+        else:
+            context['no_results'] = request
