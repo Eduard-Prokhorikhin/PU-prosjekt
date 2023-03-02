@@ -5,24 +5,21 @@
         <br>
         {% csrf_token %}
         <div>
-        <input id="id_firstname" type="text" placeholder="Fornavn" name="firstname" required>
-        <input id="id_lastname" type="text" placeholder="Etternavn" name="lastname" required>
+            <input id="id_firstname" type="text" placeholder="Fornavn" name="firstname" required>
+            <input id="id_lastname" type="text" placeholder="Etternavn" name="lastname" required>
         </div>
         <div>
-        <input id="id_phone" type="text" placeholder="Tlf. Nr" name="phone" required>
-        <input id="id_email" type="text" placeholder="E-post" name="email" required>
+            <input id="id_email" type="email" placeholder="E-post" name="email" autocomplete="email" required>
+            <input id="id_phone" type="text" placeholder="Tlf. Nr" name="phone" autocomplete="mobile" required>
         </div>
         <div>
-        <input id="id_password1" type="password" placeholder="Passord" name="password1" required>
+            <input id="id_password1" type="password" placeholder="Passord" name="password1" autocomplete="new-password" required>
         </div>
         <div>
-        <input id="id_password2" type="password" placeholder="Bekreft Passord" name="password2" required>
+            <input id="id_password2" type="password" placeholder="Bekreft Passord" name="password2" autocomplete="new-password" required>
         </div>
         <button type="submit" class="confirmButton">Opprett bruker</button>
-        <p>Allerede bruker?
-
-            <a style="text-decoration: underline;" href={% url 'login' %}>Log inn</a>
-            </p>
+        <p>Allerede bruker? <a href="{% url 'login' %}">Logg inn</a></p>
         
     </form>
 {% endblock %}
