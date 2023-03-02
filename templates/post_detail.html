@@ -5,11 +5,17 @@
         <a href="{% url 'posts' %}">⇦ Gå tilbake</a>
         <div class="post_content">
             <h1>{{ post.title }}</h1>
-            <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
-
             <p>{{ post.text }}</p>
 
-            <p>Mer informasjon kommer...</p>
+            <br>
+            <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
+
+            <br>
+            <h2>Kontaktinformasjon</h2>
+            <p>Navn: {{ post.author.firstname }} {{ post.author.lastname }}</p>
+            <p>E-post: {{ post.author }}</p>
+            <p>Telefonnummer: {{ post.author.phone }}</p>
+            
         </div>
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">

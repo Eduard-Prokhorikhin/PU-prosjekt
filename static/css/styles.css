@@ -149,6 +149,8 @@ a:hover {
     border-radius: 10px;
 }
 
+
+
 .post_detail {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -156,9 +158,14 @@ a:hover {
 .post_detail > .post_content {
     grid-column: 1 / 1;
 }
+
 .post_detail > img, .post_detail > button, .post_detail > .btn {
     grid-column: 2 / 2;
     width: 100%;
+}
+
+.post_content > h1 {
+    margin-left: 0;
 }
 
 /* Copied from https://templateyou.com/free-css-search-boxes/
