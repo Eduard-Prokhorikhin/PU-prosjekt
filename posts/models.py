@@ -65,7 +65,12 @@ class Post(models.Model):
             img.save(thumb_io, 'jpeg', quality=50)
             new_image = File(thumb_io, name=image.name)
             return new_image
+    
 
-class Rental(models.Model):
+class RentRequest(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     renter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    start_date = models.DateTimeField('date rented', default=datetime.now())
+    end_date = models.DateTimeField('date returned', null=True, blank=True)
+    status = models.CharField(max_length=200, choices=[('PENDING', 'pending'), ('ACCEPTED', 'accepted'), ('REJECTED', 'rejected')], default='ACCEPTED') #Må endres til pending
+    description = models.TextField(null=True, blank=True)

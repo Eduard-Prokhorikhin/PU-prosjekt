@@ -4,13 +4,14 @@ from datetime import date
 from django.contrib.auth.decorators import login_required
 
 from .models import *
-from .forms import NewPostForm
+from .forms import NewPostForm, RentRequestForm
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
 
     post_list = Post.objects.all().order_by('status', '-pub_date')
-    rental_list = Rental.objects.all().values_list('post')
+    rental_list = RentRequest.objects.all().values_list('post')
     print(rental_list)
     # To search for a specific post
     # post_list = Post.objects.filter(title__contains='')
@@ -26,7 +27,7 @@ def index(request):
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     try:
-        rental = Rental.objects.get(post=pk)
+        rental = RentRequest.objects.get(post=pk)
         
     except:
         rental = None
@@ -79,3 +80,32 @@ def create_post(request, pk=None):
         )
 
     return HttpResponseRedirect('/posts/')
+
+@login_required
+def rent_product(request, pk):
+    form = RentRequestForm()
+    if request.method == "POST":
+        form = RentRequestForm(request.POST)
+        if form.is_valid():
+            RentRequest.objects.create(
+                post= Post.objects.get(pk=pk),
+                renter=User.objects.get(pk=request.user.id),
+                start_date=form.cleaned_data['start_date'],
+                end_date=form.cleaned_data['end_date'],
+                description=form.cleaned_data['description'],
+                status = "ACCEPTED", #må settes til pending
+            )
+            # må fjernes når vi kan godkjenne forespørsler
+            post = Post.objects.get(pk=pk)
+            post.status = "UNAVAILABLE" 
+            post.save()
+            #
+            messages.success = "Forespørsel sendt inn"
+            return redirect("/posts/")
+        else:
+            messages.error = "Ugyldig skjema"
+    return render(request, 'rent_product.html', {'form': form})
+
+
+
+        
