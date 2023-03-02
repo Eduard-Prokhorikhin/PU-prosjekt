@@ -7,8 +7,9 @@
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'images/fant_logo_ball.png' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
     <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
@@ -30,6 +31,7 @@
         </ul>
         {% endif %}
     </div>
+
     <div class="content">
         {% block content %}
             <!-- This is where the content comes in -->

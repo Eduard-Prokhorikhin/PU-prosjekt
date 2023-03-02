@@ -1,3 +1,35 @@
+/*
+ * Q: Er det nødvendig å skille på register- og loginFormWrapper?
+ * Q: Hva gjør ::placeholder?
+ * Q: Må .confirmButton være spesielt designet?
+ * Q: Hvor viktig er det at .newPostForm > button er 60% bred?
+ */
+
+
+textarea {
+    resize: none;
+}
+
+::placeholder {
+    color: var(--text-color1);
+    font-weight: bold;
+    opacity: 100%;
+}
+
+.confirmButton {
+    background-color: var(--secondary-color); 
+    color: var(--text-color1);
+    font-weight: bold;
+    border-radius: 10px; 
+    margin-top: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    margin: auto;
+}
+
+
+/* - - - NEWPOSTFORM - - - */
 .newPostForm {
     display: flex;
     flex-direction: column;
@@ -5,25 +37,8 @@
     gap: 0.75rem;
 }
 
-h1 {
-    margin-left: 1rem;
-}
-
 .newPostForm > button {
-    background: var(--secondary-color);
-    color: var(--text-color1);
-    border: none;
-    border-radius: 5px;
-    padding: 1rem;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    align-items: center;
-    grid-template-columns: none;
-    margin-top: 2rem;
     width: 60%;
-    text-align: center !important;
 }
 
 .newPostForm > input[type=text], .newPostForm > textarea {
@@ -39,104 +54,71 @@ h1 {
     border-radius: 2px;
     outline: none;
 }
+/* - - - END NEWPOSTFORM - - - */
 
-/*.newPostForm > #image-clear_id, .newPostForm > label[for=image-clear_id] {
-    display: none;
-}*/
 
-.loginFormWrapper{
+/* - - - REGISTER- and LOGINFORMWRAPPER - - - */
+.registerFormWrapper, .loginFormWrapper {
     display: flex;
-    flex-direction: column;
     padding: 2rem;
     background: var(--bg-color2);
     border-radius: 20px;
     border-color: black;
     border-style: solid;
     margin: 0 auto;
+
+    flex-direction: column;
 }
 
-.loginFormWrapper > input{
-    background-color: var(--primary-color);
-    border-radius: 10px;
-    padding: 0.8rem;
-    margin: 1rem 0;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    color: var(--text-color1);
-    font-size: large;
-}
-::placeholder {
-    color: var(--text-color1);
-    font-weight: bold;
-    opacity: 100%;
-}
-
-
-.loginFormWrapper > h1{
-    color: var(--secondary-color);
-    margin-top: 0;
-}
-.loginFormWrapper > p{
-    margin: auto;
-    padding: 1rem;
-    padding-top: 0;
-}
-
-.confirmButton {
-    background-color: var(--secondary-color); 
-    color: var(--text-color1);
-    font-weight: bold;
-    border-radius: 10px; 
-    margin-top: 30px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    margin: auto;
-}
-
-.registerFormWrapper{
-    display: flex;
+.registerFormWrapper {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 2rem;
-    background: var(--bg-color2);
-    border-radius: 20px;
-    border-color: black;
-    border-style: solid;
-    margin: 0 auto;
 }
 
-.registerFormWrapper > div > h1{
-    color: var(--secondary-color);
-    padding: 0;
-    margin: 0;
-}
-
-.registerFormWrapper > div{
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    width: 50%;
-    margin: 0;
-}
-.registerFormWrapper > div > input, .registerFormWrapper > input{
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+.registerFormWrapper input,
+.loginFormWrapper input {
     background-color: var(--primary-color);
+    -webkit-box-shadow: 0 0 0px 1000px var(--primary-color) inset; /* To prevent default browser background color */
+    color: var(--text-color1);
+    -webkit-text-fill-color: var(--text-color1);
+    font-size: 1.2rem;
+    border: 1px solid black;
     border-radius: 10px;
     padding: 0.8rem;
     margin: 1rem 0;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    color: var(--text-color1);
-    font-size: large;
 }
 
-.registerFormWrapper > p{
+.registerFormWrapper > p, .loginFormWrapper > p {
     margin: auto;
     width: 100%;
     text-align: center;
     padding: 1rem;
     color: var(--secondary-color);
 }
+
+.registerFormWrapper h1, .loginFormWrapper > h1 {
+    color: var(--secondary-color);
+    padding: 0;
+    margin: 0;
+}
+
+.loginFormWrapper > p {
+    padding-top: 0;
+}
+
+.registerFormWrapper a, .loginFormWrapper > a {
+    text-decoration: underline;
+}
+
+.registerFormWrapper > div {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 50%;
+    margin: 0;
+}
+/* - - - END REGISTER- and LOGINFORMWRAPPER - - - */
