@@ -1,0 +1,21 @@
+#profilePage {
+    display: grid;
+    grid-template-columns: auto 200px;
+}
+
+#profileActions {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    grid-column: 2;
+}
+
+#profilePosts h3 {
+    user-select: none;
+}
+
+#profilePosts h3 > span {
+    margin-right: 1rem;
+    float: right;
+}
