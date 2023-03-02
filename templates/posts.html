@@ -4,8 +4,12 @@
   {% include "search.html" %}
   <h1>{{ title }}</h1>
   <div class="posts_container">
-    {% for post in post_list %}
-      {% include "single_post.html" with post=post %}
-    {% endfor %}
+    {% if post_list %}
+      {% for post in post_list %}
+        {% include "single_post.html" with post=post %}
+      {% endfor %}
+    {% else %}
+      <p>Ingen annonser matcher søket ditt.</p>
+    {% endif %}
   </div>
 {% endblock %}
