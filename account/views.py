@@ -12,7 +12,7 @@ def profilePage(request):
     context = {
         'rentalPosts': RentRequest.objects.filter(post__in=Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date')),
         'rentedPosts': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
-        'rentals': Post.objects.filter(rental__in=RentRequest.objects.filter(renter=request.user), status='UNAVAILABLE').order_by('-pub_date'),
+        'rentals': Post.objects.filter(rentrequest__in=RentRequest.objects.filter(renter=request.user), status='UNAVAILABLE').order_by('-pub_date'),
         'posts': Post.objects.filter(author=request.user, status='AVAILABLE').order_by('-pub_date')
     }
     return render(request, 'profile.html', context)
