@@ -27,14 +27,14 @@ def index(request):
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     try:
-        rental = RentRequest.objects.get(post=pk)
+        rentals = RentRequest.objects.filter(post=post)
         
     except:
         rental = None
         
     context = {
         'post': post,
-        'rental': rental,
+        'rentals': rentals,
     }
 
     return render(request, 'post_detail.html', context=context)
