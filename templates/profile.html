@@ -16,7 +16,7 @@
         
         <div id="profilePosts">
             <hr>
-            {% if rentedPosts.count > 0 %}
+            {% comment %} {% if rentedPosts.count > 0 %}
                 <h3 class="accordion">Utleide annonser<span>▲</span></h3>
                 <div class="posts_container">
                     {% for rental in rentalPosts %}
@@ -33,9 +33,9 @@
                     {% endfor %}
                 </div>
                 <hr>
-            {% endif %}
+            {% endif %} {% endcomment %}
             {% if rentals.count > 0 %}
-                <h3 class="accordion">Dine leieforhold<span>▲</span></h3>
+                <h3 class="accordion">Du leier<span>▲</span></h3>
                 <div class="posts_container">
                     {% for post in rentals %}
                         <div class="single_post">

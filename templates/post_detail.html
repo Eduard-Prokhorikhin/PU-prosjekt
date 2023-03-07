@@ -20,4 +20,14 @@
             <a class="btn disabled" href="" onclick="event.preventDefault()">Produktet er utleid for øyeblikket...</a>
         {% endif %}
     </div>
+    {% if request.user == post.author %}
+        <div class="rentalStatus">
+            {% for rental in rentals %}
+                <div>
+                    <h2>Leietaker: {{ rental.renter.firstname }} {{ rental.renter.lastname }}</h2>
+                    <h2>Leieperiode: {{ rental.start_date }} {{ rental.end_date }}</h2>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
