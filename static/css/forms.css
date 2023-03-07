@@ -30,6 +30,11 @@ textarea {
 
 
 /* - - - NEWPOSTFORM - - - */
+.new_post {
+    width: 600px;
+    min-width: fit-content;
+}
+
 .newPostForm {
     display: flex;
     flex-direction: column;
@@ -37,13 +42,8 @@ textarea {
     gap: 0.75rem;
 }
 
-.newPostForm > button {
-    width: 60%;
-}
-
 .newPostForm > input[type=text], .newPostForm > textarea {
     margin-bottom: 1rem;
-    width: 60%;
     font-size: 1rem;
     border: 1.5px solid var(--text-color2);
     border-radius: 2px;

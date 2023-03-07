@@ -9,8 +9,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
-    justify-items: stretch;
-    align-items: start;
+    justify-content: stretch;
 }
 
 /* Q: Er denne virkelig nødvendig? */
