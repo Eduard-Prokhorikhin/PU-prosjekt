@@ -30,7 +30,6 @@ def index(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
-    next = request.META.get('HTTP_REFERER')
     try:
         rental = Rental.objects.get(post=pk)
 
@@ -39,8 +38,7 @@ def post_detail(request, pk):
 
     context = {
         'post': post,
-        'rental': rental,
-        'next': next,
+        'rental': rental
     }
 
     return render(request, 'post_detail.html', context=context)
