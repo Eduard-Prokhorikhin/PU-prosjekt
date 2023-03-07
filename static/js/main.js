@@ -39,6 +39,7 @@ for (let i = 0; i < acc.length; i++) {
 
 // Dark Mode
 let darkMode = false;
+const darkModeButton = document.getElementById("darkmode_button");
 
 const lightcolors = {
     '--primary-color': '#ffcd80',
@@ -60,24 +61,40 @@ const darkcolors = {
     '--text-color2': '#fff'
 };
 
-function toggleDarkMode() {
-    if (darkMode) {
+function enableDarkMode(bool) {
+    if (bool) {
+        localStorage.setItem("isDarkMode", "1");
+        darkModeButton.classList.remove("fa-sun");
+        darkModeButton.classList.add("fa-moon");
         for (let color in lightcolors) {
             document.documentElement.style.setProperty(color, lightcolors[color]);
         }
     } else {
+        localStorage.setItem("isDarkMode", "0");
+        darkModeButton.classList.remove("fa-moon");
+        darkModeButton.classList.add("fa-sun");
         for (let color in darkcolors) {
             document.documentElement.style.setProperty(color, darkcolors[color]);
         }
     }
-    darkMode = !darkMode;
 }
 
+function toggleDarkMode() {
+    darkMode = !darkMode;
+    enableDarkMode(darkMode);
+}
+
+// Initialize darkmode setting
+darkMode = localStorage.getItem("isDarkMode") == "1" ? true : false;
+enableDarkMode(darkMode);
+
+/* Disabled for now
 document.getElementById("headerInputField").addEventListener("keypress", event => {
     if (event.key == "d") {
         toggleDarkMode();
     }
 });
+*/
 // End Dark Mode
 
 
