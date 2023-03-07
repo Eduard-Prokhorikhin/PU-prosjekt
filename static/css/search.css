@@ -1,4 +1,4 @@
-input, button, #searchFrom {
+#searchFrom input, #searchFrom {
     border: none;
 	background: none;
 	outline: 0;
@@ -37,9 +37,8 @@ input, button, #searchFrom {
     border-radius: 50%;
     padding-left: 15px;
     width: 48px;
-    height: var(calc(--height));
+    height: var(--height);
     background-color: var(--primary-color);
-    border: 10px --secondary-color;
     transition: .3s;
 }
 
