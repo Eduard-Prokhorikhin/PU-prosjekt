@@ -1,0 +1,124 @@
+/*
+ * Q: Er det nødvendig å skille på register- og loginFormWrapper?
+ * Q: Hva gjør ::placeholder?
+ * Q: Må .confirmButton være spesielt designet?
+ * Q: Hvor viktig er det at .newPostForm > button er 60% bred?
+ */
+
+
+textarea {
+    resize: none;
+}
+
+::placeholder {
+    color: var(--text-color1);
+    font-weight: bold;
+    opacity: 100%;
+}
+
+.confirmButton {
+    background-color: var(--secondary-color); 
+    color: var(--text-color1);
+    font-weight: bold;
+    border-radius: 10px; 
+    margin-top: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    margin: auto;
+}
+
+
+/* - - - NEWPOSTFORM - - - */
+.new_post {
+    width: 600px;
+    min-width: fit-content;
+}
+
+.newPostForm {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.75rem;
+}
+
+.newPostForm > input[type=text], .newPostForm > textarea {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border: 1.5px solid var(--text-color2);
+    border-radius: 2px;
+}
+
+.newPostForm > input[type=text]:focus, .newPostForm > textarea:focus {
+    border: 1.5px solid var(--secondary-color);
+    border-radius: 2px;
+    outline: none;
+}
+/* - - - END NEWPOSTFORM - - - */
+
+
+/* - - - REGISTER- and LOGINFORMWRAPPER - - - */
+.registerFormWrapper, .loginFormWrapper {
+    display: flex;
+    padding: 2rem;
+    background: var(--bg-color2);
+    border-radius: 20px;
+    border-color: black;
+    border-style: solid;
+    margin: 0 auto;
+
+    flex-direction: column;
+}
+
+.registerFormWrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+.registerFormWrapper input,
+.loginFormWrapper input {
+    background-color: var(--primary-color);
+    -webkit-box-shadow: 0 0 0px 1000px var(--primary-color) inset; /* To prevent default browser background color */
+    color: var(--text-color1);
+    -webkit-text-fill-color: var(--text-color1);
+    font-size: 1.2rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin: 1rem 0;
+}
+
+.registerFormWrapper > p, .loginFormWrapper > p {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    color: var(--secondary-color);
+}
+
+.registerFormWrapper h1, .loginFormWrapper > h1 {
+    color: var(--secondary-color);
+    padding: 0;
+    margin: 0;
+}
+
+.loginFormWrapper > p {
+    padding-top: 0;
+}
+
+.registerFormWrapper a, .loginFormWrapper > a {
+    text-decoration: underline;
+}
+
+.registerFormWrapper > div {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 50%;
+    margin: 0;
+}
+/* - - - END REGISTER- and LOGINFORMWRAPPER - - - */

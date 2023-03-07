@@ -1,0 +1,20 @@
+{% block content %}
+<div class="navContainer footerContainer">
+    <footer>
+        {% load static %}
+        <div class="footerElement">
+            <img id="headerLogoImage" src="{% static 'images/fant_logo.png' %}" alt="Fant Logo" />
+            <a href="{% url 'posts' %}"></a>
+        </div>
+        
+
+        <div class="footerElement" id="headerNewPostButton">
+            <p>Laget av:</p>
+        </div>
+        
+        <div class="footerElement" id="headerUserButton">
+            <p>Gruppe 44</p>
+        </div>
+    </footer>
+</div>
+{% endblock %}

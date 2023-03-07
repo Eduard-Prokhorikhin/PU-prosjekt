@@ -1,0 +1,75 @@
+{% extends "page.html" %}
+{% block content %}
+    <div id="profilePage">
+        <div id="profileInfo">
+            <h1>Hei, {{ request.user.firstname }}!</h1>
+            <h3>Din kontaktinformasjon:</h3>
+            <p>Epost: {{ request.user }}</p>
+            <p>Telefon: {{ request.user.phone }}</p>    
+        </div>
+        
+        <div id="profileActions">
+            <a class="btn" href="{% url 'logout' %}">Logg ut</a>
+            <a class="btn" href="" onclick="alert('Denne funksjonaliteten er ikke implentert enda...')">Endre profil</a>
+            <a class="btn" href="{% url 'new_post' %}">Legg til ny annonse</a>
+        </div>
+        
+        <div id="profilePosts">
+            <hr>
+            {% if rentedPosts.count > 0 %}
+                <h3 class="accordion">Utleide annonser<span>▲</span></h3>
+                <div class="posts_container">
+                    {% for rental in rentalPosts %}
+                        <div class="single_post">
+                            {% if rental.post.image %}
+                                <img src="{{ rental.post.image.url }}" alt="{{ rental.post.title }}">
+                            {% endif %}
+                            <h3>{{ rental.post.title }}</h3>
+                            <p>Utleid til: {{ rental.renter.firstname }} {{ rental.renter.lastname }}</p>
+                            <a class="btn" href="{% url 'new_post' rental.post.id %}">Endre</a>
+                            <a class="btn endRental" href="{% url 'endRental' rental.post.id %}">Avslutt leie</a>
+                            <a href="/posts/{{ rental.post.id }}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endif %}
+            {% if rentals.count > 0 %}
+                <h3 class="accordion">Dine leieforhold<span>▲</span></h3>
+                <div class="posts_container">
+                    {% for post in rentals %}
+                        <div class="single_post">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% endif %}
+                            <h3>{{ post.title }}</h3>
+                            <p>Leid av: {{ post.author.firstname }} {{ post.author.lastname }}</p>
+                            <a class="btn endRental" href="{% url 'endRental' post.id %}">Avslutt leie</a>
+                            <a href="/posts/{{ post.id }}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endif %}
+            <h3 class="accordion">Dine annonser<span>▲</span></h3>
+            <div class="posts_container">
+                {% if posts.count == 0 %}
+                    <p>Du har ingen annonser enda...</p>
+                {% else %}
+                    {% for post in posts %}
+                        <div class="single_post">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% endif %}
+                            <h3>{{ post.title }}</h3>
+                            <a class="btn" href="{% url 'new_post' post.id %}">Endre</a>
+                            <a href="/posts/{{ post.id }}"></a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <hr>
+        </div>
+    </div>
+    
+{% endblock %}

@@ -7,6 +7,7 @@
 - [Legge til modeller i DB](#legge-til-nye-modeller-i-databasen)
 - [Databasespørringer](#databasespørringer)
 - [Oppsett av HTML-sider](#oppsett-av-html-sider)
+- [How to CSS](#how-to-css)
 
 ## How to set up (and run) Django
 
@@ -40,7 +41,7 @@ You can now find the server at localhost:8080
 
    Her kan du legge til en ny model slik:
 
-   ```
+   ```python
    class User(models.Model):
        name = models.CharField(max_length=200)
        email = models.CharField(max_length=200)
@@ -49,7 +50,7 @@ You can now find the server at localhost:8080
 
 2. Endre på `min_mappe/apps.py` ved å legge til:
 
-   ```
+   ```python
    class Min_mappeConfig(AppConfig):
        default_auto_field = "django.db.models.BigAutoField"
        name = "min_mappe"
@@ -57,7 +58,7 @@ You can now find the server at localhost:8080
 
 3. Endre på `fant/settings.py` under INSTALLED_APPS hvor du legger til `min_mappe.apps.Min_mappeConfig`, slik at du får noe lignende som dette:
 
-   ```
+   ```python
    INSTALLED_APPS = [
        'min_mappe.apps.Min_mappeConfig',
        'django.contrib.admin',
@@ -114,13 +115,13 @@ For å sette opp en ny side er det tre (fire) filer du skal redigere.
 
 1.  Opprett en ny HTML-fil under `templates` i rot-mappen. Her kan du legge inn vanlig HTML eller lage dynamisk innhold som tar inn argumenter. Her er de vanligste eksemplene på dynamisk innhold (filnavn: `post_detail.html`):
 
-         {% extends "page.html" %}
-
-         {% block content %}
-            <h1>{{ post.title }}</h1>
-            <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
-            <p>{{ post.text }}</p>
-         {% endblock %}
+    ```html
+    {% extends "page.html" %} {% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
+    <p>{{ post.text }}</p>
+    {% endblock %}
+    ```
 
     - I dette tilfellet sier vi med `{% extends "page.html" %}` at denne siden skal lastes inn som en del av `page.html` som i vårt tilfelle inneholder en header og `{% block content %}{% endblock %}` som signaliserer hvor innholdet skal plasseres.
     - `{% block content %}{% endblock %}` er hvor selve innholdet til HTML-siden skal lastes. Her har vi input post som av typen ([modellen](#legge-til-nye-modeller-i-databasen)) Post. Dette gjør at vi kan bruke variabel-parenteser `{{ variabel her }}` til å plassere dynamisk innhold basert på input.
@@ -128,14 +129,16 @@ For å sette opp en ny side er det tre (fire) filer du skal redigere.
 
 2.  I `posts/views.py` må vi fortelle applikasjonen hvordan den skal åpne en HTML-side. Dette gjør vi ved å definere en funksjon som tar inn parameteret `request` (kan også ta inn flere parametere).
 
-         def post_detail(request, pk):
-            post = Post.objects.get(pk=pk)
+    ```python
+    def post_detail(request, pk):
+       post = Post.objects.get(pk=pk)
 
-            components = {
-               'post': post,
-            }
+       components = {
+          'post': post,
+       }
 
-            return render(request, 'post_detail.html', context=components)
+       return render(request, 'post_detail.html', context=components)
+    ```
 
     - Her Har vi det ekstra parameteret `pk` som vi bruker til å finne den tilhørende posten og sender denne til `render()`-funksjonen i `components`-dictionary.
     - Når HTML-filen i punkt 1 refererer til `post` er det denne dictionary den slår opp i for å finne variabelen.
@@ -144,12 +147,14 @@ For å sette opp en ny side er det tre (fire) filer du skal redigere.
 
     - `posts/urls.py`:
 
-            from . import views
+      ```python
+      from . import views
 
-            urlpatterns = [
-               path('', views.index, name='index'),
-               path('<int:pk>/', views.post_detail, name='post_detail'),
-            ]
+      urlpatterns = [
+         path('', views.index, name='index'),
+         path('<int:pk>/', views.post_detail, name='post_detail'),
+      ]
+      ```
 
       - Vi importerer `views.py` fra mappen vi befinner oss i for å kunne referere til de viewene vi definerte i punkt 2.
 
@@ -163,14 +168,16 @@ For å sette opp en ny side er det tre (fire) filer du skal redigere.
 
     - `fant/urls.py`:
 
-            from . import views
+      ```python
+      from . import views
 
-            urlpatterns = [
-               path('', views.index, name='index'),
-               path('posts/', include('posts.urls'), name='posts'),
-               path('post/', include('posts.urls'), name='post_detail'),
-               path('admin/', admin.site.urls),
-            ]
+      urlpatterns = [
+         path('', views.index, name='index'),
+         path('posts/', include('posts.urls'), name='posts'),
+         path('post/', include('posts.urls'), name='post_detail'),
+         path('admin/', admin.site.urls),
+      ]
+      ```
 
       - Vi har også her en indeks-path som fanger alle tilfeller hvor det ikke er noen ytterligere slug.
 
@@ -183,3 +190,33 @@ For å sette opp en ny side er det tre (fire) filer du skal redigere.
   2.  `posts/urls.py` henter definisjonen for hvordan man setter opp en side i `posts_detail`-funksjonen som er definert i `posts/views.py`. Her fylles også parameteret `pk` inn som heltallet "3".
 
   3.  Siden lastes med de tilhørende dataene til databasens post med pk=3, i formatet definert i `post_detail.html`.
+
+## How to CSS
+
+There are plenty of ways to use CSS for styling, but please use these rules to prevent technical dept in form of weekly cleanups...
+
+### Rules to code CSS by:
+
+1.  ### DO NOT USE INLINE STYLING !
+2.  NEVER BREAK RULE 1 !
+3.  Do not blindly copy/paste styling from the internet just because it looks cool and you don't understand it. Understand it and implement the parts you want for our website while considering the rules below.
+4.  Use informative classnames and IDs (use comments instead if an informative name would exceed 25 characters)
+5.  Check if a similar styling exists in a stylesheet
+    - If yes: try to use this instead of creating a new one
+    - If no: try to combine existing styles or see if there are other parts where this styling should be implemented
+6.  If you are making a completely new feature or page; make a new stylesheet to gather all relevant styling in one file
+7.  If you add a new feature or page, but does not have enough code to create a new stylesheet; encapsulate your new styling inside comments to make navigating easier:
+
+```css
+[Some existing code...]
+
+/* - - - My new styling - - - */
+
+.yourClass {
+   your styling goes here...
+}
+
+/* - - - END My new styling - - - */
+
+[Some more existing code...]
+```

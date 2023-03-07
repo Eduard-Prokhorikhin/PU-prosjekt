@@ -28,18 +28,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "posts.User"
+
+LOGIN_URL = 'login'
 
 # Application definition
 
 INSTALLED_APPS = [
     'posts.apps.PostsConfig',
+    'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
