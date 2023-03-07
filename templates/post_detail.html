@@ -13,9 +13,10 @@
             <br>
             <h2>Kontaktinformasjon</h2>
             <p>Navn: {{ post.author.firstname }} {{ post.author.lastname }}</p>
-            <p>E-post: {{ post.author }}</p>
-            <p>Telefonnummer: {{ post.author.phone }}</p>
-            
+            <p>E-post: <a href="mailto:{{ post.author }}">{{ post.author }}</a></p>
+            <p>Telefonnummer: <a href="tel:{{ post.author.phone }}">{{ post.author.phone }}</a></p>
+            <a href="{% url 'renter_detail' post.author.id %}">Vis utleierprofil</a>
+
         </div>
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">

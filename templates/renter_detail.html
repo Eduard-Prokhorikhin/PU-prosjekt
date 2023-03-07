@@ -1,0 +1,27 @@
+{% extends "page.html" %}
+
+{% block content %}
+    <div class="renter_detail">
+        <a href="{{ next }}">⇦ Gå tilbake</a>
+        <h1> {{ user.firstname }} {{ user.lastname }}</h1>
+        <p>E-post: <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+        <p>Telefonnummer: <a href="tel:{{ user.phone }}">{{ user.phone }}</a></p>
+
+        <br>
+        {% if user_posts.count > 0 %}
+                <h3 class="accordion">Aktive annonser fra denne utleieren</h3>
+                <div class="posts_container">
+                    {% for post in user_posts %}
+                        <div class="single_post">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% endif %}
+                            <h3>{{ post.title }}</h3>
+                            <a href="/posts/{{ post.id }}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endif %}
+    </div>
+{% endblock %}
