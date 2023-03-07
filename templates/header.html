@@ -1,15 +1,20 @@
 {% block content %}
-    <div id="headerContainer">
+    <div class="navContainer headerContainer">
         <header>
             {% load static %}
+            <div class="headerElement">
+                <img src="{% static 'images/fant_logo.png' %}">
+                <a href="{% url 'posts' %}"></a>
+            </div>
+            <!-- Hidden cheatcodes not implemented
             <div id="headerInputContainer" class="headerElement">
-                <div>
-                    <img id="headerInputImage" src="{% static 'images/fant_logo_tekst.png' %}">
-                    
-                </div>
+                <img id="headerInputImage" src="{% static 'images/fant_logo_tekst.png' %}">
                 <input id="headerInputField" onclick="event.stopPropagation()" type="text" />
                 <a href="{% url 'posts' %}"></a>
             </div>
+            -->
+
+            <i onclick="toggleDarkMode()" id="darkmode_button" title="Toggle darkmode" class="fa-solid fa-moon"></i>
 
             <div class="headerElement" id="headerNewPostButton">
                 <i id="plusSign" class="fa-solid fa-plus"></i>Ny annonse

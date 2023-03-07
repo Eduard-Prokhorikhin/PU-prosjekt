@@ -1,14 +1,28 @@
-#headerContainer {
+/*
+ * TODO: Se om noe trenger responsivitet
+ */
+
+
+.navContainer {
     height: 100px;
     width: 100%;
     background: var(--bg-color2);
     z-index: 10; 
-    position: sticky;
-    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
-    overflow: hidden;
 }
 
-header {
+.headerContainer {
+    position: sticky;
+    top: 0;
+    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
+}
+
+.footerContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(0,0,0,0.3);
+}
+
+header, footer {
     height: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -17,10 +31,11 @@ header {
     grid-template-columns: min-content auto min-content min-content;
     align-items: center;
 }
+
 #headerNewPostButton {grid-column: 3;}
 #headerUserButton {grid-column: 4;}
 
-header > * {
+header > *, footer > * {
     height: 100%;
     min-width: max-content;
     margin: auto 1rem;
@@ -28,32 +43,37 @@ header > * {
     align-items: center;
 }
 
-header > div > * {
+header > div > *, footer > div > *  {
     float: right;
     display: flex;
     align-items: center;
 }
 
-header > *:hover {
+header > .headerElement:hover {
     border-top: 2px solid #0000;
     border-bottom: 2px solid var(--secondary-color);
     cursor: pointer;
     color: var(--secondary-color);
 }
 
-header svg {
+header i, footer i {
+    height: auto;
     font-size: 2rem;
+    width: 2rem;
     margin-right: 0.5rem;
+    cursor: pointer;
 }
 
 header a {
     display: none;
 }
 
-header #headerLogoImage, header #headerProfilePic {
+header img, footer img {
     height: 80px;
 }
 
+/* - - - Header hidden cheatcodes - - - */
+/* Currently not implemented */
 #headerInputContainer {
     position: relative;
     display: flex;
@@ -80,6 +100,8 @@ header #headerLogoImage, header #headerProfilePic {
     outline: none;
     width: 300px;
 }
+/* - - - END Header hidden cheatcodes - - - */
+
 
 @media screen and (max-width: 1250px) {
     #fantBruker {

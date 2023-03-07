@@ -1,17 +1,11 @@
 {% block content %}
-    <div class="SearchBox">
-        <input type="text" class="SearchBox-input" placeholder="Søk etter verktøy...">
-        
-        <button class="SearchBox-button">
-            <i id="SearchBox-icon" class="fa-solid fa-magnifying-glass">SØK</i>
-        </button>
-    </div>
-    <!-- <div id="filterSearch">
-        <div id="myDropdown" class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+    <form id="searchFrom" method="GET">
+        <div class="SearchBox">
+            <input type="text" class="SearchBox-input" placeholder="Søk etter verktøy..." name="search" value="{{request.GET.search}}" >
+
+            <button class="SearchBox-button">
+                <i id="SearchBox-icon" class="fa-solid fa-magnifying-glass"></i>
+            </button>
         </div>
-        <button id="filterSearchButton" onclick="dropdownFilter()" class="dropbtn">Filtrer søk</button>
-    </div> -->
+    </form>
 {% endblock %}
