@@ -88,3 +88,16 @@ def create_post(request, pk=None):
         )
 
     return HttpResponseRedirect('/posts/')
+
+def renter_detail(request, pk):
+    user = User.objects.get(pk=pk)
+    next = request.META.get('HTTP_REFERER')
+    user_posts = Post.objects.filter(author=request.user, status='AVAILABLE').order_by('-pub_date')
+    
+    context = {
+        'user': user,
+        'next': next,
+        'user_posts': user_posts
+    }
+
+    return render(request, 'renter_detail.html', context=context)
