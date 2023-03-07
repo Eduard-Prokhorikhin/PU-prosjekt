@@ -22,7 +22,7 @@
 }
 
 html, body {
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     background: var(--bg-color1);
@@ -57,13 +57,43 @@ a:hover {
 }
 
 #message_container {
-    box-sizing: content-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+#message_container > .overlay {
+    width: 100vw;
+    height: 100vh;
+    background: #0009;
+    cursor: pointer;
+}
+
+#message_container > #message {
     height: fit-content;
-    position: relative;
-    top: -2px;
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem 2rem 1rem 1rem;
     background: var(--bg-color1);
-    border: 1px solid #000;
+    border: 1px solid black;
+    border-radius: 10px;
     transition: all .2s ease-in-out;
+}
+
+#message > .close_button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color2);
+    cursor: pointer;
+    background: transparent;
 }
 
 .content {
