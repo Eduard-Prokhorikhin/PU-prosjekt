@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from datetime import date
+from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
 
 from .models import *
@@ -26,15 +26,24 @@ def index(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
-    try:
-        rentals = RentRequest.objects.filter(post=post)
+    rentedDays = []
+    
+    rentals = RentRequest.objects.filter(post=post)
+    for rental in rentals:
+        print(type(rental.start_date))
+        delta = rental.end_date - rental.start_date
         
-    except:
-        rental = None
-        
+        for i in range(delta.days + 1):
+            day = rental.start_date + timedelta(days=i)
+            rentedDays.append(day)
+
+    print("Rented days: ", rentedDays)
+    tuple(rentedDays)
+
     context = {
         'post': post,
         'rentals': rentals,
+        'rentedDays': rentedDays,
     }
 
     return render(request, 'post_detail.html', context=context)
