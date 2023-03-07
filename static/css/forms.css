@@ -5,7 +5,7 @@
     gap: 0.75rem;
 }
 
-h1 {
+.newPostForm > h1 {
     margin-left: 1rem;
 }
 
