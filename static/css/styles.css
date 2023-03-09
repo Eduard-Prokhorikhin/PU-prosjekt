@@ -98,7 +98,7 @@ a:hover {
 
 .content {
     max-width: 1200px;
-    min-height: calc(100% - 100px - 100px); /* 100% - header height - footer height */
+    min-height: calc(100vh - 100px - 100px); /* 100vh - header height - footer height */
     margin: 0 auto;
     padding: 16px 2rem 2rem 2rem;
     display: flex;

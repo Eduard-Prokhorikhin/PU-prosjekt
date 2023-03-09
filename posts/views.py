@@ -32,7 +32,6 @@ def index(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
-    next = request.META.get('HTTP_REFERER')
     try:
         rental = Rental.objects.get(post=pk)
 
@@ -41,8 +40,7 @@ def post_detail(request, pk):
 
     context = {
         'post': post,
-        'rental': rental,
-        'next': next,
+        'rental': rental
     }
 
     return render(request, 'post_detail.html', context=context)
@@ -90,3 +88,16 @@ def create_post(request, pk=None):
         )
 
     return HttpResponseRedirect('/posts/')
+
+def renter_detail(request, pk):
+    user = User.objects.get(pk=pk)
+    next = request.META.get('HTTP_REFERER')
+    user_posts = Post.objects.filter(author=user, status='AVAILABLE').order_by('-pub_date')
+    
+    context = {
+        'user': user,
+        'next': next,
+        'user_posts': user_posts
+    }
+
+    return render(request, 'renter_detail.html', context=context)
