@@ -152,7 +152,6 @@ a:hover {
 .post_detail {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    padding: 1rem;
 }
 .post_detail > .post_content {
     grid-column: 1 / 1;

@@ -21,14 +21,6 @@
         {% endif %}
     </div>
     {% if request.user == post.author %}
-        <div class="rentalStatus">
-            {% for rental in rentals %}
-                <div>
-                    <h2>Leietaker: {{ rental.renter.firstname }} {{ rental.renter.lastname }}</h2>
-                    <h2>Leieperiode: {{ rental.start_date }} {{ rental.end_date }}</h2>
-                </div>
-            {% endfor %}
-        </div>
+        {% include "calendar.html" with rentedDays=rentedDays %}
     {% endif %}
-    {% include "calendar.html" with rentedDays=rentedDays %}
 {% endblock %}

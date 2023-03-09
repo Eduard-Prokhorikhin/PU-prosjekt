@@ -26,6 +26,17 @@ def index(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
+    rentals, rentedDays = getRentedDays(post)
+
+    context = {
+        'post': post,
+        'rentals': rentals,
+        'rentedDays': rentedDays,
+    }
+
+    return render(request, 'post_detail.html', context=context)
+
+def getRentedDays(post):
     rentedDays = []
     
     rentals = RentRequest.objects.filter(post=post)
@@ -35,18 +46,11 @@ def post_detail(request, pk):
         
         for i in range(delta.days + 1):
             day = rental.start_date + timedelta(days=i)
-            rentedDays.append(day)
+            rentedDays.append(day.strftime("%Y-%m-%d"))
 
-    print("Rented days: ", rentedDays)
     tuple(rentedDays)
 
-    context = {
-        'post': post,
-        'rentals': rentals,
-        'rentedDays': rentedDays,
-    }
-
-    return render(request, 'post_detail.html', context=context)
+    return rentals, rentedDays
 
 @login_required
 def new_post(request, pk=None):
