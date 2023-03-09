@@ -1,7 +1,7 @@
 {% block content %}
     <form id="searchFrom" method="GET">
         <div class="SearchBox">
-            <input type="text" class="SearchBox-input" placeholder="Søk etter verktøy..." name="search" value="{{request.GET.search}}" >
+            <input type="text" class="SearchBox-input" placeholder="Søk etter verktøy..." name="q" value="{{request.GET.search}}" >
 
             <button class="SearchBox-button">
                 <i id="SearchBox-icon" class="fa-solid fa-magnifying-glass"></i>
