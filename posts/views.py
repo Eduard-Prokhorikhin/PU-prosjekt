@@ -96,6 +96,20 @@ def rent_product(request, pk):
     if request.method == "POST":
         form = RentRequestForm(request.POST)
         if form.is_valid():
+            post = Post.objects.get(pk=pk)
+            rentedDays = []
+            
+            rentals = RentRequest.objects.filter(post=post)
+            for rental in rentals:
+                print(type(rental.start_date))
+                delta = rental.end_date - rental.start_date
+                
+                for i in range(delta.days + 1):
+                    day = rental.start_date + timedelta(days=i)
+                    rentedDays.append(day)
+
+            print("Rented days: ", rentedDays)
+            tuple(rentedDays)
             RentRequest.objects.create(
                 post= Post.objects.get(pk=pk),
                 renter=User.objects.get(pk=request.user.id),
