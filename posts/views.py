@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from datetime import date
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .models import *
-from .forms import NewPostForm
+from .forms import *
 
 # Create your views here.
 
@@ -99,3 +100,34 @@ def renter_detail(request, pk):
     }
 
     return render(request, 'renter_detail.html', context=context)
+
+@login_required
+def rate_rental(request, pk):
+    form = RateRentalForm()
+    user = Rental.objects.get(pk=pk).post.author
+    post = Rental.objects.get(pk=pk).post
+
+    context = {
+        'form': form,
+        'user': user,
+        'post': post
+    }
+
+    if request.method == 'POST':
+        form = RateRentalForm(request.POST)
+        if form.is_valid():
+            user_initialrating = user.rating
+            user.rating = (user_initialrating * user.rating_count + form.cleaned_data['user_rating']) / (user.rating_count+1)
+            user.rating_count += 1
+            user.save()
+
+            post_initialrating = post.rating
+            post.rating = (post_initialrating * post.rating_count + form.cleaned_data['post_rating']) / (post.rating_count+1)
+            post.rating_count += 1
+            post.save()
+
+            return redirect('/account/')
+        else:
+            messages.error(request, 'Could not rate rental.')
+
+    return render(request, 'rate_rental.html', {'rental_id': pk})

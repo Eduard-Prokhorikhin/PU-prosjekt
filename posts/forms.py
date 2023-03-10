@@ -1,6 +1,6 @@
 from datetime import datetime
 from django import forms
-from .models import Post
+from .models import *
 
 class NewPostForm(forms.ModelForm):
 
@@ -12,3 +12,7 @@ class NewPostForm(forms.ModelForm):
             'text': 'Beskrivelse:',
             'image': 'Last opp bilde:'
         }
+
+class RateRentalForm(forms.Form):
+    user_rating = forms.IntegerField(label='Vurdering av utleier:', min_value=1, max_value=5)
+    post_rating = forms.IntegerField(label='Vurdering av utleid redskap:', min_value=1, max_value=5)
