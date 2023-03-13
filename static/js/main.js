@@ -143,10 +143,10 @@ function updateCalendar(monthChange=0) {
     for (let i = 1; i < numberOfDays+1; i++) {
         td = document.createElement("td");
         if (rentedDays.includes(new Date(year, month, i+1).toISOString().slice(0,10))) {
-            td.classList += 'calendarUnavailable';
+            td.classList.add('calendarUnavailable');
         }
         if (i == today.getDate() && year == today.getFullYear() && month == today.getMonth()) {
-            td.classList += 'calendarToday';
+            td.classList.add('calendarToday');
         }
         td.innerHTML = i;
         content += td.outerHTML;
