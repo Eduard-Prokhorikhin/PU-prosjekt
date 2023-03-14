@@ -9,11 +9,8 @@ from posts.models import *
 # Create your views here.
 @login_required
 def profilePage(request):
-    # Med nye losningen gir det mer mening å vise informasjonen om leie av dine innlegg i detailed_post
     context = {
-        # 'rentalPosts': RentRequest.objects.filter(post__in=Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date')),
-        # 'rentedPosts': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
-        'rentals': Post.objects.filter(rentrequest__in=RentRequest.objects.filter(renter=request.user), status='UNAVAILABLE').order_by('-pub_date'),
+        'rentals': Post.objects.filter(rentrequest__in=RentRequest.objects.filter(renter=request.user)).order_by('-pub_date'),
         'posts': Post.objects.filter(author=request.user).order_by('-pub_date')
     }
     return render(request, 'profile.html', context)
@@ -64,8 +61,7 @@ def logoutPage(request):
     return redirect('login')
 
 def endRental(request, pk):
-    post = Post.objects.get(pk=pk)
-    Post.objects.filter(pk=pk).update(status='AVAILABLE')
-    RentRequest.objects.get(post=pk).delete()
+    # post = Post.objects.get(pk=pk)
+    # RentRequest.objects.get(post=pk).delete()
     return redirect('index')
 

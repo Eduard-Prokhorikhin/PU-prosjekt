@@ -1,12 +1,11 @@
 {% block content %}
-    <table>
-        <thead>
-            <th>Mandag</th>
-            <th>Tirsdag</th>
-        </thead>
-        <tbody>
-            <td class="">06.mars</td>
-            <td>07.mars</td>
-        </tbody>
-    </table>
+    <h2 id="calendarHeader"><span onclick="updateCalendar(-1)"><</span> <span id="calendarMonth">Month</span> <span onclick="updateCalendar(1)">></span> - <span id="calendarYear">Year</span></h2>
+    <table id="postCalendar"></table>
+    <script>
+        rentedDays = "{{ rentedDays }}";
+        
+        document.addEventListener("DOMContentLoaded", function(event) {
+            updateCalendar();
+        });
+    </script>
 {% endblock %}

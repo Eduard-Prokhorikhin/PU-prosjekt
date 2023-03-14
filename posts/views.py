@@ -10,11 +10,8 @@ from django.contrib import messages
 # Create your views here.
 def index(request):
 
-    post_list = Post.objects.all().order_by('status', '-pub_date')
+    post_list = Post.objects.all().order_by('-pub_date')
     rental_list = RentRequest.objects.all().values_list('post')
-    print(rental_list)
-    # To search for a specific post
-    # post_list = Post.objects.filter(title__contains='')
 
     context = {
         'title': 'Annonser',
@@ -26,6 +23,17 @@ def index(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
+    rentals, rentedDays = getRentedDays(post)
+
+    context = {
+        'post': post,
+        'rentals': rentals,
+        'rentedDays': rentedDays,
+    }
+
+    return render(request, 'post_detail.html', context=context)
+
+def getRentedDays(post):
     rentedDays = []
     
     rentals = RentRequest.objects.filter(post=post)
@@ -35,18 +43,11 @@ def post_detail(request, pk):
         
         for i in range(delta.days + 1):
             day = rental.start_date + timedelta(days=i)
-            rentedDays.append(day)
+            rentedDays.append(day.strftime("%Y-%m-%d"))
 
-    print("Rented days: ", rentedDays)
     tuple(rentedDays)
 
-    context = {
-        'post': post,
-        'rentals': rentals,
-        'rentedDays': rentedDays,
-    }
-
-    return render(request, 'post_detail.html', context=context)
+    return rentals, rentedDays
 
 @login_required
 def new_post(request, pk=None):
@@ -118,11 +119,6 @@ def rent_product(request, pk):
                 description=form.cleaned_data['description'],
                 status = "ACCEPTED", #må settes til pending
             )
-            # må fjernes når vi kan godkjenne forespørsler
-            post = Post.objects.get(pk=pk)
-            post.status = "UNAVAILABLE" 
-            post.save()
-            #
             messages.success = "Forespørsel sendt inn"
             return redirect("/posts/")
         else:
