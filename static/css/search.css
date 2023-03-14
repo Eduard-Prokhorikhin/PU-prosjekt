@@ -24,7 +24,7 @@
     margin: 0 auto;
     justify-content: center;
 	display: flex;
-	border-radius: 25px;
+	border-radius: 5px 25px 25px 5px;
 	background-color: var(--bg-color1);
 	height: var(--height);
 }
@@ -85,11 +85,12 @@
     background: var(--bg-color1) 50% bottom repeat-x; 
     color: var(--text_color2); 
     font-weight: normal;
+    width: 375px;
 }
 
 .ui-widget-content a {
     color: var(--text-color2); 
-    font-weight: normal; 
+    font-weight: normal;    
 }
 
 /* Interaction states

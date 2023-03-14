@@ -81,6 +81,7 @@ def create_post(request, pk=None):
         post = Post.objects.get(pk=pk)
         post.title = form.cleaned_data['title']
         post.text = form.cleaned_data['text']
+        # post.category = form.cleaned_data['category']
         if request.FILES.get('image'):
             post.image = form.cleaned_data['image']
         post.save()
@@ -88,6 +89,7 @@ def create_post(request, pk=None):
     else:
         Post.objects.create(
             title=post['title'],
+            # category=post['category'],
             text=post['text'],
             author=User.objects.get(pk=request.user.id),
             image=post['image'],
