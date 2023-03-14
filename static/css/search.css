@@ -1,4 +1,4 @@
-input, button, #searchFrom {
+#searchFrom input, #searchFrom button, #searchFrom {
     border: none;
 	background: none;
 	outline: 0;
