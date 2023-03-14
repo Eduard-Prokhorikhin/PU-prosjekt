@@ -180,7 +180,7 @@ function handleCellClick(event) {
         return;
     }
 
-    if (event.target.classList.contains('calendarUnavailable')) {return;}
+    if (event.target.classList.contains('calendarUnavailable') || event.target.classList.contains('calendarOtherMonth')) {return;}
 
     const clickedDate = new Date(year, month, parseInt(event.target.innerHTML)+1);
     if (!startDate) {

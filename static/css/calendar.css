@@ -25,6 +25,7 @@ td.calendarToday {
 
 td.calendarOtherMonth {
     background-color: var(--bg-color1) !important;
+    cursor: not-allowed !important;
 }
 
 #calendarHeader {
