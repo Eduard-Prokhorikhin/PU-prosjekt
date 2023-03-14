@@ -1,8 +1,9 @@
 {% extends "page.html" %}
 
 {% block content %}
-    <div class="new_post">
-        <h1>Ny annonse</h1>
+    <div class="new_post" id="newPostID">
+        <h1 id="nyAnnonse">Ny annonse</h1>
+        <hr>
         <form id="new_post_form" class="newPostForm" action="/post/create_post/{% if post_id %}{{ post_id }}{% endif %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}

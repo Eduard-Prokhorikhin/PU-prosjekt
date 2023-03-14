@@ -8,12 +8,19 @@ from .forms import NewPostForm, RentRequestForm
 from django.contrib import messages
 
 # Create your views here.
+
+
 def index(request):
-    if (request.GET.get('search') == None):
-        post_list = Post.objects.all().order_by('status', '-pub_date')
+
+    initial_list = Post.objects
+
+    search_input = request.GET.get('q')
+
+    if (request.GET.get('q') == None):
+        post_list = initial_list.all().order_by('status', '-pub_date')
     else:
-        post_list = Post.objects.filter(title__contains=request.GET.get(
-            'search')).order_by('status', '-pub_date')
+        post_list = initial_list.filter(
+            title__contains=search_input).order_by('status', '-pub_date')
     # rental_list = Rental.objects.all().values_list('post')
     # print(rental_list)
     # To search for a specific post
@@ -21,7 +28,8 @@ def index(request):
 
     context = {
         'title': 'Annonser',
-        'post_list': post_list
+        'post_list': post_list,
+        'initial_list': initial_list.all(),
     }
 
     return render(request, 'posts.html', context=context)
@@ -145,6 +153,7 @@ def getRentedDays(post):
     tuple(rentedDays)
 
     return rentals, rentedDays
+
 def renter_detail(request, pk):
     user = User.objects.get(pk=pk)
     next = request.META.get('HTTP_REFERER')
