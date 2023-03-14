@@ -6,6 +6,14 @@
         <div class="post_content">
             <h1>{{ post.title }}</h1>
             <p>{{ post.text }}</p>
+            <br>
+
+            {% if post.rating_count > 1 %}
+                {% include "stars.html" with rating=post.rating %}
+            {% endif %}
+            {% if post.rating_count <= 1 %}
+                <p>Denne annonsen har ikke fått noen vurderinger enda.</p>
+            {% endif %}
 
             <br>
             <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>

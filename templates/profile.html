@@ -5,7 +5,14 @@
             <h1>Hei, {{ request.user.firstname }}!</h1>
             <h3>Din kontaktinformasjon:</h3>
             <p>Epost: {{ request.user }}</p>
-            <p>Telefon: {{ request.user.phone }}</p>    
+            <p>Telefon: {{ request.user.phone }}</p>
+
+            {% if request.user.rating_count > 1 %}
+                {% include "stars.html" with rating=request.user.rating %}
+            {% endif %}
+            {% if request.user.rating_count <= 1 %}
+                <p>Du har ikke fått noen vurderinger enda.</p>
+            {% endif %}
         </div>
         
         <div id="profileActions">
