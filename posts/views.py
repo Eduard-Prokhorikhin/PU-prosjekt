@@ -32,22 +32,6 @@ def post_detail(request, pk):
 
     return render(request, 'post_detail.html', context=context)
 
-def getRentedDays(post):
-    rentedDays = []
-    
-    rentals = RentRequest.objects.filter(post=post)
-    for rental in rentals:
-        print(type(rental.start_date))
-        delta = rental.end_date - rental.start_date
-        
-        for i in range(delta.days + 1):
-            day = rental.start_date + timedelta(days=i)
-            rentedDays.append(day.strftime("%Y-%m-%d"))
-
-    tuple(rentedDays)
-
-    return rentals, rentedDays
-
 @login_required
 def new_post(request, pk=None):
 
@@ -92,6 +76,7 @@ def create_post(request, pk=None):
 
 @login_required
 def rent_product(request, pk):
+    post = Post.objects.get(pk=pk)
     form = RentRequestForm()
     if request.method == "POST":
         form = RentRequestForm(request.POST)
@@ -122,8 +107,30 @@ def rent_product(request, pk):
             return redirect("/posts/")
         else:
             messages.error = "Ugyldig skjema"
-    return render(request, 'rent_product.html', {'form': form})
+
+    rentals, rentedDays = getRentedDays(post)
+
+    context = {
+        'form': form,
+        'rentedDays': rentedDays
+    }
+
+    return render(request, 'rent_product.html', context=context)
 
 
 
+# Functions
+def getRentedDays(post):
+    rentedDays = []
+    
+    rentals = RentRequest.objects.filter(post=post).exclude(status="rejected")
+    for rental in rentals:
+        delta = rental.end_date - rental.start_date
         
+        for i in range(delta.days + 1):
+            day = rental.start_date + timedelta(days=i)
+            rentedDays.append(day.strftime("%Y-%m-%d"))
+
+    tuple(rentedDays)
+
+    return rentals, rentedDays

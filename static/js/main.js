@@ -90,18 +90,16 @@ function dropdownFilter() {
 }
   
 // Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
+$(".dropbtn").click(function(event) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
         }
     }
-}
+});
 
 // Makes it possible to prevent default on links etc.
 document.addEventListener("click", {}, true);
@@ -110,6 +108,12 @@ document.addEventListener("click", {}, true);
 today = new Date();
 month = today.getMonth();
 year = today.getFullYear();
+
+function resetCalendar() {
+    month = today.getMonth();
+    year = today.getFullYear();
+    updateCalendar();
+}
 
 function updateCalendar(monthChange=0) {
     if (monthChange == -1) {
