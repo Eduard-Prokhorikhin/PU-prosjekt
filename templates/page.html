@@ -22,15 +22,19 @@
 </head>
 <body>
     {% include "header.html" %}
+    
+    {% if messages %}
     <div id="message_container">
-        {% if messages %}
-        <ul class="messages">
+        <div class="overlay" onclick="this.parentElement.style.display='none'" title="Lukk popup"></div>
+        <div id="message">
+            <button class="close_button" onclick="this.parentElement.parentElement.style.display='none'" title="Lukk popup">X</button>
             {% for message in messages %}
-            <li>{{ message }}</li>
+            <hr>
+            <p>{{ message }}</p>
             {% endfor %}
-        </ul>
-        {% endif %}
+        </div>
     </div>
+    {% endif %}
 
     <div class="content">
         {% block content %}
