@@ -30,11 +30,13 @@ def index(request):
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     rentals, rentedDays = getRentedDays(post)
-    
+    next = request.META.get('HTTP_REFERER')
+
     context = {
         'post': post,
         'rentals': rentals,
         'rentedDays': rentedDays,
+        'next': next
     }
 
     return render(request, 'post_detail.html', context=context)
