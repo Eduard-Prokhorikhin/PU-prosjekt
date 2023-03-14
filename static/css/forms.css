@@ -45,6 +45,11 @@ textarea {
     padding-bottom: 0px
 }
 
+#newPostID > hr {
+    width: 568px;
+}
+
+
 .newPostForm {
     display: flex;
     flex-direction: column;
