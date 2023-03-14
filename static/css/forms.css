@@ -35,6 +35,16 @@ textarea {
     min-width: fit-content;
 }
 
+#newPostID {
+    margin: 0 auto;
+
+}
+
+#newPostID > h1 {
+    margin: 16px;
+    padding-bottom: 0px
+}
+
 .newPostForm {
     display: flex;
     flex-direction: column;
