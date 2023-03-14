@@ -88,24 +88,18 @@ def create_post(request, pk=None):
 @login_required
 def rent_product(request, pk):
     post = Post.objects.get(pk=pk)
+    rentals, rentedDays = getRentedDays(post)
+
     form = RentRequestForm()
     if request.method == "POST":
         form = RentRequestForm(request.POST)
         if form.is_valid():
-            post = Post.objects.get(pk=pk)
-            rentedDays = []
-            
-            rentals = RentRequest.objects.filter(post=post)
-            for rental in rentals:
-                print(type(rental.start_date))
-                delta = rental.end_date - rental.start_date
-                
-                for i in range(delta.days + 1):
-                    day = rental.start_date + timedelta(days=i)
-                    rentedDays.append(day)
 
-            print("Rented days: ", rentedDays)
-            tuple(rentedDays)
+            for day in rentedDays:
+                if day == form.cleaned_data['start_date'].strftime("%Y-%m-%d"):
+                    messages.success(request, "Datoen er opptatt")
+                    return redirect(request.META.get('HTTP_REFERER'))
+            
             RentRequest.objects.create(
                 post= Post.objects.get(pk=pk),
                 renter=User.objects.get(pk=request.user.id),
@@ -118,8 +112,6 @@ def rent_product(request, pk):
             return redirect("/posts/")
         else:
             messages.error = "Ugyldig skjema"
-
-    rentals, rentedDays = getRentedDays(post)
 
     context = {
         'form': form,
