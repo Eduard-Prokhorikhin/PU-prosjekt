@@ -24,7 +24,6 @@ def index(request):
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     rentals, rentedDays = getRentedDays(post)
-
     context = {
         'post': post,
         'rentals': rentals,
@@ -117,7 +116,7 @@ def rent_product(request, pk):
                 start_date=form.cleaned_data['start_date'],
                 end_date=form.cleaned_data['end_date'],
                 description=form.cleaned_data['description'],
-                status = "ACCEPTED", #må settes til pending
+                status = "PENDING", #må settes til pending
             )
             messages.success = "Forespørsel sendt inn"
             return redirect("/posts/")

@@ -14,7 +14,13 @@
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}
-        <a class="btn" href="{% url 'rent_product' post.id %}">Lei produkt</a>
+        {% if post.author == request.user %}
+            <a class="btn" href="{% url 'new_post' post.id %}">Endre annonse</a>
+        {% endif %}
+        {% if post.author != request.user %}
+         <a class="btn" href="{% url 'rent_product' post.id %}">Lei produkt</a>
+        {% endif %}
+        
     </div>
     {% if request.user == post.author %}
         {% include "calendar.html" with rentedDays=rentedDays %}
