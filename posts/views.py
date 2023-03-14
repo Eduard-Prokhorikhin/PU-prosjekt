@@ -10,11 +10,8 @@ from django.contrib import messages
 # Create your views here.
 def index(request):
 
-    post_list = Post.objects.all().order_by('status', '-pub_date')
+    post_list = Post.objects.all().order_by('-pub_date')
     rental_list = RentRequest.objects.all().values_list('post')
-    print(rental_list)
-    # To search for a specific post
-    # post_list = Post.objects.filter(title__contains='')
 
     context = {
         'title': 'Annonser',
@@ -108,11 +105,6 @@ def rent_product(request, pk):
                 description=form.cleaned_data['description'],
                 status = "ACCEPTED", #må settes til pending
             )
-            # må fjernes når vi kan godkjenne forespørsler
-            post = Post.objects.get(pk=pk)
-            post.status = "UNAVAILABLE" 
-            post.save()
-            #
             messages.success = "Forespørsel sendt inn"
             return redirect("/posts/")
         else:

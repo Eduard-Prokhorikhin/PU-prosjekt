@@ -14,11 +14,7 @@
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}
-        {% if post.status == 'AVAILABLE' %}
-            <a class="btn" href="{% url 'rent_product' post.id %}">Lei produkt</a>
-        {% else %}
-            <a class="btn disabled" href="" onclick="event.preventDefault()">Produktet er utleid for øyeblikket...</a>
-        {% endif %}
+        <a class="btn" href="{% url 'rent_product' post.id %}">Lei produkt</a>
     </div>
     {% if request.user == post.author %}
         {% include "calendar.html" with rentedDays=rentedDays %}
