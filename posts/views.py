@@ -12,7 +12,7 @@ from .forms import NewPostForm
 def index(request):
 
     initial_list = Post.objects
-
+    search_list = Post.objects.values('title').distinct()
     search_input = request.GET.get('q')
 
     if (request.GET.get('q') == None):
@@ -29,6 +29,7 @@ def index(request):
         'title': 'Annonser',
         'post_list': post_list,
         'initial_list': initial_list.all(),
+        'search_list': search_list.all()
     }
 
     return render(request, 'posts.html', context=context)

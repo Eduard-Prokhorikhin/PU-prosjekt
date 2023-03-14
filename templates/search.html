@@ -13,7 +13,7 @@
             <script>
                 $( function() {
                     var availableTags = [
-                        {% for post in initial_list %}
+                        {% for post in search_list %}
                             "{{post.title}}",
                         {% endfor %}
                     ];

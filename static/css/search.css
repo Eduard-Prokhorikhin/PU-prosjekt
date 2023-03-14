@@ -81,7 +81,8 @@
 /* Component containers
 ----------------------------------*/
 .ui-widget-content {
-    border: 1px solid #666666; 
+    /* border: 1px solid var(--text-color2);  */
+    border-radius: 3px;
     background: var(--bg-color1) 50% bottom repeat-x; 
     color: var(--text_color2); 
     font-weight: normal;
