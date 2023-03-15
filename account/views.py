@@ -10,9 +10,12 @@ from posts.models import *
 @login_required
 def profilePage(request):
     context = {
-        'rentals': Post.objects.filter(rentrequest__in=RentRequest.objects.filter(renter=request.user)).order_by('-pub_date'),
-        'posts': Post.objects.filter(author=request.user).order_by('-pub_date')
+        'rent_requests' : RentRequest.objects.filter(post__in=Post.objects.filter(author=request.user), status= 'pending').order_by('-end_date'),
+        'rentals': Post.objects.filter(rentrequest__in=RentRequest.objects.filter(renter=request.user, end_date__gte=datetime.now().date()).exclude(status='rejected')).order_by('-pub_date'),
+        'posts': Post.objects.filter(author=request.user).order_by('-pub_date'),
+        'history': RentRequest.objects.filter(renter=request.user, status='accepted', end_date__lt=datetime.now().date()).order_by('-end_date'),
     }
+    print(context['rent_requests'])
     return render(request, 'profile.html', context)
 
 def registerPage(request):
