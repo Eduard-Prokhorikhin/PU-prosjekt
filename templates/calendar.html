@@ -1,0 +1,16 @@
+{% block content %}
+    <h2 id="calendarHeader">
+        <span id="calendarYear">Year</span> - 
+        <span onclick="updateCalendar(-1)"><</span> <span id="calendarMonth">Month</span> <span onclick="updateCalendar(1)">></span>
+        <button onclick="resetCalendar()">I dag</button>
+    </h2>
+   
+    <table id="postCalendar"></table>
+    <script>
+        rentedDays = "{{ rentedDays }}";
+        
+        document.addEventListener("DOMContentLoaded", function(event) {
+            updateCalendar();
+        });
+    </script>
+{% endblock %}

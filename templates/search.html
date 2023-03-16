@@ -1,10 +1,33 @@
 {% block content %}
+    <script src=  
+    "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+    </script>  
+    
+    <script src=  
+    "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+    </script> 
+<!-- 
+    <link href=  
+    "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-darkness/jquery-ui.css"
+    rel="stylesheet" type="text/css" />   -->
+
     <form id="searchFrom" method="GET">
         <div class="SearchBox">
-            <input type="text" class="SearchBox-input" placeholder="Søk etter verktøy..." name="search" value="{{request.GET.search}}" >
-
+            <input autocomplete="off" onclick="submit" type="text" id="tags" class="SearchBox-input" placeholder="Søk etter verktøy..." name="q" value="{{request.GET.search}}" >
+            <script>
+            $( function() {
+                var availableTags = [
+                    {% for post in initial_list %}
+                        "{{post.title}}",
+                    {% endfor %}
+                ];
+                $( "#tags" ).autocomplete({
+                source: availableTags
+                });
+            } );
+            </script>
             <button class="SearchBox-button">
-                <i id="SearchBox-icon" class="fa-solid fa-magnifying-glass"></i>
+                <i id="SearchBox-icon" class="fa-solid fa-magnifying-glass" alt="søk"></i>
             </button>
         </div>
     </form>

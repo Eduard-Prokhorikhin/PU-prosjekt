@@ -29,10 +29,15 @@
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}
-        {% if post.status == 'AVAILABLE' %}
-            <a class="btn" href="{% url 'rentProduct' post.id %}">Lei produkt</a>
-        {% else %}
-            <a class="btn disabled" href="" onclick="event.preventDefault()">Produktet er utleid for øyeblikket...</a>
+        {% if post.author == request.user %}
+            <a class="btn" href="{% url 'new_post' post.id %}">Endre annonse</a>
         {% endif %}
+        {% if post.author != request.user %}
+         <a class="btn" href="{% url 'rent_product' post.id %}">Lei produkt</a>
+        {% endif %}
+        
     </div>
+    {% if request.user == post.author %}
+        {% include "calendar.html" with rentedDays=rentedDays %}
+    {% endif %}
 {% endblock %}

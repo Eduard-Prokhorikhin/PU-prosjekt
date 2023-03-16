@@ -10,10 +10,8 @@ from posts.models import *
 @login_required
 def profilePage(request):
     context = {
-        'rentalPosts': Rental.objects.filter(post__in=Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date')),
-        'rentedPosts': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
-        'rentals': Post.objects.filter(rental__in=Rental.objects.filter(renter=request.user), status='UNAVAILABLE').order_by('-pub_date'),
-        'posts': Post.objects.filter(author=request.user, status='AVAILABLE').order_by('-pub_date')
+        'rentals': Post.objects.filter(rentrequest__in=RentRequest.objects.filter(renter=request.user)).order_by('-pub_date'),
+        'posts': Post.objects.filter(author=request.user).order_by('-pub_date')
     }
     return render(request, 'profile.html', context)
 
@@ -63,8 +61,7 @@ def logoutPage(request):
     return redirect('login')
 
 def endRental(request, pk):
-    post = Post.objects.get(pk=pk)
-    Post.objects.filter(pk=pk).update(status='AVAILABLE')
-    Rental.objects.get(post=pk).delete()
+    # post = Post.objects.get(pk=pk)
+    # RentRequest.objects.get(post=pk).delete()
     return redirect('index')
 

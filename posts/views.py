@@ -1,21 +1,27 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from datetime import date
+from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import *
 from .forms import *
+from django.contrib import messages
 
 # Create your views here.
 
 
 def index(request):
-    if (request.GET.get('search') == None):
-        post_list = Post.objects.all().order_by('status', '-pub_date')
+
+    initial_list = Post.objects
+
+    search_input = request.GET.get('q')
+
+    if (request.GET.get('q') == None):
+        post_list = initial_list.all().order_by('status', '-pub_date')
     else:
-        post_list = Post.objects.filter(title__contains=request.GET.get(
-            'search')).order_by('status', '-pub_date')
+        post_list = initial_list.filter(
+            title__contains=search_input).order_by('status', '-pub_date')
     # rental_list = Rental.objects.all().values_list('post')
     # print(rental_list)
     # To search for a specific post
@@ -24,6 +30,7 @@ def index(request):
     context = {
         'title': 'Annonser',
         'post_list': post_list,
+        'initial_list': initial_list.all(),
     }
 
     return render(request, 'posts.html', context=context)
@@ -31,15 +38,14 @@ def index(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
-    try:
-        rental = Rental.objects.get(post=pk)
-
-    except:
-        rental = None
+    rentals, rentedDays = getRentedDays(post)
+    next = request.META.get('HTTP_REFERER')
 
     context = {
         'post': post,
-        'rental': rental
+        'rentals': rentals,
+        'rentedDays': rentedDays,
+        'next': next
     }
 
     return render(request, 'post_detail.html', context=context)
@@ -87,6 +93,67 @@ def create_post(request, pk=None):
         )
 
     return HttpResponseRedirect('/posts/')
+
+@login_required
+def rent_product(request, pk):
+    post = Post.objects.get(pk=pk)
+    form = RentRequestForm()
+    if request.method == "POST":
+        form = RentRequestForm(request.POST)
+        if form.is_valid():
+            post = Post.objects.get(pk=pk)
+            rentedDays = []
+            
+            rentals = RentRequest.objects.filter(post=post)
+            for rental in rentals:
+                print(type(rental.start_date))
+                delta = rental.end_date - rental.start_date
+                
+                for i in range(delta.days + 1):
+                    day = rental.start_date + timedelta(days=i)
+                    rentedDays.append(day)
+
+            print("Rented days: ", rentedDays)
+            tuple(rentedDays)
+            RentRequest.objects.create(
+                post= Post.objects.get(pk=pk),
+                renter=User.objects.get(pk=request.user.id),
+                start_date=form.cleaned_data['start_date'],
+                end_date=form.cleaned_data['end_date'],
+                description=form.cleaned_data['description'],
+                status = "PENDING", #må settes til pending
+            )
+            messages.success = "Forespørsel sendt inn"
+            return redirect("/posts/")
+        else:
+            messages.error = "Ugyldig skjema"
+
+    rentals, rentedDays = getRentedDays(post)
+
+    context = {
+        'form': form,
+        'rentedDays': rentedDays
+    }
+
+    return render(request, 'rent_product.html', context=context)
+
+
+
+# Functions
+def getRentedDays(post):
+    rentedDays = []
+    
+    rentals = RentRequest.objects.filter(post=post).exclude(status="rejected")
+    for rental in rentals:
+        delta = rental.end_date - rental.start_date
+        
+        for i in range(delta.days + 1):
+            day = rental.start_date + timedelta(days=i)
+            rentedDays.append(day.strftime("%Y-%m-%d"))
+
+    tuple(rentedDays)
+
+    return rentals, rentedDays
 
 def renter_detail(request, pk):
     user = User.objects.get(pk=pk)

@@ -107,18 +107,79 @@ function dropdownFilter() {
 }
   
 // Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
+$(".dropbtn").click(function(event) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
         }
     }
-}
+});
 
 // Makes it possible to prevent default on links etc.
 document.addEventListener("click", {}, true);
+
+// Calendar
+today = new Date();
+month = today.getMonth();
+year = today.getFullYear();
+
+function resetCalendar() {
+    month = today.getMonth();
+    year = today.getFullYear();
+    updateCalendar();
+}
+
+function updateCalendar(monthChange=0) {
+    if (monthChange == -1) {
+        if (month == 0) {
+            month = 11;
+            year -= 1;
+        } else {
+            month -= 1;
+        }
+    } else if (monthChange == 1) {
+        if (month == 11) {
+            month = 0;
+            year += 1;
+        } else {
+            month += 1;
+        }
+    }
+
+    document.getElementById("calendarMonth").innerHTML = new Date(year, month).toLocaleString('default', { month: 'long' });
+    document.getElementById("calendarYear").innerHTML = year;
+
+    calendar = document.getElementById("postCalendar");
+
+    content = "<thead><th>Man</th><th>Tirs</th><th>Ons</th><th>Tors</th><th>Fre</th><th>Lør</th><th>Søn</th></thead><tbody><tr>";
+
+    numberOfDays = new Date(year, month+1, 0).getDate();
+    firstDay = new Date(year, month, 0).getDay();
+
+    content += firstDay > 0 ? "<td class='calendarOtherMonth' colspan='" + firstDay + "'></td>" : "";
+
+    for (let i = 1; i < numberOfDays+1; i++) {
+        td = document.createElement("td");
+        if (rentedDays.includes(new Date(year, month, i+1).toISOString().slice(0,10))) {
+            td.classList.add('calendarUnavailable');
+        }
+        if (i == today.getDate() && year == today.getFullYear() && month == today.getMonth()) {
+            td.classList.add('calendarToday');
+        }
+        td.innerHTML = i;
+        content += td.outerHTML;
+        if (new Date(year, month, i).getDay() == 0) {
+            content += "</tr><tr>";
+        }
+    }
+
+    rest = 7-(numberOfDays+firstDay)%7
+    content += rest < 7 ? "<td class='calendarOtherMonth' colspan='" + rest + "'></td>" : "";
+
+    content += "</tr></tbody>";
+
+    document.getElementById("postCalendar").innerHTML = content;
+}

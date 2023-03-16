@@ -5,4 +5,4 @@ admin.site.register(Post)
 
 admin.site.register(User)
 
-admin.site.register(Rental)
+admin.site.register(RentRequest)
