@@ -18,10 +18,10 @@ def index(request):
     search_input = request.GET.get('q')
 
     if (request.GET.get('q') == None):
-        post_list = initial_list.all().order_by('status', '-pub_date')
+        post_list = initial_list.all().order_by('-pub_date')
     else:
         post_list = initial_list.filter(
-            title__contains=search_input).order_by('status', '-pub_date')
+            title__contains=search_input).order_by('-pub_date')
     # rental_list = Rental.objects.all().values_list('post')
     # print(rental_list)
     # To search for a specific post
