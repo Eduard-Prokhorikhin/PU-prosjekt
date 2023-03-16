@@ -1,0 +1,19 @@
+{% extends "page.html" %}
+
+{% block content %}
+    <div class="rate_rental">
+        <h1>Hvordan var utleieforholdet?</h1>
+        <form id="rate_rental_form" class="rateRentalForm" action="/post/rate_rental/{{ rental_id }}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+    
+            <label for="user_rating" class="rating-label">Vurdering av utleier:</label>
+            <input id="user_rating" class="rating" name="user_rating" type="range" step="1" min="1" max="5" oninput="this.style.setProperty('--value', this.value)">
+
+            <label for="post_rating" class="rating-label">Vurdering av utleid redskap:</label>
+            <input id="post_rating" class="rating" name="post_rating" type="range" step="1" min="1" max="5" oninput="this.style.setProperty('--value', this.value)">
+
+            <button type="submit">Gi vurdering</button>
+        </form>
+    </div>
+{% endblock %}
+
