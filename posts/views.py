@@ -14,16 +14,13 @@ def index(request):
     initial_list = Post.objects
     search_list = Post.objects.values('title').distinct()
     search_input = request.GET.get('q')
+    # category_filter =
 
     if (request.GET.get('q') == None):
         post_list = initial_list.all().order_by('status', '-pub_date')
     else:
         post_list = initial_list.filter(
             title__contains=search_input).order_by('status', '-pub_date')
-    # rental_list = Rental.objects.all().values_list('post')
-    # print(rental_list)
-    # To search for a specific post
-    # post_list = Post.objects.filter(title__contains='')
 
     context = {
         'title': 'Annonser',
@@ -82,7 +79,7 @@ def create_post(request, pk=None):
         post = Post.objects.get(pk=pk)
         post.title = form.cleaned_data['title']
         post.text = form.cleaned_data['text']
-        # post.category = form.cleaned_data['category']
+        post.category = form.cleaned_data['category']
         if request.FILES.get('image'):
             post.image = form.cleaned_data['image']
         post.save()
@@ -90,7 +87,7 @@ def create_post(request, pk=None):
     else:
         Post.objects.create(
             title=post['title'],
-            # category=post['category'],
+            category=post['category'],
             text=post['text'],
             author=User.objects.get(pk=request.user.id),
             image=post['image'],

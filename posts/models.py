@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from datetime import datetime
 from PIL import Image
@@ -7,6 +8,8 @@ from django.contrib.auth.models import AbstractBaseUser
 from account.managers import UserManager
 from django.utils import timezone
 from django.conf import settings
+from django.contrib.postgres.fields import ArrayField
+from django.db import models
 
 
 class User(AbstractBaseUser):
@@ -47,10 +50,20 @@ class User(AbstractBaseUser):
         self.save()
 
 
+categories = [
+    ('GENERELL', 'Generell'),
+    ('HAGEARBEID', 'Hagearbeid'),
+    ('INNE', 'Inne'),
+    ('BIL', 'Bil'),
+    ('BYGG', 'Bygg')
+]
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
-    # category = models.TextField(max_length=50, blank=True)
+    category = models.CharField(
+        max_length=200, choices=categories, default='Generell')
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published', default=datetime.now())

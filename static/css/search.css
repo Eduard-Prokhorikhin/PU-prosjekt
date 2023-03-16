@@ -2,6 +2,15 @@
  * TODO: Bytte fra tag-generell til class-spesifikk
  */
 
+#filterButton {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+} 
+
+#filterButton:hover {
+    cursor: pointer;
+}
 
 /*Copied from https://templateyou.com/free-css-search-boxes/*/
 #searchFrom input, #searchFrom {
@@ -30,7 +39,7 @@
 }
 
 .SearchBox-input, #searchFrom {
-    padding-left: 2em;
+    padding-left: 1em;
     padding-right: 1em;
     border-radius: 25px;
     width: 240px;

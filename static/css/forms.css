@@ -57,7 +57,7 @@ textarea {
     gap: 0.75rem;
 }
 
-.newPostForm > input[type=text], .newPostForm > textarea {
+.newPostForm > input[type=text], #id_category, .newPostForm > textarea {
     margin-bottom: 1rem;
     font-size: 1rem;
     border: 1.5px solid var(--text-color2);
