@@ -94,9 +94,9 @@ def rent_product(request, pk):
     if request.method == "POST":
         form = RentRequestForm(request.POST)
         if form.is_valid():
-
+            days = daysInBetween(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
             for day in rentedDays:
-                if day == form.cleaned_data['start_date'].strftime("%Y-%m-%d"):
+                if day in days:
                     messages.success(request, "Datoen er opptatt")
                     return redirect(request.META.get('HTTP_REFERER'))
             
@@ -126,7 +126,7 @@ def rent_product(request, pk):
 def getRentedDays(post):
     rentedDays = []
     
-    rentals = RentRequest.objects.filter(post=post).exclude(status="rejected")
+    rentals = RentRequest.objects.filter(post=post, status="ACCEPTED")
     for rental in rentals:
         delta = rental.end_date - rental.start_date
         
@@ -137,3 +137,11 @@ def getRentedDays(post):
     tuple(rentedDays)
 
     return rentals, rentedDays
+
+def daysInBetween(start, end):
+    days = []
+    delta = end - start
+    for i in range(delta.days + 1):
+        day = start + timedelta(days=i)
+        days.append(day.strftime("%Y-%m-%d"))
+    return days
