@@ -10,12 +10,12 @@ from posts.models import *
 @login_required
 def profilePage(request):
     context = {
-        'rent_requests' : RentRequest.objects.filter(post__in=Post.objects.filter(author=request.user), status= 'pending').order_by('-end_date'),
-        'rentals': Post.objects.filter(rentrequest__in=RentRequest.objects.filter(renter=request.user, end_date__gte=datetime.now().date()).exclude(status='rejected')).order_by('-pub_date'),
+        'rent_requests' : RentRequest.objects.filter(post__in=Post.objects.filter(author=request.user), status= 'PENDING').order_by('-end_date'),
+        'rentals': RentRequest.objects.filter(renter=request.user, end_date__gte=datetime.now().date()).exclude(status='REJECTED').order_by('-start_date'),
         'posts': Post.objects.filter(author=request.user).order_by('-pub_date'),
-        'history': RentRequest.objects.filter(renter=request.user, status='accepted', end_date__lt=datetime.now().date()).order_by('-end_date'),
+        'history': RentRequest.objects.filter(renter=request.user, status='ACCEPTED', end_date__lt=datetime.now().date()).order_by('-end_date'),
     }
-    print(context['rent_requests'])
+    print(context.get("rent_requests"))
     return render(request, 'profile.html', context)
 
 def registerPage(request):
@@ -66,5 +66,13 @@ def logoutPage(request):
 def endRental(request, pk):
     # post = Post.objects.get(pk=pk)
     # RentRequest.objects.get(post=pk).delete()
+    return redirect('index')
+
+def acceptRental(request, pk):
+    RentRequest.objects.filter(pk=pk).update(status="ACCEPTED")
+    return redirect('index')
+
+def rejectRental(request, pk):
+    RentRequest.objects.filter(pk=pk).update(status="REJECTED")
     return redirect('index')
 
