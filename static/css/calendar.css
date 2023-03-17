@@ -15,7 +15,8 @@ table#postCalendar td {
 }
 
 td.calendarUnavailable {
-    background-color: var(--primary-color) !important;
+    background-color: #666 !important;
+    cursor: not-allowed !important;
 }
 
 td.calendarToday {
@@ -24,6 +25,7 @@ td.calendarToday {
 
 td.calendarOtherMonth {
     background-color: var(--bg-color1) !important;
+    cursor: not-allowed !important;
 }
 
 #calendarHeader {
@@ -34,4 +36,15 @@ td.calendarOtherMonth {
     display: inline-block;
     width: 120px;
     text-align: center;
+}
+
+.requestWrapper #postCalendar td {
+    cursor: pointer;
+}
+
+td.calendarSelectedStart, td.calendarSelectedEnd {
+    background-color: var(--secondary-color) !important;
+}
+td.calendarSelectedSpan {
+    background-color: var(--primary-color) !important;
 }

@@ -183,3 +183,87 @@ function updateCalendar(monthChange=0) {
 
     document.getElementById("postCalendar").innerHTML = content;
 }
+
+
+let startDate = null;
+let startDateElement = null;
+let endDate = null;
+let endDateElement = null;
+
+function handleCellClick(event) {
+    // Hierarchy: requestWrapper > div > table > tbody > tr > td
+    if (! event.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList.contains('requestWrapper')) {
+        alert("RequestWrapper not found. There is something wrong... This should never happen.");
+        return;
+    }
+
+    if (event.target.classList.contains('calendarUnavailable') || event.target.classList.contains('calendarOtherMonth')) {return;}
+
+    const clickedDate = new Date(year, month, parseInt(event.target.innerHTML)+1);
+    if (!startDate) {
+        // If start date hasn't been set, set it to clicked date
+        startDate = clickedDate;
+        startDateElement = event.target;
+        event.target.classList.add('calendarSelectedStart');
+        document.getElementById('id_start_date').value = startDate.toISOString().slice(0,10);
+    } else if (!endDate) {
+        // If end date hasn't been set, set it to clicked date
+        if (clickedDate < startDate) {
+            return;
+        }
+        
+        endDate = clickedDate;
+        endDateElement = event.target;
+        event.target.classList.add('calendarSelectedEnd');
+        handleSelectedTimespan(startDate, endDate);
+    } else {
+        // If both start and end dates have been set, reset selection
+        startDate = clickedDate;
+        startDateElement = event.target;
+        endDate = null;
+        clearSelectedCells();
+        event.target.classList.add('calendarSelectedStart');
+        document.getElementById('id_start_date').value = startDate.toISOString().slice(0,10);
+    }
+}
+
+function clearSelectedCells() {
+    // Remove 'calendarSelectedStart' and 'calendarSelectedEnd' classes from all cells
+    const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        cell.classList.remove('calendarSelectedStart', 'calendarSelectedEnd', 'calendarSelectedSpan');
+    });
+    document.getElementById('id_start_date').value = '';
+    document.getElementById('id_end_date').value = '';
+}
+
+function handleSelectedTimespan(startDate, endDate) {
+    document.getElementById('id_start_date').value = startDate.toISOString().slice(0,10);
+    document.getElementById('id_end_date').value = endDate ? endDate.toISOString().slice(0,10) : '';
+    if (!endDate) {return;}
+
+    for (day of document.getElementsByClassName('calendarUnavailable')) {
+        let dayDate = new Date(year, month, parseInt(day.innerHTML)+1);
+        if (startDate <= dayDate && dayDate <= endDate) {
+            alert("En eller flere av valgte dager er allerede leid ut. Velg en annen periode.");
+            clearSelectedCells();
+            return;
+        }
+    }
+
+    let currentElement = startDateElement;
+    while (currentElement.nextElementSibling != endDateElement) {
+        if (currentElement == currentElement.parentElement.lastElementChild) {
+            currentElement = currentElement.parentElement.nextElementSibling.firstElementChild;
+        } else {
+            currentElement = currentElement.nextElementSibling;
+        }
+        currentElement.classList.add('calendarSelectedSpan');
+    }
+}
+
+if (document.getElementsByClassName('requestWrapper').length > 0 && document.querySelector('table')) {
+    // Add event listener to calendar to track clicks
+    const requestCalendar = document.querySelector('table');
+    requestCalendar.addEventListener('click', handleCellClick);
+}

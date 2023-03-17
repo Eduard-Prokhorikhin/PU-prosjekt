@@ -12,7 +12,6 @@ from django.contrib import messages
 
 
 def index(request):
-
     initial_list = Post.objects
 
     search_input = request.GET.get('q')
@@ -22,6 +21,7 @@ def index(request):
     else:
         post_list = initial_list.filter(
             title__contains=search_input).order_by('-pub_date')
+
     # rental_list = Rental.objects.all().values_list('post')
     # print(rental_list)
     # To search for a specific post
@@ -97,24 +97,18 @@ def create_post(request, pk=None):
 @login_required
 def rent_product(request, pk):
     post = Post.objects.get(pk=pk)
+    rentals, rentedDays = getRentedDays(post)
+
     form = RentRequestForm()
     if request.method == "POST":
         form = RentRequestForm(request.POST)
         if form.is_valid():
-            post = Post.objects.get(pk=pk)
-            rentedDays = []
+            days = daysInBetween(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
+            for day in rentedDays:
+                if day in days:
+                    messages.success(request, "Datoen er opptatt")
+                    return redirect(request.META.get('HTTP_REFERER'))
             
-            rentals = RentRequest.objects.filter(post=post)
-            for rental in rentals:
-                print(type(rental.start_date))
-                delta = rental.end_date - rental.start_date
-                
-                for i in range(delta.days + 1):
-                    day = rental.start_date + timedelta(days=i)
-                    rentedDays.append(day)
-
-            print("Rented days: ", rentedDays)
-            tuple(rentedDays)
             RentRequest.objects.create(
                 post= Post.objects.get(pk=pk),
                 renter=User.objects.get(pk=request.user.id),
@@ -127,8 +121,6 @@ def rent_product(request, pk):
             return redirect("/posts/")
         else:
             messages.error = "Ugyldig skjema"
-
-    rentals, rentedDays = getRentedDays(post)
 
     context = {
         'form': form,
@@ -143,7 +135,7 @@ def rent_product(request, pk):
 def getRentedDays(post):
     rentedDays = []
     
-    rentals = RentRequest.objects.filter(post=post).exclude(status="rejected")
+    rentals = RentRequest.objects.filter(post=post, status="ACCEPTED")
     for rental in rentals:
         delta = rental.end_date - rental.start_date
         
@@ -154,6 +146,14 @@ def getRentedDays(post):
     tuple(rentedDays)
 
     return rentals, rentedDays
+
+def daysInBetween(start, end):
+    days = []
+    delta = end - start
+    for i in range(delta.days + 1):
+        day = start + timedelta(days=i)
+        days.append(day.strftime("%Y-%m-%d"))
+    return days
 
 def renter_detail(request, pk):
     user = User.objects.get(pk=pk)
