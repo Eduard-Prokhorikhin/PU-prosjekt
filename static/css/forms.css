@@ -34,6 +34,11 @@ textarea {
 
 
 /* - - - NEWPOSTFORM - - - */
+.new_post {
+    width: 600px;
+    min-width: fit-content;
+}
+
 .newPostForm {
     display: flex;
     flex-direction: column;
@@ -45,9 +50,8 @@ textarea {
     width: 60%;
 }
 
-.newPostForm input[type=text], .newPostForm textarea {
+.newPostForm > input[type=text], .newPostForm > textarea {
     margin-bottom: 1rem;
-    width: 60%;
     font-size: 1rem;
     border: 1.5px solid var(--text-color2);
     border-radius: 2px;
@@ -147,3 +151,57 @@ input:-webkit-autofill:focus,
 .requestWrapper > h1, .requestWrapper > form {
     grid-column: 1;
 }
+/* - - - END REGISTER- and LOGINFORMWRAPPER - - - */
+
+/* - - - RATE RENTAL - - - */
+
+.rating {
+    --dir: right;
+    --star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.25l-6.188 3.75 1.641-7.031-5.438-4.734 7.172-0.609 2.813-6.609 2.813 6.609 7.172 0.609-5.438 4.734 1.641 7.031z"/></svg>');
+    --stars: 5;
+    --starsize: 3rem;
+    --value: 1;
+    --x: calc(100% * (var(--value) / var(--stars)));
+    block-size: var(--starsize);
+    inline-size: calc(var(--stars) * var(--starsize));
+    position: relative;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    background-color: var(--bg-color2);
+    margin-bottom: 2rem;
+}
+
+.rating::-moz-range-track {
+    background: linear-gradient(to var(--dir), var(--star-filled) 0 var(--x), var(--star-unfilled) 0 var(--x));
+    block-size: 100%;
+    mask: repeat left center/var(--starsize) var(--star);
+}
+
+.rating::-webkit-slider-runnable-track {
+    background: linear-gradient(to var(--dir), var(--star-filled) 0 var(--x), var(--star-unfilled) 0 var(--x));
+    block-size: 100%;
+    mask: repeat left center/var(--starsize) var(--star);
+    -webkit-mask: repeat left center/var(--starsize) var(--star);
+}
+.rating::-moz-range-thumb {
+    height: var(--starsize);
+    opacity: 0;
+    width: calc(var(--starsize) / 2);
+}
+
+.rating::-webkit-slider-thumb {
+    height: var(--starsize);
+    opacity: 0;
+    width: calc(var(--starsize) / 2);
+    -webkit-appearance: none;
+}
+
+.rating, .rating-label {
+    display: block;
+}
+
+.rating-label {
+    margin-block-end: 1rem;
+}
+
+/* - - - END RATE RENTAL - - - */

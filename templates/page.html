@@ -16,13 +16,12 @@
     
     <!-- Import FontAwesome -->
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
-    <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     {% include "header.html" %}
-    
+
     {% if messages %}
     <div id="message_container">
         <div class="overlay" onclick="this.parentElement.style.display='none'" title="Lukk popup"></div>

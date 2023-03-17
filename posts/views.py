@@ -2,18 +2,26 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .models import *
-from .forms import NewPostForm, RentRequestForm
+from .forms import *
 from django.contrib import messages
 
 # Create your views here.
+
+
 def index(request):
-    if (request.GET.get('search') == None):
-        post_list = Post.objects.all().order_by('-pub_date')
+    initial_list = Post.objects
+
+    search_input = request.GET.get('q')
+
+    if (request.GET.get('q') == None):
+        post_list = initial_list.all().order_by('-pub_date')
     else:
-        post_list = Post.objects.filter(title__contains=request.GET.get(
-            'search')).order_by('-pub_date')
+        post_list = initial_list.filter(
+            title__contains=search_input).order_by('-pub_date')
+
     # rental_list = Rental.objects.all().values_list('post')
     # print(rental_list)
     # To search for a specific post
@@ -21,7 +29,8 @@ def index(request):
 
     context = {
         'title': 'Annonser',
-        'post_list': post_list
+        'post_list': post_list,
+        'initial_list': initial_list.all(),
     }
 
     return render(request, 'posts.html', context=context)
@@ -145,3 +154,47 @@ def daysInBetween(start, end):
         day = start + timedelta(days=i)
         days.append(day.strftime("%Y-%m-%d"))
     return days
+
+def renter_detail(request, pk):
+    user = User.objects.get(pk=pk)
+    next = request.META.get('HTTP_REFERER')
+    user_posts = Post.objects.filter(author=user, status='AVAILABLE').order_by('-pub_date')
+    
+    context = {
+        'user': user,
+        'next': next,
+        'user_posts': user_posts
+    }
+
+    return render(request, 'renter_detail.html', context=context)
+
+@login_required
+def rate_rental(request, pk):
+    form = RateRentalForm()
+    user = Rental.objects.get(pk=pk).post.author
+    post = Rental.objects.get(pk=pk).post
+
+    context = {
+        'form': form,
+        'user': user,
+        'post': post
+    }
+
+    if request.method == 'POST':
+        form = RateRentalForm(request.POST)
+        if form.is_valid():
+            user_initialrating = user.rating
+            user.rating = (user_initialrating * user.rating_count + form.cleaned_data['user_rating']) / (user.rating_count+1)
+            user.rating_count += 1
+            user.save()
+
+            post_initialrating = post.rating
+            post.rating = (post_initialrating * post.rating_count + form.cleaned_data['post_rating']) / (post.rating_count+1)
+            post.rating_count += 1
+            post.save()
+
+            return redirect('/account/')
+        else:
+            messages.error(request, 'Could not rate rental.')
+
+    return render(request, 'rate_rental.html', {'rental_id': pk})

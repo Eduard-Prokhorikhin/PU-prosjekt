@@ -12,6 +12,7 @@
 
 .headerContainer {
     position: sticky;
+    top: 0;
     box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
 
@@ -48,16 +49,19 @@ header > div > *, footer > div > *  {
     align-items: center;
 }
 
-header > *:hover {
+header > .headerElement:hover {
     border-top: 2px solid #0000;
     border-bottom: 2px solid var(--secondary-color);
     cursor: pointer;
     color: var(--secondary-color);
 }
 
-header svg, footer svg {
+header i, footer i {
+    height: auto;
     font-size: 2rem;
+    width: 2rem;
     margin-right: 0.5rem;
+    cursor: pointer;
 }
 
 header a {
@@ -69,6 +73,7 @@ header img, footer img {
 }
 
 /* - - - Header hidden cheatcodes - - - */
+/* Currently not implemented */
 #headerInputContainer {
     position: relative;
     display: flex;
