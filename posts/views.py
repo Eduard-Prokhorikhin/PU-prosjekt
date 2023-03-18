@@ -22,11 +22,11 @@ def index(request):
         post_list = initial_list.all().order_by('status', '-pub_date')
     else:
         post_list = initial_list.none()
-        for item in search_list['value']:
-            score = fuzz.ratio(item, search_input)
+        for item in search_list:
+            score = fuzz.ratio(item['title'], search_input)
             print(score)
-            if score >= 30:
-                post_list |= Post.objects.get(title=item)
+            if score >= 40:
+                post_list |= Post.objects.filter(title=item['title'])
         #post_list = initial_list.filter(
          #   title__contains=search_input).order_by('status', '-pub_date')
 
