@@ -8,6 +8,8 @@
     </script> 
 
     <form id="searchFrom" method="GET">
+
+
         <div class="SearchBox">
             <input autocomplete="off" onclick="submit" type="text" id="tags" class="SearchBox-input" placeholder="Søk etter verktøy..." name="q" value="{{request.GET.search}}" >
             <script>
@@ -27,30 +29,22 @@
             </button>
 
         </div>
-
-        <div class="dropdown-menu dropdown-menu-right" >
-            <ul class="category_filters" >
-             <li >
-              <input class="cat_type category-input" data-label="All" id="all" value="" name="radios" type="radio" ><label for="all" >All</label>
-             </li>
-             <li >
-              <input type="radio" name="radios" id="Design" value="Design" ><label class="category-label" for="Design" >Design</label>
-             </li>
-             <li >
-              <input type="radio" name="radios" id="Marketing" value="Marketing" ><label class="category-label" for="Marketing" >Marketing</label>
-             </li>
-             <li >
-              <input type="radio" name="radios" id="Programming" value="Programming" ><label class="category-label" for="Programming" >Programming</label>
-             </li>
-             <li >
-              <input type="radio" name="radios" id="Sales" value="Sales" ><label class="category-label" for="Sales" >Sales</label>
-             </li>
-             <li >
-              <input type="radio" name="radios" id="Support" value="Support" ><label class="category-label" for="Support" >Support</label>
-             </li>
-            </ul>
-         </div>
-        
+     
     </form>
+
+        <div id="list1" class="dropdown-check-list" tabindex="100">
+            <span class="anchor">Filter <i title="Filter name" name="cat" id="filterButton" class="fas fa-filter fa-lg"></i></span>
+            <ul class="items">
+                <li><input type="checkbox" />Apple </li>
+                <li><input type="checkbox" />Orange</li>
+                <li><input type="checkbox" />Grapes </li>
+                <li><input type="checkbox" />Berry </li>
+                <li><input type="checkbox" />Mango </li>
+                <li><input type="checkbox" />Banana </li>
+                <li><input type="checkbox" />Tomato</li>
+            </ul>
+        </div>
+
+    
             
 {% endblock %}
