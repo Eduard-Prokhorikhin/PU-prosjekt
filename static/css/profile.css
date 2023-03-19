@@ -30,7 +30,12 @@
 }
 
 .request_container td {
+    width: min-content;
     border-top: 1px solid grey;
+}
+
+td.rent_request_timespan {
+    min-width: 130px;
 }
 
 td.rent_request_desc {
@@ -38,8 +43,7 @@ td.rent_request_desc {
     word-wrap: normal;
 }
 
-.rent_request_actions >div{
-    width: 200px;
+td.rent_request_actions > div{
     display: flex;
-    justify-content: space-between;
+    gap: .5rem;
 }

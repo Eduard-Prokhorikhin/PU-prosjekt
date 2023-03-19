@@ -40,7 +40,7 @@
                         <tr>
                             <td><a href="/posts/{{ rent_request.post.id }}">{{ rent_request.post.title }}</a></td>
                             <td>{{ rent_request.renter.firstname }} {{ rent_request.renter.lastname }}</td>
-                            <td>
+                            <td class="rent_request_timespan">
                                 Fra:
                                 <br>
                                 {{ rent_request.start_date.date|date:'Y-m-d' }}
