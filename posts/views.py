@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from datetime import date
 from django.contrib.auth.decorators import login_required
 
+from fuzzywuzzy import fuzz
 from .models import *
 from .forms import NewPostForm
 
@@ -20,8 +21,14 @@ def index(request):
     if (request.GET.get('q') == None):
         post_list = initial_list.all().order_by('status', '-pub_date')
     else:
-        post_list = initial_list.filter(
-            title__contains=search_input).order_by('status', '-pub_date')
+        post_list = initial_list.none()
+        for item in search_list:
+            score = fuzz.ratio(item['title'].lower(), search_input.lower())
+            print(score)
+            if score >= 44:
+                post_list |= Post.objects.filter(title=item['title'])
+        #post_list = initial_list.filter(
+         #   title__contains=search_input).order_by('status', '-pub_date')
 
     context = {
         'title': 'Annonser',
