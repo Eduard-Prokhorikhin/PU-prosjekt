@@ -76,6 +76,6 @@ class RentRequest(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     renter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     start_date = models.DateField('date rented', default=datetime.now())
-    end_date = models.DateField('date returned', null=True, blank=True)
+    end_date = models.DateField('date returned')
     status = models.CharField(max_length=200, choices=[('PENDING', 'pending'), ('ACCEPTED', 'accepted'), ('REJECTED', 'rejected')], default='PENDING') #Må endres til pending
     description = models.TextField(null=True, blank=True)

@@ -117,10 +117,10 @@ def rent_product(request, pk):
                 description=form.cleaned_data['description'],
                 status = "PENDING", #må settes til pending
             )
-            messages.success = "Forespørsel sendt inn"
+            messages.success(request, "Forespørsel sendt inn")
             return redirect("/posts/")
         else:
-            messages.error = "Ugyldig skjema"
+            messages.error(request, "Ugyldig skjema")
 
     context = {
         'form': form,

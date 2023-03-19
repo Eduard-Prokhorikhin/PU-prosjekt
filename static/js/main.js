@@ -252,6 +252,7 @@ function handleSelectedTimespan(startDate, endDate) {
     }
 
     let currentElement = startDateElement;
+    if (startDateElement == endDateElement) {return;}
     while (currentElement.nextElementSibling != endDateElement) {
         if (currentElement == currentElement.parentElement.lastElementChild) {
             currentElement = currentElement.parentElement.nextElementSibling.firstElementChild;
