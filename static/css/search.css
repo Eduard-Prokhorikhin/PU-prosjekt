@@ -192,9 +192,25 @@
   }
   
   .dropdown-check-list.visible .anchor {
-    color: var(--secondary-color);
+    color: var(--text-color2);
   }
   
   .dropdown-check-list.visible .items {
     display: block;
   }
+
+  /* Filter buttons + effect*/
+  /* Add a grey background color on mouse-over */
+.btn:hover {
+    background-color: var(--primary-color);
+  }
+  
+/* Add a dark background color to the active button */
+.btn.active {
+   background-color: #666;
+   color: white;
+}
+
+.hide {
+    display: none;
+}

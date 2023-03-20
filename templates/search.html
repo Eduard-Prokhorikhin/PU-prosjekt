@@ -8,8 +8,6 @@
     </script> 
 
     <form id="searchFrom" method="GET">
-
-
         <div class="SearchBox">
             <input autocomplete="off" onclick="submit" type="text" id="tags" class="SearchBox-input" placeholder="Søk etter verktøy..." name="q" value="{{request.GET.search}}" >
             <script>
@@ -29,19 +27,27 @@
             </button>
 
         </div>
-     
     </form>
 
         <div id="list1" class="dropdown-check-list" tabindex="100">
             <span class="anchor">Filter <i title="Filter name" name="cat" id="filterButton" class="fas fa-filter fa-lg"></i></span>
             <ul class="items">
-                <li><input type="checkbox" /> Bil</li>
-                <li><input type="checkbox" /> Hagearbeid</li>
-                <li><input type="checkbox" /> Inne</li>
-                <li><input type="checkbox" /> Bygg</li>
+                <div id="myBtnContainer">
+                    <button class="btn active" onclick="filterSelection('all')"> Vis alt</button>
+                    <button class="btn" onclick="filterSelection('BIL')"> Bil</button>
+                    <button class="btn" onclick="filterSelection('BYGG')"> Bygg</button>
+                    <button class="btn" onclick="filterSelection('BÅT')"> Båt</button>
+                    <button class="btn" onclick="filterSelection('FRITID')"> Fritid</button>
+                    <button class="btn" onclick="filterSelection('HAGEARBEID')"> Hagearbeid</button>
+                    <button class="btn" onclick="filterSelection('HJEMME')"> Hjemme</button>
+                    <button class="btn" onclick="filterSelection('KJØKKEN')"> Kjøkken</button>
+                    <button class="btn" onclick="filterSelection('SPORT')"> Sport</button>
+                    <!-- <button class="btn" onclick="filterSelection('BYGG')"> Bygg</button> -->
+                  </div>
             </ul>
         </div>
 
+        
     
             
 {% endblock %}

@@ -52,10 +52,14 @@ class User(AbstractBaseUser):
 
 categories = [
     ('GENERELL', 'Generell'),
-    ('HAGEARBEID', 'Hagearbeid'),
-    ('INNE', 'Inne'),
     ('BIL', 'Bil'),
-    ('BYGG', 'Bygg')
+    ('BYGG', 'Bygg'),
+    ('BÅT', 'Båt'),
+    ('FRITID', 'Fritid'),
+    ('HAGEARBEID', 'Hagearbeid'),
+    ('HJEMME', 'Hjemme'),
+    ('KJØKKEN', 'Kjøkken'),
+    ('SPORT', 'Sport'),
 ]
 
 
