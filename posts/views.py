@@ -24,11 +24,9 @@ def index(request):
         post_list = initial_list.none()
         for item in search_list:
             score = fuzz.ratio(item['title'].lower(), search_input.lower())
-            print(score)
+            # print(score)
             if score >= 44:
                 post_list |= Post.objects.filter(title=item['title'])
-        #post_list = initial_list.filter(
-         #   title__contains=search_input).order_by('status', '-pub_date')
 
     context = {
         'title': 'Annonser',
