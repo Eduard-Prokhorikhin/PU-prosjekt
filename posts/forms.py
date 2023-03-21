@@ -16,6 +16,7 @@ class NewPostForm(forms.ModelForm):
 class RateRentalForm(forms.Form):
     user_rating = forms.IntegerField(label='Vurdering av utleier:', min_value=1, max_value=5)
     post_rating = forms.IntegerField(label='Vurdering av utleid redskap:', min_value=1, max_value=5)
+    
 class RentRequestForm(forms.ModelForm):
     class Meta:
         model = RentRequest
