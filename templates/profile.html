@@ -66,13 +66,15 @@
                 <h3 class="accordion">Du leier<span>▲</span></h3>
                 <div class="posts_container">
                     {% for rental in rentals %}
-                        <div class="single_post">
+                        <div class="single_post", style="max-height: 450px;">
                             {% if rental.post.image %}
                                 <img src="{{ rental.post.image.url }}" alt="{{ rental.post.title }}">
                             {% endif %}
                             <h3>{{ rental.post.title }}</h3>
                             <p>Utleier: {{ rental.post.author.firstname }} {{ rental.post.author.lastname }}</p>
-                            <a class="btn endRental" href="{% url 'endRental' rental.id %}">Avslutt leie</a>
+                            <p>Leieperiode: {{ rental.start_date|date:'Y-m-d' }} - {{ rental.end_date|date:'Y-m-d' }}</p>
+                            <p>Status: {{rental.status}}</p>
+                            {% if rental.status == "ACCEPTED" %}<a class="btn endRental" href="{% url 'endRental' rental.id %}">Avslutt leie</a>{% endif %}
                             <a href="/posts/{{ rental.post.id }}"></a>
                         </div>
                     {% endfor %}
