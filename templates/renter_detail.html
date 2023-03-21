@@ -12,6 +12,10 @@
         {% if user.rating_count <= 1 %}
             <p>Denne utleieren har ikke fått noen vurderinger enda.</p>
         {% endif %}
+        <br>
+        <div>
+            <a class="btn" href="/posts/report_user/{{ user.id }}">Rapporter bruker</a>
+        </div>
 
         <br>
         {% if user_posts.count > 0 %}

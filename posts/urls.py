@@ -12,4 +12,5 @@ urlpatterns = [
     path('rent_product/<int:pk>', views.rent_product, name='rent_product'),
     path('renter_detail/<int:pk>', views.renter_detail, name='renter_detail'),
     path('rate_rental/<int:pk>', views.rate_rental, name='rate_rental'),
+    path('report_user/<int:pk>', views.report_user, name='report_user'),
 ]
