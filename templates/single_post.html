@@ -1,5 +1,5 @@
 {% block content %}
-    <div class="single_post">
+    <div class="single_post {{ post.category }} {% if post.status == 'UNAVAILABLE' %}unavailable{% endif %}">
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}

@@ -1,8 +1,25 @@
+/*
+ * TODO: Bytte fra tag-generell til class-spesifikk
+ */
+
+#filterButton {
+    margin-top: 1.2em;
+    padding-right: 1em;
+    text-align: right;
+} 
+
+#filterButton:hover {
+    cursor: pointer;
+}
+
+/*Copied from https://templateyou.com/free-css-search-boxes/*/
 #searchFrom input, #searchFrom {
     border: none;
 	background: none;
 	outline: 0;
+    flex-direction: row;
 }
+
 
 .SearchBox-input::placeholder {
     color:var(--text-color2);
@@ -18,15 +35,15 @@
     margin: 0 auto;
     justify-content: center;
 	display: flex;
-	border-radius: 25px;
+	border-radius: 5px 25px 25px 5px;
 	background-color: var(--bg-color1);
 	height: var(--height);
 }
 
 .SearchBox-input, #searchFrom {
-    padding-left: 2em;
+    padding-left: 1em;
     padding-right: 1em;
-    border-radius: 25px;
+    border-radius: 5px 25px 25px 5px;
     width: 240px;
     font-size: 1em;
     color: var(--text-color2);
@@ -75,21 +92,24 @@
 /* Component containers
 ----------------------------------*/
 .ui-widget-content {
-    border: 1px solid #666666; 
+    box-shadow: 0 5px 10px 2px rgba(0,0,0,0.5);
+    border-radius: 3px;
     background: var(--bg-color1) 50% bottom repeat-x; 
     color: var(--text_color2); 
     font-weight: normal;
+    width: 375px;
 }
 
 .ui-widget-content a {
     color: var(--text-color2); 
-    font-weight: normal; 
+    font-weight: normal;    
 }
 
 /* Interaction states
 ----------------------------------*/
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { 
     border: 1px solid var(--secondary-color); 
+    border-radius: 3px;
     background: var(--secondary-color) 50% 50% repeat-x; 
     color: var(--text-color1);
 }
@@ -127,5 +147,80 @@
 .ui-menu .ui-menu-item a.ui-state-active {
 	font-weight: normal;
 	margin: -1px;
+}
+
+
+/* Category dropdown */
+
+.dropdown-check-list {
+    /* display: flex; */
+    /* justify-content: center; */
+    text-align: center;
+    /* width: 1100px; */
+    margin: 0 auto;
+  }
+  
+  .dropdown-check-list .anchor {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    /* padding: 5px 50px 5px 10px; */
+    padding-bottom: 7.5px;
+    /* border: 1px solid #ccc; */
+  }
+
+  .dropdown-check-list ul.items {
+    padding: 2px;
+    text-align: center !important;
+    z-index: 0;
+    display: none;
+    margin: 0;
+    
+    /* border: 1px solid #ccc; */
+    /* box-shadow: 0 5px 10px 2px rgba(0,0,0,0.5); */
+    border-top: none;
+}
+
+.anchor input:checked ~ .checkmark  {
+    background-color: var(--secondary-color);
+}
+
+.dropdown-check-list ul.items li {
+    font-size: 1.2em;
+    padding-left: 10px;
+    padding-right: 10px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dropdown-check-list.visible .anchor {
+    color: var(--text-color2);
+  }
+  
+  .dropdown-check-list.visible .items {
+    display: block;
+ }
+
+  /* Filter buttons + effect*/
+  /* Add a grey background color on mouse-over */
+.btn:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color1);
+  }
+  
+/* Add a dark background color to the active button */
+.btn.active {
+   background-color: #666;
+   color: white;
+}
+
+.btn.cat {
+    margin-top: 4gpx;
+ }
+
+
+.hide {
+    display: none;
 }
 

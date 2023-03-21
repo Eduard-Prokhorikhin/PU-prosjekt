@@ -4,6 +4,7 @@ from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from fuzzywuzzy import fuzz
 from .models import *
 from .forms import *
 from django.contrib import messages
@@ -13,24 +14,30 @@ from django.contrib import messages
 
 def index(request):
     initial_list = Post.objects
-
+    search_list = Post.objects.values('title').distinct()
     search_input = request.GET.get('q')
+    category_input = request.GET.get('cat')
+    # category_filter =
 
     if (request.GET.get('q') == None):
         post_list = initial_list.all().order_by('-pub_date')
     else:
-        post_list = initial_list.filter(
-            title__contains=search_input).order_by('-pub_date')
-
-    # rental_list = Rental.objects.all().values_list('post')
-    # print(rental_list)
-    # To search for a specific post
-    # post_list = Post.objects.filter(title__contains='')
+        post_list = initial_list.none()
+        for item in search_list:
+            score = fuzz.ratio(item['title'].lower(), search_input.lower())
+            # print(score)
+            if score >= 44:
+                post_list |= Post.objects.filter(
+                    title=item['title']).order_by('-pub_date')
+            elif initial_list.filter(title__icontains=search_input):
+                post_list = initial_list.filter(
+                    title__icontains=search_input).order_by('-pub_date')
 
     context = {
         'title': 'Annonser',
         'post_list': post_list,
         'initial_list': initial_list.all(),
+        'search_list': search_list.all()
     }
 
     return render(request, 'posts.html', context=context)
@@ -88,6 +95,7 @@ def create_post(request, pk=None):
         post = Post.objects.get(pk=pk)
         post.title = form.cleaned_data['title']
         post.text = form.cleaned_data['text']
+        post.category = form.cleaned_data['category']
         if request.FILES.get('image'):
             post.image = form.cleaned_data['image']
         post.save()
@@ -95,12 +103,14 @@ def create_post(request, pk=None):
     else:
         Post.objects.create(
             title=post['title'],
+            category=post['category'],
             text=post['text'],
             author=User.objects.get(pk=request.user.id),
             image=post['image'],
         )
 
     return HttpResponseRedirect('/posts/')
+
 
 @login_required
 def rent_product(request, pk):
@@ -111,19 +121,20 @@ def rent_product(request, pk):
     if request.method == "POST":
         form = RentRequestForm(request.POST)
         if form.is_valid():
-            days = daysInBetween(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
+            days = daysInBetween(
+                form.cleaned_data['start_date'], form.cleaned_data['end_date'])
             for day in rentedDays:
                 if day in days:
                     messages.success(request, "Datoen er opptatt")
                     return redirect(request.META.get('HTTP_REFERER'))
-            
+
             RentRequest.objects.create(
-                post= Post.objects.get(pk=pk),
+                post=Post.objects.get(pk=pk),
                 renter=User.objects.get(pk=request.user.id),
                 start_date=form.cleaned_data['start_date'],
                 end_date=form.cleaned_data['end_date'],
                 description=form.cleaned_data['description'],
-                status = "PENDING", #må settes til pending
+                status="PENDING",  # må settes til pending
             )
             messages.success(request, "Forespørsel sendt inn")
             return redirect("/posts/")
@@ -138,15 +149,14 @@ def rent_product(request, pk):
     return render(request, 'rent_product.html', context=context)
 
 
-
 # Functions
 def getRentedDays(post):
     rentedDays = []
-    
+
     rentals = RentRequest.objects.filter(post=post, status="ACCEPTED")
     for rental in rentals:
         delta = rental.end_date - rental.start_date
-        
+
         for i in range(delta.days + 1):
             day = rental.start_date + timedelta(days=i)
             rentedDays.append(day.strftime("%Y-%m-%d"))
@@ -154,6 +164,7 @@ def getRentedDays(post):
     tuple(rentedDays)
 
     return rentals, rentedDays
+
 
 def daysInBetween(start, end):
     days = []
@@ -163,11 +174,12 @@ def daysInBetween(start, end):
         days.append(day.strftime("%Y-%m-%d"))
     return days
 
+
 def renter_detail(request, pk):
     user = User.objects.get(pk=pk)
     next = request.META.get('HTTP_REFERER')
     user_posts = Post.objects.filter(author=user).order_by('-pub_date')
-    
+
     context = {
         'user': user,
         'next': next,
@@ -176,11 +188,12 @@ def renter_detail(request, pk):
 
     return render(request, 'renter_detail.html', context=context)
 
+
 @login_required
 def rate_rental(request, pk):
     form = RateRentalForm()
-    user = Rental.objects.get(pk=pk).post.author
-    post = Rental.objects.get(pk=pk).post
+    user = RentRequest.objects.get(pk=pk).post.author
+    post = RentRequest.objects.get(pk=pk).post
 
     context = {
         'form': form,
@@ -192,14 +205,17 @@ def rate_rental(request, pk):
         form = RateRentalForm(request.POST)
         if form.is_valid():
             user_initialrating = user.rating
-            user.rating = (user_initialrating * user.rating_count + form.cleaned_data['user_rating']) / (user.rating_count+1)
+            user.rating = (user_initialrating * user.rating_count +
+                           form.cleaned_data['user_rating']) / (user.rating_count+1)
             user.rating_count += 1
             user.save()
 
             post_initialrating = post.rating
-            post.rating = (post_initialrating * post.rating_count + form.cleaned_data['post_rating']) / (post.rating_count+1)
+            post.rating = (post_initialrating * post.rating_count +
+                           form.cleaned_data['post_rating']) / (post.rating_count+1)
             post.rating_count += 1
             post.save()
+            RentRequest.objects.filter(pk=pk).update(review=True)
 
             return redirect('/account/')
         else:

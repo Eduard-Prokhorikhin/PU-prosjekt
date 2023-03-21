@@ -11,11 +11,10 @@ from posts.models import *
 def profilePage(request):
     context = {
         'rent_requests' : RentRequest.objects.filter(post__in=Post.objects.filter(author=request.user), status= 'PENDING').order_by('-end_date'),
-        'rentals': RentRequest.objects.filter(renter=request.user, end_date__gte=datetime.now().date()).exclude(status='REJECTED').order_by('-start_date'),
+        'rentals': RentRequest.objects.filter(renter=request.user, review=False).exclude(status='REJECTED').order_by('-start_date'),
         'posts': Post.objects.filter(author=request.user).order_by('-pub_date'),
-        'history': RentRequest.objects.filter(renter=request.user, status='ACCEPTED', end_date__lt=datetime.now().date()).order_by('-end_date'),
+        'history': RentRequest.objects.filter(renter=request.user, status='ACCEPTED', review=True).order_by('-end_date'),
     }
-    print(context.get("history"))
     return render(request, 'profile.html', context)
 
 def registerPage(request):
@@ -64,9 +63,13 @@ def logoutPage(request):
     return redirect('login')
 
 def endRental(request, pk):
-    # post = Post.objects.get(pk=pk)
-    # RentRequest.objects.get(post=pk).delete()
-    return redirect('index')
+    rental= RentRequest.objects.get(pk=pk)
+    if rental.start_date > datetime.now().date():
+        messages.error(request, "Kan ikke avslutte leie før startdato av forholdet")
+        return redirect('index')
+    else:
+        RentRequest.objects.filter(pk=pk).update(end_date= datetime.now().date())
+        return redirect('rate_rental', pk=pk)
 
 def acceptRental(request, pk):
     RentRequest.objects.filter(pk=pk).update(status="ACCEPTED")

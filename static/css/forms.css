@@ -39,6 +39,25 @@ textarea {
     min-width: fit-content;
 }
 
+#newPostID {
+    margin: 0 auto;
+
+}
+
+#newPostID > h1 {
+    margin: 16px;
+    padding-bottom: 0px
+}
+
+#newPostID > hr {
+    width: 568px;
+}
+
+#annonseNY {
+    margin: 0 auto;
+    width: 568px;
+}
+
 .newPostForm {
     display: flex;
     flex-direction: column;
@@ -61,6 +80,10 @@ textarea {
     border: 1.5px solid var(--secondary-color);
     border-radius: 2px;
     outline: none;
+}
+
+#id_category {
+    font-size: 1rem;
 }
 /* - - - END NEWPOSTFORM - - - */
 
