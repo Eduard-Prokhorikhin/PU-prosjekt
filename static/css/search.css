@@ -206,6 +206,7 @@
   /* Add a grey background color on mouse-over */
 .btn:hover {
     background-color: var(--primary-color);
+    color: var(--text-color1);
   }
   
 /* Add a dark background color to the active button */
@@ -215,7 +216,7 @@
 }
 
 .btn.cat {
-    margin-top: 4px;
+    margin-top: 4gpx;
  }
 
 
