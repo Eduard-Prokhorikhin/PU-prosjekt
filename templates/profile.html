@@ -5,7 +5,14 @@
             <h1>Hei, {{ request.user.firstname }}!</h1>
             <h3>Din kontaktinformasjon:</h3>
             <p>Epost: {{ request.user }}</p>
-            <p>Telefon: {{ request.user.phone }}</p>    
+            <p>Telefon: {{ request.user.phone }}</p>
+
+            {% if request.user.rating_count > 1 %}
+                {% include "stars.html" with rating=request.user.rating %}
+            {% endif %}
+            {% if request.user.rating_count <= 1 %}
+                <p>Du har ikke fått noen vurderinger enda.</p>
+            {% endif %}
         </div>
         
         <div id="profileActions">
@@ -16,36 +23,57 @@
         
         <div id="profilePosts">
             <hr>
-            {% if rentedPosts.count > 0 %}
-                <h3 class="accordion">Utleide annonser<span>▲</span></h3>
+            {% if rent_requests.count > 0 %}
+                <h3 class="accordion">Utleie forespørsler<span>▲</span></h3>
+                <table class="request_container">
+                    <thead>
+                        <tr>
+                            <th>Annonse</th>
+                            <th>Leietaker</th>
+                            <th>Tidsrom</th>
+                            <th>Beskrivelse</th>
+                            <th>Handlinger</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for rent_request in rent_requests %}
+                        <tr>
+                            <td><a href="/posts/{{ rent_request.post.id }}">{{ rent_request.post.title }}</a></td>
+                            <td><a href="{% url 'renter_detail' rent_request.renter.id %}">{{ rent_request.renter.firstname }} {{ rent_request.renter.lastname }}</a></td>
+                            <td class="rent_request_timespan">
+                                Fra:
+                                <br>
+                                {{ rent_request.start_date|date:'Y-m-d' }}
+                                <br>
+                                Til:
+                                <br>
+                                {{ rent_request.end_date|date:'Y-m-d' }}
+                            </td>
+                            <td class="rent_request_desc">{{ rent_request.description }}</td>
+                            <td class="rent_request_actions">
+                                <div>
+                                    <a class="btn" href="{% url 'acceptRental' rent_request.id %}">Godkjenn</a>
+                                    <a class="btn" href="{% url 'rejectRental' rent_request.id %}">Avslå</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+            {% endif %}
+            {% if rentals.count > 0 %}
+                <h3 class="accordion">Du leier<span>▲</span></h3>
                 <div class="posts_container">
-                    {% for rental in rentalPosts %}
+                    {% for rental in rentals %}
                         <div class="single_post">
                             {% if rental.post.image %}
                                 <img src="{{ rental.post.image.url }}" alt="{{ rental.post.title }}">
                             {% endif %}
                             <h3>{{ rental.post.title }}</h3>
-                            <p>Utleid til: {{ rental.renter.firstname }} {{ rental.renter.lastname }}</p>
-                            <a class="btn" href="{% url 'new_post' rental.post.id %}">Endre</a>
-                            <a class="btn endRental" href="{% url 'endRental' rental.post.id %}">Avslutt leie</a>
+                            <p>Utleier: {{ rental.post.author.firstname }} {{ rental.post.author.lastname }}</p>
+                            <a class="btn endRental" href="{% url 'endRental' rental.id %}">Avslutt leie</a>
                             <a href="/posts/{{ rental.post.id }}"></a>
-                        </div>
-                    {% endfor %}
-                </div>
-                <hr>
-            {% endif %}
-            {% if rentals.count > 0 %}
-                <h3 class="accordion">Dine leieforhold<span>▲</span></h3>
-                <div class="posts_container">
-                    {% for post in rentals %}
-                        <div class="single_post">
-                            {% if post.image %}
-                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
-                            {% endif %}
-                            <h3>{{ post.title }}</h3>
-                            <p>Leid av: {{ post.author.firstname }} {{ post.author.lastname }}</p>
-                            <a class="btn endRental" href="{% url 'endRental' post.id %}">Avslutt leie</a>
-                            <a href="/posts/{{ post.id }}"></a>
                         </div>
                     {% endfor %}
                 </div>
@@ -69,6 +97,39 @@
                 {% endif %}
             </div>
             <hr>
+
+            {% if history.count > 0 %}
+            <h3 class="accordion">Tidligere leieforhold<span>▲</span></h3>
+            <table class="request_container">
+                <thead>
+                    <tr>
+                        <th>Annonse</th>
+                        <th>Utleier</th>
+                        <th>Tidsrom</th>
+                        <th>Beskrivelse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for rent_request in history %}
+                    <tr>
+                        <td><a href="/posts/{{ rent_request.post.id }}">{{ rent_request.post.title }}</a></td>
+                        <td><a href="{% url 'renter_detail' rent_request.post.author.id %}">{{ rent_request.post.author.firstname }} {{ rent_request.post.author.lastname }}</a></td>
+                        <td class="rent_request_timespan">
+                            Fra:
+                            <br>
+                            {{ rent_request.start_date|date:'Y-m-d' }}
+                            <br>
+                            Til:
+                            <br>
+                            {{ rent_request.end_date|date:'Y-m-d' }}
+                        </td>
+                        <td class="rent_request_desc">{{ rent_request.description }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+        {% endif %}
         </div>
     </div>
     

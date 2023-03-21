@@ -5,6 +5,10 @@
  * Q: Hvor viktig er det at .newPostForm > button er 60% bred?
  */
 
+form {
+    display: flex;
+    flex-direction: column;
+}
 
 textarea {
     resize: none;
@@ -57,14 +61,18 @@ textarea {
     gap: 0.75rem;
 }
 
-.newPostForm > input[type=text], #id_category, .newPostForm > textarea {
+.newPostForm > button {
+    width: 60%;
+}
+
+.newPostForm > input[type=text], .newPostForm > textarea {
     margin-bottom: 1rem;
     font-size: 1rem;
     border: 1.5px solid var(--text-color2);
     border-radius: 2px;
 }
 
-.newPostForm > input[type=text]:focus, .newPostForm > textarea:focus {
+.newPostForm input[type=text]:focus, .newPostForm textarea:focus {
     border: 1.5px solid var(--secondary-color);
     border-radius: 2px;
     outline: none;
@@ -115,17 +123,17 @@ input:-webkit-autofill:focus,
     color: var(--secondary-color);
 }
 
-.registerFormWrapper h1, .loginFormWrapper > h1 {
+.loginFormWrapper > p {
+    padding-top: 0;
+}
+
+.registerFormWrapper h1, .loginFormWrapper h1 {
     color: var(--secondary-color);
     padding: 0;
     margin: 0;
 }
 
-.loginFormWrapper > p {
-    padding-top: 0;
-}
-
-.registerFormWrapper a, .loginFormWrapper > a {
+.registerFormWrapper a, .loginFormWrapper a {
     text-decoration: underline;
 }
 
@@ -136,4 +144,79 @@ input:-webkit-autofill:focus,
     width: 50%;
     margin: 0;
 }
+
+.registerFormWrapper input{
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin: 1rem 0;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    color: var(--text-color1);
+    font-size: large;
+}
+
+.requestWrapper {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 1rem;
+}
+
+.requestWrapper > h1, .requestWrapper > form {
+    grid-column: 1;
+}
 /* - - - END REGISTER- and LOGINFORMWRAPPER - - - */
+
+/* - - - RATE RENTAL - - - */
+
+.rating {
+    --dir: right;
+    --star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.25l-6.188 3.75 1.641-7.031-5.438-4.734 7.172-0.609 2.813-6.609 2.813 6.609 7.172 0.609-5.438 4.734 1.641 7.031z"/></svg>');
+    --stars: 5;
+    --starsize: 3rem;
+    --value: 1;
+    --x: calc(100% * (var(--value) / var(--stars)));
+    block-size: var(--starsize);
+    inline-size: calc(var(--stars) * var(--starsize));
+    position: relative;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    background-color: var(--bg-color2);
+    margin-bottom: 2rem;
+}
+
+.rating::-moz-range-track {
+    background: linear-gradient(to var(--dir), var(--star-filled) 0 var(--x), var(--star-unfilled) 0 var(--x));
+    block-size: 100%;
+    mask: repeat left center/var(--starsize) var(--star);
+}
+
+.rating::-webkit-slider-runnable-track {
+    background: linear-gradient(to var(--dir), var(--star-filled) 0 var(--x), var(--star-unfilled) 0 var(--x));
+    block-size: 100%;
+    mask: repeat left center/var(--starsize) var(--star);
+    -webkit-mask: repeat left center/var(--starsize) var(--star);
+}
+.rating::-moz-range-thumb {
+    height: var(--starsize);
+    opacity: 0;
+    width: calc(var(--starsize) / 2);
+}
+
+.rating::-webkit-slider-thumb {
+    height: var(--starsize);
+    opacity: 0;
+    width: calc(var(--starsize) / 2);
+    -webkit-appearance: none;
+}
+
+.rating, .rating-label {
+    display: block;
+}
+
+.rating-label {
+    margin-block-end: 1rem;
+}
+
+/* - - - END RATE RENTAL - - - */

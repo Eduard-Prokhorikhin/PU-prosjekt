@@ -1,17 +1,18 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from datetime import date
+from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from fuzzywuzzy import fuzz
 from .models import *
-from .forms import NewPostForm
+from .forms import *
+from django.contrib import messages
 
 # Create your views here.
 
 
 def index(request):
-
     initial_list = Post.objects
     search_list = Post.objects.values('title').distinct()
     search_input = request.GET.get('q')
@@ -19,7 +20,7 @@ def index(request):
     # category_filter =
 
     if (request.GET.get('q') == None):
-        post_list = initial_list.all().order_by('status', '-pub_date')
+        post_list = initial_list.all().order_by('-pub_date')
     else:
         post_list = initial_list.none()
         for item in search_list:
@@ -44,16 +45,13 @@ def index(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
+    rentals, rentedDays = getRentedDays(post)
     next = request.META.get('HTTP_REFERER')
-    try:
-        rental = Rental.objects.get(post=pk)
-
-    except:
-        rental = None
 
     context = {
         'post': post,
-        'rental': rental,
+        'rentals': rentals,
+        'rentedDays': rentedDays,
         'next': next
     }
 
@@ -106,11 +104,73 @@ def create_post(request, pk=None):
     return HttpResponseRedirect('/posts/')
 
 
+@login_required
+def rent_product(request, pk):
+    post = Post.objects.get(pk=pk)
+    rentals, rentedDays = getRentedDays(post)
+
+    form = RentRequestForm()
+    if request.method == "POST":
+        form = RentRequestForm(request.POST)
+        if form.is_valid():
+            days = daysInBetween(
+                form.cleaned_data['start_date'], form.cleaned_data['end_date'])
+            for day in rentedDays:
+                if day in days:
+                    messages.success(request, "Datoen er opptatt")
+                    return redirect(request.META.get('HTTP_REFERER'))
+
+            RentRequest.objects.create(
+                post=Post.objects.get(pk=pk),
+                renter=User.objects.get(pk=request.user.id),
+                start_date=form.cleaned_data['start_date'],
+                end_date=form.cleaned_data['end_date'],
+                description=form.cleaned_data['description'],
+                status="PENDING",  # må settes til pending
+            )
+            messages.success(request, "Forespørsel sendt inn")
+            return redirect("/posts/")
+        else:
+            messages.error(request, "Ugyldig skjema")
+
+    context = {
+        'form': form,
+        'rentedDays': rentedDays
+    }
+
+    return render(request, 'rent_product.html', context=context)
+
+
+# Functions
+def getRentedDays(post):
+    rentedDays = []
+
+    rentals = RentRequest.objects.filter(post=post, status="ACCEPTED")
+    for rental in rentals:
+        delta = rental.end_date - rental.start_date
+
+        for i in range(delta.days + 1):
+            day = rental.start_date + timedelta(days=i)
+            rentedDays.append(day.strftime("%Y-%m-%d"))
+
+    tuple(rentedDays)
+
+    return rentals, rentedDays
+
+
+def daysInBetween(start, end):
+    days = []
+    delta = end - start
+    for i in range(delta.days + 1):
+        day = start + timedelta(days=i)
+        days.append(day.strftime("%Y-%m-%d"))
+    return days
+
+
 def renter_detail(request, pk):
     user = User.objects.get(pk=pk)
     next = request.META.get('HTTP_REFERER')
-    user_posts = Post.objects.filter(
-        author=user, status='AVAILABLE').order_by('-pub_date')
+    user_posts = Post.objects.filter(author=user).order_by('-pub_date')
 
     context = {
         'user': user,
@@ -119,3 +179,37 @@ def renter_detail(request, pk):
     }
 
     return render(request, 'renter_detail.html', context=context)
+
+
+@login_required
+def rate_rental(request, pk):
+    form = RateRentalForm()
+    user = Rental.objects.get(pk=pk).post.author
+    post = Rental.objects.get(pk=pk).post
+
+    context = {
+        'form': form,
+        'user': user,
+        'post': post
+    }
+
+    if request.method == 'POST':
+        form = RateRentalForm(request.POST)
+        if form.is_valid():
+            user_initialrating = user.rating
+            user.rating = (user_initialrating * user.rating_count +
+                           form.cleaned_data['user_rating']) / (user.rating_count+1)
+            user.rating_count += 1
+            user.save()
+
+            post_initialrating = post.rating
+            post.rating = (post_initialrating * post.rating_count +
+                           form.cleaned_data['post_rating']) / (post.rating_count+1)
+            post.rating_count += 1
+            post.save()
+
+            return redirect('/account/')
+        else:
+            messages.error(request, 'Could not rate rental.')
+
+    return render(request, 'rate_rental.html', {'rental_id': pk})

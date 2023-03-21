@@ -11,12 +11,18 @@ from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 class User(AbstractBaseUser):
     firstname = models.CharField(max_length=200)
     lastname = models.CharField(max_length=200)
     email = models.EmailField(max_length=200, unique=True)
     phone = models.CharField(max_length=200)
+    rating = models.FloatField(default=5, validators=[
+                               MaxValueValidator(5), MinValueValidator(1)])
+    rating_count = models.IntegerField(default=1)
+
     # django REQUIRED FIELDS:
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -71,9 +77,10 @@ class Post(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published', default=datetime.now())
-    status = models.CharField(max_length=200, choices=[(
-        'AVAILABLE', 'available'), ('UNAVAILABLE', 'unavailable')], default='AVAILABLE')
     image = models.ImageField()
+    rating = models.FloatField(default=5, validators=[
+                               MaxValueValidator(5), MinValueValidator(1)])
+    rating_count = models.IntegerField(default=1)
 
     # before saving the instance we're reducing the image
     def save(self, *args, **kwargs):
@@ -91,7 +98,12 @@ class Post(models.Model):
             return new_image
 
 
-class Rental(models.Model):
+class RentRequest(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     renter = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    start_date = models.DateField('date rented')
+    end_date = models.DateField('date returned')
+    status = models.CharField(max_length=200, choices=[('PENDING', 'pending'), (
+        'ACCEPTED', 'accepted'), ('REJECTED', 'rejected')], default='PENDING')  # Må endres til pending
+    description = models.TextField(null=True, blank=True)

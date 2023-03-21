@@ -19,3 +19,31 @@
     margin-right: 1rem;
     float: right;
 }
+
+.request_container {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.request_container td {
+    padding: 1.5rem;
+}
+
+.request_container td {
+    width: min-content;
+    border-top: 1px solid grey;
+}
+
+td.rent_request_timespan {
+    min-width: 130px;
+}
+
+td.rent_request_desc {
+    max-width: 250px;
+    word-wrap: normal;
+}
+
+td.rent_request_actions > div{
+    display: flex;
+    gap: .5rem;
+}

@@ -7,6 +7,14 @@
             <h1>{{ post.title }}</h1>
             <p>{{ post.text }}</p>
             <p>Kategori: {{ post.category}}</p>
+            <br>
+
+            {% if post.rating_count > 1 %}
+                {% include "stars.html" with rating=post.rating %}
+            {% endif %}
+            {% if post.rating_count <= 1 %}
+                <p>Denne annonsen har ikke fått noen vurderinger enda.</p>
+            {% endif %}
 
             <br>
             <p>Publisert: {{ post.pub_date|date:"d.M Y" }}</p>
@@ -22,10 +30,15 @@
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}
-        {% if post.status == 'AVAILABLE' %}
-            <a class="btn" href="{% url 'rentProduct' post.id %}">Lei produkt</a>
-        {% else %}
-            <a class="btn disabled" href="" onclick="event.preventDefault()">Produktet er utleid for øyeblikket...</a>
+        {% if post.author == request.user %}
+            <a class="btn" href="{% url 'new_post' post.id %}">Endre annonse</a>
         {% endif %}
+        {% if post.author != request.user %}
+         <a class="btn" href="{% url 'rent_product' post.id %}">Lei produkt</a>
+        {% endif %}
+        
     </div>
+    {% if request.user == post.author %}
+        {% include "calendar.html" with rentedDays=rentedDays %}
+    {% endif %}
 {% endblock %}
