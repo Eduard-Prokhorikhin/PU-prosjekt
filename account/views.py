@@ -15,7 +15,7 @@ def profilePage(request):
         'posts': Post.objects.filter(author=request.user).order_by('-pub_date'),
         'history': RentRequest.objects.filter(renter=request.user, status='ACCEPTED', end_date__lt=datetime.now().date()).order_by('-end_date'),
     }
-    print(context.get("rent_requests"))
+    print(context.get("history"))
     return render(request, 'profile.html', context)
 
 def registerPage(request):

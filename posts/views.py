@@ -158,7 +158,7 @@ def daysInBetween(start, end):
 def renter_detail(request, pk):
     user = User.objects.get(pk=pk)
     next = request.META.get('HTTP_REFERER')
-    user_posts = Post.objects.filter(author=user, status='AVAILABLE').order_by('-pub_date')
+    user_posts = Post.objects.filter(author=user).order_by('-pub_date')
     
     context = {
         'user': user,
