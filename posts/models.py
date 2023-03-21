@@ -107,3 +107,4 @@ class RentRequest(models.Model):
     status = models.CharField(max_length=200, choices=[('PENDING', 'pending'), (
         'ACCEPTED', 'accepted'), ('REJECTED', 'rejected')], default='PENDING')  # Må endres til pending
     description = models.TextField(null=True, blank=True)
+    review = models.BooleanField("review status", default=False)

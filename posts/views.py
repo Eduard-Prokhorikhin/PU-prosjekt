@@ -184,8 +184,8 @@ def renter_detail(request, pk):
 @login_required
 def rate_rental(request, pk):
     form = RateRentalForm()
-    user = Rental.objects.get(pk=pk).post.author
-    post = Rental.objects.get(pk=pk).post
+    user = RentRequest.objects.get(pk=pk).post.author
+    post = RentRequest.objects.get(pk=pk).post
 
     context = {
         'form': form,
@@ -207,6 +207,7 @@ def rate_rental(request, pk):
                            form.cleaned_data['post_rating']) / (post.rating_count+1)
             post.rating_count += 1
             post.save()
+            RentRequest.objects.filter(pk=pk).update(review=True)
 
             return redirect('/account/')
         else:
