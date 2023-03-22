@@ -22,6 +22,7 @@ class User(AbstractBaseUser):
     rating = models.FloatField(default=5, validators=[
                                MaxValueValidator(5), MinValueValidator(1)])
     rating_count = models.IntegerField(default=1)
+    isReported = models.BooleanField(default=False)
 
     # django REQUIRED FIELDS:
     is_staff = models.BooleanField(default=False)

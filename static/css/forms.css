@@ -53,6 +53,10 @@ textarea {
     width: 568px;
 }
 
+#annonseNY {
+    margin: 0 auto;
+    width: 568px;
+}
 
 .newPostForm {
     display: flex;
@@ -76,6 +80,10 @@ textarea {
     border: 1.5px solid var(--secondary-color);
     border-radius: 2px;
     outline: none;
+}
+
+#id_category {
+    font-size: 1rem;
 }
 /* - - - END NEWPOSTFORM - - - */
 

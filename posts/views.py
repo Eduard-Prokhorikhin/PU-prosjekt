@@ -58,6 +58,14 @@ def post_detail(request, pk):
     return render(request, 'post_detail.html', context=context)
 
 
+def report_user(request, pk):
+    user = User.objects.get(pk=pk)
+    user.isReported = True
+    user.save()
+    messages.success(request, "Brukeren er rapportert")
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
 @login_required
 def new_post(request, pk=None):
 

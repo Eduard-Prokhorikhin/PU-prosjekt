@@ -2,12 +2,12 @@
 
 {% block content %}
     <div class="new_post" id="newPostID">
-        <h1 id="nyAnnonse">Ny annonse</h1>
+        <h1 id="nyAnnonse">{% if post_id %}Endre {% else %}Ny{% endif %} annonse</h1>
         <hr>
         <form id="new_post_form" class="newPostForm" action="/post/create_post/{% if post_id %}{{ post_id }}{% endif %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
-            <button type="submit">{% if post_id %}Oppdater{% else %}Opprett{% endif %} annonse</button>
+            <button class="btn" id="annonseNY" type="submit">{% if post_id %}Oppdater{% else %}Opprett{% endif %} annonse</button>
         </form>
     </div>
 {% endblock %}
