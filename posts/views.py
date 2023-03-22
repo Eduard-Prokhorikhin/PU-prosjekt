@@ -16,8 +16,6 @@ def index(request):
     initial_list = Post.objects
     search_list = Post.objects.values('title').distinct()
     search_input = request.GET.get('q')
-    category_input = request.GET.get('cat')
-    # category_filter =
 
     if (request.GET.get('q') == None):
         post_list = initial_list.all().order_by('-pub_date')
@@ -56,14 +54,6 @@ def post_detail(request, pk):
     }
 
     return render(request, 'post_detail.html', context=context)
-
-
-def report_user(request, pk):
-    user = User.objects.get(pk=pk)
-    user.isReported = True
-    user.save()
-    messages.success(request, "Brukeren er rapportert")
-    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
