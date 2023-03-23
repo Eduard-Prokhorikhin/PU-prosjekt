@@ -26,7 +26,7 @@ def index(request):
         for item in search_list:
             score = fuzz.ratio(item['title'].lower(), search_input.lower())
             # print(score)
-            if score >= 40:
+            if score >= 41:
                 post_list |= Post.objects.filter(
                     title=item['title']).order_by('-pub_date')
             elif initial_list.filter(title__icontains=search_input):
