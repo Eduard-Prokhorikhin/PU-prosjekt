@@ -46,7 +46,6 @@
             <table class="request_container">
                 <thead>
                     <tr>
-                        <th>Annonse</th>
                         <th>Leietaker</th>
                         <th>Tidsrom</th>
                         <th>Beskrivelse</th>
@@ -55,7 +54,6 @@
                 <tbody>
                 {% for rent_request in rent_requests %}
                     <tr>
-                        <td><a href="/posts/{{ rent_request.post.id }}">{{ rent_request.post.title }}</a></td>
                         <td><a href="{% url 'renter_detail' rent_request.renter.id %}">{{ rent_request.renter.firstname }} {{ rent_request.renter.lastname }}</a></td>
                         <td class="rent_request_timespan">
                             Fra:
