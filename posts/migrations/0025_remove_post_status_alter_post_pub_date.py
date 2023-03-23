@@ -11,10 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='post',
-            name='status',
-        ),
         migrations.AlterField(
             model_name='post',
             name='pub_date',

@@ -18,7 +18,6 @@
         <div id="profileActions">
             <a class="btn" href="{% url 'logout' %}">Logg ut</a>
             <a class="btn" href="" onclick="alert('Denne funksjonaliteten er ikke implentert enda...')">Endre profil</a>
-            <a class="btn" href="{% url 'new_post' %}">Legg til ny annonse</a>
         </div>
         
         <div id="profilePosts">
@@ -97,6 +96,11 @@
                         </div>
                     {% endfor %}
                 {% endif %}
+                <div class="single_post new_post_tile">
+                    <i class="new_post_tile_icon fas fa-circle-plus"></i>
+                    <h1>Ny annonse</h1>
+                    <a href="{% url 'new_post' %}"></a>
+                </div>
             </div>
             <hr>
 
