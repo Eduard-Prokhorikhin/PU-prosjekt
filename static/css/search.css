@@ -1,18 +1,5 @@
-/*
- * TODO: Bytte fra tag-generell til class-spesifikk
- */
-
-#filterButton {
-    margin-top: 1.2em;
-    padding-right: 1em;
-    text-align: right;
-} 
-
-#filterButton:hover {
-    cursor: pointer;
-}
-
-/*Copied from https://templateyou.com/free-css-search-boxes/*/
+/*START Search box - Inspired, but not directly copied from https://templateyou.com/free-css-search-boxes/*/
+/* General styling and placement */
 #searchFrom input, #searchFrom {
     border: none;
 	background: none;
@@ -20,16 +7,13 @@
     flex-direction: row;
 }
 
-
+/* Placeholder text */
 .SearchBox-input::placeholder {
     color:var(--text-color2);
 	opacity: .6;
 }
 
-.SearchBox-input::-webkit-input-placeholder {
-    color: var(--text-color2);
-}
-
+/* Specific styling */
 .SearchBox, #searchFrom {
     --height: 3em;
     margin: 0 auto;
@@ -40,6 +24,7 @@
 	height: var(--height);
 }
 
+/* Input styling */
 .SearchBox-input, #searchFrom {
     padding-left: 1em;
     padding-right: 1em;
@@ -49,6 +34,8 @@
     color: var(--text-color2);
     transition: .45s;
 }
+
+/* Search button styling */
 .SearchBox-button {
     display: flex;
     border-radius: 50%;
@@ -59,38 +46,28 @@
     transition: .3s;
 }
 
+/* Search button - On hover */
 .SearchBox-button:hover  {
     background-color: var(--secondary-color);
 }
 
+/*Search icon */
 #SearchBox-icon {
     margin: 0 auto;
     height: 20px;
     color: #fff;
 }
 
+/* Media query for search box - makes it expand */
 @media screen and (min-width: 400px){
     .SearchBox .SearchBox-input:focus {
         width: 350px;
 	}
 }
+/* END Search box */
 
-#searchFeedback {
-    text-align: center;
-    margin-bottom: 0;
-    display: none;
-}
-
-.SearchBox-input:-webkit-autofill,
-.SearchBox-input:-webkit-autofill:hover, 
-.SearchBox-input:-webkit-autofill:focus {
-    border: none;
-    -webkit-text-fill-color: var(--text-color2);
-    -webkit-box-shadow: 0 0 0 30px var(--bg-color1) inset !important;
-}
-
-/* Component containers
-----------------------------------*/
+/* START Dropdown search */
+/* General styling of search dropdown */
 .ui-widget-content {
     box-shadow: 0 5px 10px 2px rgba(0,0,0,0.5);
     border-radius: 3px;
@@ -100,13 +77,13 @@
     width: 375px;
 }
 
+/* Item styling */
 .ui-widget-content a {
     color: var(--text-color2); 
     font-weight: normal;    
 }
 
-/* Interaction states
-----------------------------------*/
+/* Hover styling */
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { 
     border: 1px solid var(--secondary-color); 
     border-radius: 3px;
@@ -114,12 +91,13 @@
     color: var(--text-color1);
 }
 
+/* List items pointer + position */
 .ui-autocomplete { 
     position: absolute;
-    cursor: pointer; ;
-
+    cursor: pointer;
 }	
 
+/* START Menu items */
 .ui-menu {
 	list-style:none;
 	padding: 0;
@@ -148,62 +126,54 @@
 	font-weight: normal;
 	margin: -1px;
 }
+/* END Menu items */
+/* END Dropdown search*/
 
-
-/* Category dropdown */
-
+/* START Category dropdown */
 .dropdown-check-list {
-    /* display: flex; */
-    /* justify-content: center; */
     text-align: center;
-    /* width: 1100px; */
     margin: 0 auto;
-  }
-  
-  .dropdown-check-list .anchor {
+}
+
+/* Dropdown filter button */
+.dropdown-check-list .anchor {
     position: relative;
     cursor: pointer;
     display: inline-block;
-    /* padding: 5px 50px 5px 10px; */
     padding-bottom: 7.5px;
-    /* border: 1px solid #ccc; */
-  }
+}
 
-  .dropdown-check-list ul.items {
+/* Styles list items */
+.dropdown-check-list ul.items {
     padding: 2px;
     text-align: center !important;
     z-index: 0;
     display: none;
     margin: 0;
-    
-    /* border: 1px solid #ccc; */
-    /* box-shadow: 0 5px 10px 2px rgba(0,0,0,0.5); */
     border-top: none;
 }
-
-.anchor input:checked ~ .checkmark  {
-    background-color: var(--secondary-color);
+  
+/* Sets color of filter button */
+.dropdown-check-list.visible .anchor {
+    color: var(--text-color2);
 }
 
-.dropdown-check-list ul.items li {
-    font-size: 1.2em;
-    padding-left: 10px;
-    padding-right: 10px;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .dropdown-check-list.visible .anchor {
-    color: var(--text-color2);
-  }
-  
-  .dropdown-check-list.visible .items {
-    display: block;
- }
+#filterButton {
+    margin-top: 1.2em;
+    padding-right: 1em;
+    text-align: right;
+} 
 
-  /* Filter buttons + effect*/
-  /* Add a grey background color on mouse-over */
+#filterButton:hover {
+    cursor: pointer;
+}
+  
+/* Shows categories */
+.dropdown-check-list.visible .items {
+    display: block;
+}
+
+/* Add a theme color on mouse-over */
 .btn:hover {
     background-color: var(--primary-color);
     color: var(--text-color1);
@@ -215,12 +185,13 @@
    color: white;
 }
 
+/* Add a little margin to buttons */
 .btn.cat {
     margin-top: 4px;
  }
 
-
+/* Hides objects not within chosen category */
 .hide {
     display: none;
 }
-
+/* END Category dropdown */
