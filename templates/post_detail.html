@@ -39,6 +39,40 @@
         
     </div>
     {% if request.user == post.author %}
-        {% include "calendar.html" with rentedDays=rentedDays %}
+    <div id="profilePosts">
+        <hr>
+        {% if rent_requests.count > 0 %}
+            <h3 class="accordion">Utleie logg<span>▲</span></h3>
+            <table class="request_container">
+                <thead>
+                    <tr>
+                        <th>Annonse</th>
+                        <th>Leietaker</th>
+                        <th>Tidsrom</th>
+                        <th>Beskrivelse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for rent_request in rent_requests %}
+                    <tr>
+                        <td><a href="/posts/{{ rent_request.post.id }}">{{ rent_request.post.title }}</a></td>
+                        <td><a href="{% url 'renter_detail' rent_request.renter.id %}">{{ rent_request.renter.firstname }} {{ rent_request.renter.lastname }}</a></td>
+                        <td class="rent_request_timespan">
+                            Fra:
+                            <br>
+                            {{ rent_request.start_date|date:'Y-m-d' }}
+                            <br>
+                            Til:
+                            <br>
+                            {{ rent_request.end_date|date:'Y-m-d' }}
+                        </td>
+                        <td class="rent_request_desc">{{ rent_request.description }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+        {% endif %}
+        </div>
     {% endif %}
 {% endblock %}
