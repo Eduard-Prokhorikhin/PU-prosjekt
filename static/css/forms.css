@@ -69,11 +69,13 @@ textarea {
     width: 60%;
 }
 
-.newPostForm > input[type=text], .newPostForm > textarea {
+.newPostForm > input[type=text], .newPostForm > textarea, .newPostForm > select {
     margin-bottom: 1rem;
     font-size: 1rem;
     border: 1.5px solid var(--text-color2);
     border-radius: 2px;
+    background-color: var(--bg-color2);
+    color: var(--text-color2);
 }
 
 .newPostForm input[type=text]:focus, .newPostForm textarea:focus {

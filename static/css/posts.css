@@ -83,4 +83,8 @@
     grid-column: 2 / 2;
     width: 100%;
 }
+.post_detail > img {
+    max-height: 400px;
+    object-fit: cover;
+}
 /* - - - END Post_Detail - - - */
