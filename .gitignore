@@ -263,3 +263,6 @@ poetry.toml
 /tutorial-env
 
 .DS_store
+
+/scripts
+/static/csv

@@ -19,3 +19,48 @@
     margin-right: 1rem;
     float: right;
 }
+
+.request_container {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.request_container td {
+    padding: 1.5rem;
+}
+
+.request_container td {
+    width: min-content;
+    border-top: 1px solid grey;
+}
+
+td.rent_request_timespan {
+    min-width: 130px;
+}
+
+td.rent_request_desc {
+    max-width: 250px;
+    word-wrap: normal;
+}
+
+td.rent_request_actions > div{
+    display: flex;
+    gap: .5rem;
+}
+
+.single_post.new_post_tile {
+    background: #0000 !important;
+    border: 10px dotted #ccc;
+    border-radius: 25px;
+    color: #ccc;
+    text-align: center;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.single_post.new_post_tile > .new_post_tile_icon {
+    font-size: 150px;
+}
+
+.single_post.new_post_tile:hover > * {
+    text-shadow: 0 0 10px #ccc5;
+}

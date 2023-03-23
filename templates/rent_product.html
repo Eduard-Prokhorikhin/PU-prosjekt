@@ -1,0 +1,20 @@
+{% extends "post_detail.html" %}
+
+{% block content %}
+    <div class="loginFormWrapper requestWrapper">
+        <h1>Forespørsel</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_start_date">Start dato:</label>    
+            <input id="id_start_date" type="date"  name="start_date" required placeholder="">
+            <label for="id_end_date">Slutt dato:</label>
+            <input id="id_end_date" type="date"  name="end_date" required>
+            <label for="id_description">Hva skal du bruke produktet til?</label>
+            <input id="id_description" type="text" name="description" required>
+            <button class="btn" type="submit">Send</button>
+        </form>
+        <div>
+            {% include "calendar.html" with rentedDays=rentedDays %}
+        </div>
+    </div>
+{% endblock %}

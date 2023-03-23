@@ -10,10 +10,10 @@ from posts.models import *
 @login_required
 def profilePage(request):
     context = {
-        'rentalPosts': Rental.objects.filter(post__in=Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date')),
-        'rentedPosts': Post.objects.filter(author=request.user, status='UNAVAILABLE').order_by('-pub_date'),
-        'rentals': Post.objects.filter(rental__in=Rental.objects.filter(renter=request.user), status='UNAVAILABLE').order_by('-pub_date'),
-        'posts': Post.objects.filter(author=request.user, status='AVAILABLE').order_by('-pub_date')
+        'rent_requests' : RentRequest.objects.filter(post__in=Post.objects.filter(author=request.user), status= 'PENDING').order_by('-end_date'),
+        'rentals': RentRequest.objects.filter(renter=request.user, review=False).exclude(status='REJECTED').order_by('-start_date'),
+        'posts': Post.objects.filter(author=request.user).order_by('-pub_date'),
+        'history': RentRequest.objects.filter(renter=request.user, status='ACCEPTED', review=True).order_by('-end_date'),
     }
     return render(request, 'profile.html', context)
 
@@ -63,8 +63,19 @@ def logoutPage(request):
     return redirect('login')
 
 def endRental(request, pk):
-    post = Post.objects.get(pk=pk)
-    Post.objects.filter(pk=pk).update(status='AVAILABLE')
-    Rental.objects.get(post=pk).delete()
+    rental= RentRequest.objects.get(pk=pk)
+    if rental.start_date > datetime.now().date():
+        messages.error(request, "Kan ikke avslutte leie før startdato av forholdet")
+        return redirect('index')
+    else:
+        RentRequest.objects.filter(pk=pk).update(end_date= datetime.now().date())
+        return redirect('rate_rental', pk=pk)
+
+def acceptRental(request, pk):
+    RentRequest.objects.filter(pk=pk).update(status="ACCEPTED")
+    return redirect('index')
+
+def rejectRental(request, pk):
+    RentRequest.objects.filter(pk=pk).update(status="REJECTED")
     return redirect('index')
 

@@ -14,6 +14,8 @@
     --bg-color2: #fff;
     --text-color1: #fff;
     --text-color2: #000;
+    --star-unfilled: #fff0b3;
+    --star-filled: #fc0;
 }
 
 * {
@@ -98,10 +100,26 @@ a:hover {
 
 .content {
     max-width: 1200px;
-    min-height: calc(100% - 100px - 100px); /* 100% - header height - footer height */
+    min-height: calc(100vh - 100px - 100px); /* 100vh - header height - footer height */
     margin: 0 auto;
     padding: 16px 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     background: var(--bg-color2);
+}
+
+.stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: 3rem;
+    font-family: Times;
+    line-height: 1;
+}
+
+.stars::before {
+    content: "★★★★★";
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-filled) var(--percent), var(--star-unfilled) var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

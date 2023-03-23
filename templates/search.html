@@ -1,11 +1,54 @@
 {% block content %}
+    <script src=  
+    "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+    </script>  
+    
+    <script src=  
+    "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+    </script> 
+
     <form id="searchFrom" method="GET">
         <div class="SearchBox">
-            <input type="text" class="SearchBox-input" placeholder="Søk etter verktøy..." name="search" value="{{request.GET.search}}" >
-
+            <input autocomplete="off" onclick="submit" type="text" id="tags" class="SearchBox-input" placeholder="Søk etter verktøy..." name="q" value="{{request.GET.search}}" >
+            <script>
+                $( function() {
+                    var availableTags = [
+                        {% for post in search_list %}
+                            "{{post.title}}",
+                        {% endfor %}
+                    ];
+                    $( "#tags" ).autocomplete({
+                    source: availableTags
+                    });
+                } );
+            </script>
             <button class="SearchBox-button">
-                <i id="SearchBox-icon" class="fa-solid fa-magnifying-glass"></i>
+                <i id="SearchBox-icon" class="fa-solid fa-magnifying-glass" alt="søk"></i>
             </button>
+
         </div>
     </form>
+    <center>
+        <div id="dropdown-content" class="dropdown-check-list" tabindex="100">
+            <span class="anchor">Filter <i title="Filter name" name="cat" id="filterButton" class="fas fa-filter fa-lg"></i></span>
+            <ul class="items">
+                <div id="myBtnContainer">
+                    <button class="btn cat  active" onclick="filterSelection('all')"> Vis alt</button>
+                    <button class="btn cat" onclick="filterSelection('BIL')"> Bil</button>
+                    <button class="btn cat" onclick="filterSelection('BYGG')"> Bygg</button>
+                    <button class="btn cat" onclick="filterSelection('BÅT')"> Båt</button>
+                    <button class="btn cat" onclick="filterSelection('FRITID')"> Fritid</button>
+                    <button class="btn cat" onclick="filterSelection('HAGEARBEID')"> Hagearbeid</button>
+                    <button class="btn cat" onclick="filterSelection('HJEMME')"> Hjemme</button>
+                    <button class="btn cat" onclick="filterSelection('KJØKKEN')"> Kjøkken</button>
+                    <button class="btn cat" onclick="filterSelection('SPORT')"> Sport</button>
+                    <!-- <button class="btn" onclick="filterSelection('BYGG')"> Bygg</button> -->
+                </div>
+            </ul>
+        </div>
+    </center>
+
+        
+    
+            
 {% endblock %}
